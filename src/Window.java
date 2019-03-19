@@ -2,7 +2,6 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-
 // La clase Window nos genera una ventana con un canvas
 public class Window {
 	// Se declaran las variables a utilizar

@@ -9,17 +9,25 @@ import image.Assets;
 public class Player extends Chracter{
 
 	private int dir=1;
-	protected BufferedImage sprite;
+	private AnimationSprite bat;
 	// Constructor que recibe los atributos de un GameObject
-	public Player(double x, double y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		this.sprite=bi;
+		SpriteBuilder builder = new SpriteBuilder ("./PNG/bat-32x32.png", 32, 32);
+		builder.addImage(1,0);
+		builder.addImage(2,0);
+		builder.addImage(3,0);
+		builder.addImage(2,0);
+		
+		bat=new AnimationSprite(x, y, builder.build());
+		bat.setAnimSpd(5);
 		}
 		
 	// Método que nos ayuda a actualizar al jugador
 	@Override
 	public void tick() 
 	{	
+		bat.update();
 	}
 	
 	// Método que se encarga de detectar las colisiones
@@ -55,8 +63,7 @@ public class Player extends Chracter{
 
 	public void paint(Graphics g) 
 	{		
-		// Los personajes en éste caso son óvalos, así que los dibujamos
-		g.drawImage(sprite, getX(), getY(), null);
+		bat.render(g, x, y);
 	}
 	
 	// Método que lee las teclas que han sido presionadas
@@ -67,28 +74,24 @@ public class Player extends Chracter{
 		if (key == KeyEvent.VK_LEFT) { 
 			collision(-3, 0);
 			x += -velX;
-			sprite=Assets.tankL;
 			dir=2;
 			}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
 		if (key == KeyEvent.VK_RIGHT) { 
 			collision(3, 0);
 			x += velX;
-			sprite=Assets.tankR;
 			dir=4;
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
 		if (key == KeyEvent.VK_UP) { 
 			collision(0, -3);
 			y += -velY;
-			sprite=Assets.tankU;
 			dir=1;
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
 		if (key == KeyEvent.VK_DOWN) { 
 			collision(0, 3);
 			y += velY;
-			sprite=Assets.tankD;
 			dir=3;
 		}
 		

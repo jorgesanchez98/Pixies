@@ -1,7 +1,7 @@
-import java.awt.Color;
-import image.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+import image.Assets;
 
 // Clase principal para que el juego corra
 /*
@@ -78,6 +78,7 @@ public class Game implements Runnable{
 	// El método start se encarga de iniciar al juego
 	public synchronized void start()
 	{
+		System.out.println("Hit the special block to win the game\nShoot with space, move with the arrows");
 		// Si el juego se está corriendo, no hace nada
 		if (running) return;
 		// Hace que running pase al estado de true e inicia el thread principal
@@ -106,7 +107,9 @@ public class Game implements Runnable{
 	// El método tick() se encarga de realizar el update del juego
 	public void tick()
 	{
-		// Se llama al método tick del Handler y del Spawner
+		if (handler.isWin())
+			running=false;
+			// Se llama al método tick del Handler y del Spawner
 		handler.tick();
 	}
 	
@@ -192,6 +195,8 @@ public class Game implements Runnable{
 		}
 		// Cuando el juego ya no esté corriendo, se detiene
 		stop();
+		System.out.println("yeih");
+		System.exit(0);
 	}
 		
 	public int getWidth() { return width; }

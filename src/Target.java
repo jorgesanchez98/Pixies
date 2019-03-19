@@ -2,11 +2,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-// Clase Pared (En caso de tener varias, ésta puede ser abstracta)
-public class Block extends GameObject{
+public class Target extends GameObject{
 	protected BufferedImage sprite;
 	// Constructor que recibe los atributos de un GameObject
-	public Block (int x, int y, int width, int height,  BufferedImage bi, Handler handler)
+	public Target (int x, int y, int width, int height,  BufferedImage bi, Handler handler)
 	{
 		super (x,y,width,height,handler);
 		this.sprite=bi;

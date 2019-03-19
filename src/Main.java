@@ -6,6 +6,7 @@ public class Main {
 				Game game = new Game("Tank Test", 720, 480);
 				// Se inicia el juego
 				game.start();
+				System.out.println(((111%360)+360)%360);
 
 	}
 

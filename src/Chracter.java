@@ -9,7 +9,7 @@ public abstract class Chracter extends GameObject{
 	protected double gravity = 0.2, velX;
 	protected double velY;
 	// Constructor que pide los valores del Game object 
-	public Chracter(double x, double y, int width, int height, Handler handler) {
+	public Chracter(int x, int y, int width, int height, Handler handler) {
 		super(x, y, width, height, handler);
 		// Se asigna la velocidad en x y y a que por defecto sea de 3
 		velX = 3;
@@ -30,26 +30,8 @@ public abstract class Chracter extends GameObject{
 	}
 	
 	// Place meeting nos ayuda a revisar si el personaje colisiona con otro objeto
-	public boolean placeMeeting (double x, double y, GameObject obj)
-	{
-		// revisa si el rectángulo del otro objeto intersecta con el rectángulo del personaje
-		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) 
-			return true;
-		return false;
-	}
+
 	
-	// Método que nos ayuda a identificar cuando e personaje ha tocado piso
-	public boolean onFloor()
-	{
-		// Para cada objeto contenido en el Handler
-		for (GameObject obj: handler.obj)
-			// Si el objeto es una pared
-			if (obj instanceof Block)
-				// Revisa si está tocándolo el personaje
-				if (placeMeeting(x,y+1,obj))
-					return true;
-		return false;
-	}
 	
 	// A partir de aquí son los setters y getters
 	public double getVelX()
