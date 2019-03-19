@@ -1,6 +1,12 @@
 import java.awt.Color;
+import java.awt.Dimension;
+
 import image.Assets;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
 // Clase principal para que el juego corra
@@ -23,7 +29,7 @@ public class Game implements Runnable{
 	
 	// Éstas 2 variables nos van a ayudar a hacer el renderizado en el juego
 	private BufferStrategy bs;
-	private Graphics g;
+	private Graphics2D g;
 	private LevelCreator level;
 	private Player player;
 	
@@ -124,11 +130,24 @@ public class Game implements Runnable{
 			return;
 		}
 		// Graphics obtiene lo que está dibujado en el BufferStrategy
-		g = bs.getDrawGraphics();
+		g = (Graphics2D) bs.getDrawGraphics();
 		// Se limpia el Buffer para dibujar en blanco
 		g.clearRect(0, 0, width, height);
+		
+		// Obtiene tamaños de la pantalla
+		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double scrWidth = scrSize.getWidth();
+		double scrHeight = scrSize.getHeight();
+		
+		
 		// Dibuja el fondo
-		g.drawImage(Assets.background, 0, 0, width, height, null);
+		//g.drawImage(Assets.background, 0, 0, null);
+		g.drawImage(Assets.background, 0, 0, (int)scrWidth, (int)scrHeight, null);
+		
+		// Scale the image
+		AffineTransform at = new AffineTransform();
+		at.scale(2, 2);
+		g.setTransform(at);
 		
 		// Pinta los objetos contenidos en el handler
 		handler.render(g);
@@ -137,6 +156,7 @@ public class Game implements Runnable{
 		g.dispose();
 		// Muestra lo que Graphics dibujó en los Buffers
 		bs.show();
+		
 	}
 	
 	

@@ -55,7 +55,6 @@ public class Player extends Chracter{
 
 	public void paint(Graphics g) 
 	{		
-		// Los personajes en éste caso son óvalos, así que los dibujamos
 		g.drawImage(sprite, getX(), getY(), null);
 	}
 	
