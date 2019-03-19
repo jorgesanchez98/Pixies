@@ -1,5 +1,7 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -29,29 +31,32 @@ public class Window {
 		frame = new JFrame(title);
 		
 		// Se le da el tamaño preferido, máximo y mínimo, todos con el mismo width y height
-		frame.setSize(width, height);
-		frame.setPreferredSize(new Dimension(width, height));
-		frame.setMinimumSize(new Dimension(width, height));
-		frame.setMaximumSize(new Dimension (width, height));
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		// Se hace que el frame pueda recibir el focus
+		frame.setSize(screenSize.width, screenSize.height);
+		frame.setPreferredSize(new Dimension(screenSize.width, screenSize.height));
+		frame.setMinimumSize(new Dimension(screenSize.width, screenSize.height));
+		frame.setMaximumSize(new Dimension (screenSize.width, screenSize.height));
+		
 		frame.setFocusable(true);
-		// Para que se pueda cerrar con la cruz por defecto de una aplicación
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Para que no se pueda modificar el tamaño de la ventana
 		frame.setResizable(false);
-		// Hace que el frame aparezca al centro de la pantalla
 		frame.setLocationRelativeTo(null);
-		// Vuelve la ventana visible
+		
+		
+		
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setUndecorated(true);
 		frame.setVisible(true);
 		
 		// Se instancia al canvas
 		canvas = new Canvas();
 		
 		// Se le da el tamaño preferido, máximo y mínimo, todos con el mismo width y height
-		canvas.setPreferredSize(new Dimension(width, height));
-		canvas.setMinimumSize(new Dimension(width, height));
-		canvas.setMaximumSize(new Dimension (width, height));
+		canvas.setPreferredSize(new Dimension(frame.getWidth(), frame.getHeight()));
+		canvas.setMinimumSize(new Dimension(frame.getWidth(), frame.getHeight()));
+		canvas.setMaximumSize(new Dimension (frame.getWidth(), frame.getHeight()));
+		
 		
 		// No es requerido que el canvas tenga el foco en ningún momento
 		canvas.setFocusable(false);

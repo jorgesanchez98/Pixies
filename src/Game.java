@@ -115,6 +115,7 @@ public class Game implements Runnable{
 	{
 		// Se obtiene el BufferStrategy que tiene el Canvas de Window
 		bs = window.getCanvas().getBufferStrategy();
+		
 		// Si Canvas no tiene un BufferStrategy
 		if (bs == null)
 		{
