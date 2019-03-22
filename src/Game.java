@@ -145,9 +145,13 @@ public class Game implements Runnable{
 		g.drawImage(Assets.background, 0, 0, (int)scrWidth, (int)scrHeight, null);
 		
 		// Scale the image
+		double wScale = scrWidth/width;
+		double aproxH = (height*15)/16;
+		double hScale = (scrHeight/aproxH);
 		AffineTransform at = new AffineTransform();
-		at.scale(2, 2);
+		at.scale(wScale, hScale);
 		g.setTransform(at);
+		
 		
 		// Pinta los objetos contenidos en el handler
 		handler.render(g);
