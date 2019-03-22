@@ -7,7 +7,8 @@ import image.Assets;
 
 // Clase que define el comportamiento del jugador
 public class Player extends Chracter{
-
+	private int pack5=0;
+	private Bomb tempBomb;
 	private int dir=1;
 	protected BufferedImage sprite;
 	// Constructor que recibe los atributos de un GameObject
@@ -42,6 +43,44 @@ public class Player extends Chracter{
 				{
 					velX=0;
 					velY=0;
+					return;
+
+				}
+				else {
+					velX=3;
+					velY=3;
+				}
+			}
+			
+			if (aux instanceof Rocket)
+			{
+				// Si hace contacto con el cohete disminuimos la velocidad un instante, y quitamos el PowerUp
+				if (placeMeeting(x+dirX, y+dirY, aux))
+				{
+					velX=1;
+					velY=1;
+					handler.removeObj(aux);
+					//Se asignan 5 balas
+					pack5 = 5;
+					return;
+
+				}
+				else {
+					velX=3;
+					velY=3;
+				}
+			}
+			
+			if (aux instanceof Bomb)
+			{
+				// Si hace contacto con la Bomba disminuimos la velocidad un instante, y quitamos el PowerUp
+				if (placeMeeting(x+dirX, y+dirY, aux))
+				{
+					velX=1;
+					velY=1;
+					tempBomb = (Bomb) aux;
+					handler.removeObj(aux);
+					//Se asignan 5 balas
 					return;
 
 				}
@@ -93,7 +132,18 @@ public class Player extends Chracter{
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
+			if(pack5>=1) {
+				handler.addObj(new RocketBllt(this.getX()+12, this.getY()+12, 8, 8, Assets.rocketB, dir, handler));
+				pack5 -= 1;
+				return;
+			}
 			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, dir, handler));
+		}
+		if (key == KeyEvent.VK_B) {
+			tempBomb.setX(this.getX()+32);
+			tempBomb.setY(this.getY());
+			handler.addObj(tempBomb);
+			//new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, dir, handler)
 		}
 	}
 
