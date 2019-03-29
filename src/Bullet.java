@@ -6,14 +6,15 @@ import java.util.ListIterator;
 
 public class Bullet extends GameObject{
 	protected BufferedImage sprite;
-	private int dir;
+	private int movX, movY;
 	
 	// Constructor que recibe los atributos de un GameObject
-	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int dir, Handler handler)
+	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int movX, int movY, Handler handler)
 	{
 		super (x,y,width,height,handler);
 		this.sprite=bi;
-		this.dir=dir;
+		this.movX=movX;
+		this.movY=movY;
 	}
 	
 	@Override
@@ -25,20 +26,8 @@ public class Bullet extends GameObject{
 	
 	@Override
 	public void tick() {
-		switch(dir) {
-		case 1:
-			y-=5;
-			break;
-		case 2:
-			x-=5;
-			break;
-		case 3:
-			y+=5;
-			break;
-		case 4:
-			x+=5;
-			break;
-		}
+		x+=movX;
+		y-=movY;
 		collision();
 	}
 	
