@@ -1,4 +1,5 @@
 
 public class GamePadInput {
-	int taco = 0;
+	// Instance variables
+	
 }

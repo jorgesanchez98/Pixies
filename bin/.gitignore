@@ -1,5 +1,7 @@
+/AnimationSprite.class
 /Block.class
 /Bullet.class
+/CachedSprite.class
 /Chracter.class
 /Game.class
 /GameObject.class
@@ -9,6 +11,11 @@
 /LevelCreator.class
 /Main.class
 /Player.class
+/SpriteBuilder.class
+/Target.class
 /Window.class
-/image/
+/.classpath
+/.gitignore
+/.project
 /GamePadInput.class
+/image/
