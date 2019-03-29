@@ -25,14 +25,14 @@ public class Player extends Chracter{
 		bat.setAnimSpd(5);
 		}
 		
-	// Método que nos ayuda a actualizar al jugador
+	// Mï¿½todo que nos ayuda a actualizar al jugador
 	@Override
 	public void tick() 
 	{	
 		bat.update();
 	}
 	
-	// Método que se encarga de detectar las colisiones
+	// Mï¿½todo que se encarga de detectar las colisiones
 	
 	@Override
 	public void collision(double dx, double dy) 
@@ -89,7 +89,7 @@ public class Player extends Chracter{
 		bat.render(g, x, y, angle);
 	}
 	
-	// Método que lee las teclas que han sido presionadas
+	// Mï¿½todo que lee las teclas que han sido presionadas
 	public void keyPressed(int key) {
 		// Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
