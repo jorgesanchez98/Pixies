@@ -9,11 +9,7 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
-// Clase principal para que el juego corra
-/*
- * Implementa la clase Runnable, la cual corre al método run() 
- * cuando se inicia el thread princilal 
- */
+
 public class Game implements Runnable{
 	// Variables que determinan el ancho, el alto y el título del juego
 	public static int width, height;
