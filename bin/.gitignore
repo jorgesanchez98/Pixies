@@ -14,9 +14,6 @@
 /SpriteBuilder.class
 /Target.class
 /Window.class
-/.classpath
-/.gitignore
-/.project
-/GamePadInput.class
+/Rocket.class
+/RocketBllt.class
 /image/
-/Bomb.class
