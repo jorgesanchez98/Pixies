@@ -7,28 +7,24 @@ import image.Assets;
 
 // Clase que define el comportamiento del jugador
 public class Bomb extends Chracter{
-	protected int dirX, dirY, index;
-	private AnimationSprite rocket;
-	// Constructor que recibe los atributos de un GameObject
+
 	protected BufferedImage sprite;
 	// Constructor que recibe los atributos de un GameObject
-	public Bomb(int x, int y, int width, int height, int dirX, int dirY, BufferedImage bi, Handler handler) {
+	public Bomb(double x, double y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
 		this.sprite=bi;
 		}
 		
-	// Método que nos ayuda a actualizar al jugador
+	// Mï¿½todo que nos ayuda a actualizar al jugador
 	@Override
-	public void tick() {
-		x+=dirX;
-		y-=dirY;
-		collision(dirX, dirY);
+	public void tick() 
+	{	
 	}
 	
-	// Método que se encarga de detectar las colisiones
+	// Mï¿½todo que se encarga de detectar las colisiones
 	
 	@Override
-	public boolean collision(double dirX, double dirY) 
+	public void collision(double dirX, double dirY) 
 	{
 		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
@@ -45,8 +41,8 @@ public class Bomb extends Chracter{
 				{
 					//his.setX(20000);
 					System.out.println("Colision");
-					//velY=0;x|
-					return true;
+					//velY=0;
+					return;
 
 				}
 				else {
@@ -54,12 +50,12 @@ public class Bomb extends Chracter{
 				}
 			}
 		}
-		return false;
 	}
 
 	public void paint(Graphics g) 
 	{		
-		rocket.render(g, x, y, index);
+		// Los personajes en ï¿½ste caso son ï¿½valos, asï¿½ que los dibujamos
+		g.drawImage(sprite, getX(), getY(), null);
 	}
 	
 	

@@ -37,21 +37,44 @@ public class Bullet extends GameObject{
 		{
 			// Se crea un objeto auxiliar
 			GameObject aux = iterator.next();
-			if (aux instanceof Block) {
-				if (placeMeeting(x, y, aux)) {
-					setAlive(false);
+			
+			// Si el auxiliar es una pared
+			if (aux instanceof Block)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x+dirX, y+dirY, aux))
+				{
+					handler.removeObj(this);
+
 				}
 			}
-			if (aux instanceof Target) {
-				if (placeMeeting(x, y, aux)) {
-					setAlive(false);
-					aux.setAlive(false);
-					handler.setWin(true);
+			
+			if (aux instanceof Player)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x+dirX, y+dirY, aux))
+				{
+					tempPlayer = (Player) aux;
+					handler.removeObj(aux);
+					handler.removeObj(this);
+
 				}
 			}
+			
+			
 		}
 	}
+	
+	public boolean placeMeeting (double x, double y, GameObject obj)
+	{
+		// revisa si el rect�ngulo del otro objeto intersecta con el rect�ngulo del personaje
+		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) 
+			return true;
+		return false;
+	}
 
+	
+	
 	// Obtiene los bordes de la bala (nos ayuda con las colisiones)
 	@Override
 	public Rectangle getBounds()
