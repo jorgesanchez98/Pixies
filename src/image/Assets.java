@@ -13,6 +13,7 @@ public class Assets {
 	*/
 	public static BufferedImage background, level, block, tankU, tankL, tankD, tankR, bullet, rocketPU;
 	public static BufferedImage rocketB, rocketBUp, rocketBDown, rocketBLeft,bomb;
+	public static BufferedImage tankU2, tankL2, tankD2, tankR2;
 	
 	// En éste método se inicializan todas las imágenes que se van a ocupar
 	public static void init()
@@ -26,6 +27,10 @@ public class Assets {
 		tankL = ImageLoader.loadImage("/Textures/triTankLeft.png");
 		tankD = ImageLoader.loadImage("/Textures/triTankDown.png");
 		tankR = ImageLoader.loadImage("/Textures/triTankRight.png");
+		tankU2 = ImageLoader.loadImage("/Textures/triTank2.png");
+		tankL2 = ImageLoader.loadImage("/Textures/triTankLeft2.png");
+		tankD2 = ImageLoader.loadImage("/Textures/triTankDown2.png");
+		tankR2 = ImageLoader.loadImage("/Textures/triTankRight2.png");
 		bullet = ImageLoader.loadImage("/Textures/bullet.png");
 		rocketPU = ImageLoader.loadImage("/Textures/rocketPU.png");
 		rocketB = ImageLoader.loadImage("/Textures/rocketB.png");

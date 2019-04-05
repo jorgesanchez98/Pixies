@@ -19,13 +19,13 @@ public class Game implements Runnable{
 	// Se crean variables de las clases que creamos
 	private Window window;
 	private Handler handler;
-	private KeyInput keyInput;
+	private KeyInput keyInput,keyInput2;
 	
 	// Éstas 2 variables nos van a ayudar a hacer el renderizado en el juego
 	private BufferStrategy bs;
 	private Graphics g;
 	private LevelCreator level;
-	private Player player;
+	private Player player, player2;
 	private Rocket rocket;
 	private Bomb bomb;
 	// Con la variable booleana
@@ -61,7 +61,8 @@ public class Game implements Runnable{
 		//se creal el nivel
 		level = new LevelCreator (handler);
 		// Se crea al jugador
-		player = new Player(80, 200, 32, 32, Assets.tankU, handler);
+		player = new Player(80, 200, 32, 32, Assets.tankU, handler,1);
+		player2 = new Player(600, 200, 32, 32, Assets.tankU2, handler,2);
 		rocket = new Rocket(80, 250, 32, 32, Assets.rocketPU, handler);
 		bomb = new Bomb(80, 150, 32, 32, Assets.bomb, handler);
 		// Se crea el KeyInput
@@ -70,11 +71,14 @@ public class Game implements Runnable{
 		 * por el usuario, es el jugador.
 		 */
 		keyInput = new KeyInput(player);
+		keyInput2 = new KeyInput(player2);
 		// Añade el KeyInput a la ventana, para que ésta sea la intermediaria
 		window.getFrame().addKeyListener(keyInput);
+		window.getFrame().addKeyListener(keyInput2);
 		
 		// Se le añaden los objetos pared y jugador al Handler
 		handler.addObj(player);
+		handler.addObj(player2);
 		handler.addObj(rocket);
 		handler.addObj(bomb);
 	}
