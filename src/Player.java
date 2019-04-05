@@ -22,7 +22,7 @@ public class Player extends Chracter{
 	// Constructor que recibe los atributos de un GameObject
 	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		SpriteBuilder builder = new SpriteBuilder ("./PNG/16dir.png", 32, 32);
+		SpriteBuilder builder = new SpriteBuilder ("./Textures/16dir.png", 32, 32);
 		for (int i=0; i<16 ; i++) {//add all frames
 			builder.addImage(i, 0);
 		}
@@ -40,8 +40,8 @@ public class Player extends Chracter{
 	// M�todo que se encarga de detectar las colisiones
 	
 	@Override
-	public void collision(double dx, double dy) 
-	{/*
+	public boolean collision(double dx, double dy) 
+	{
 		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext())
@@ -53,14 +53,13 @@ public class Player extends Chracter{
 			if (aux instanceof Block)
 			{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x+dx, y+dy, aux))
+				if (placeMeeting(x+dx, y-dy, aux))
 				{
-					dirX=0;
-					dirY=0;
-					return;
+					return true;
 				}
 			}
-		}*/
+		}
+		return false;
 	}
 
 	public int moveX (int direction) {
@@ -112,22 +111,29 @@ public class Player extends Chracter{
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
 		if (key == KeyEvent.VK_UP) { 
-			collision(0, -3);
-			x+=moveX(angle);
-			y-=moveY(angle);
-			dir=1;
+			if (!collision(moveX(angle)*2, moveY(angle)*2)) {
+				x+=moveX(angle);
+				y-=moveY(angle);
+				dir=1;
+			}
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
 		if (key == KeyEvent.VK_DOWN) { 
-			collision(0, 3);
-			x+=moveX((angle+8)%16);
-			y-=moveY((angle+8)%16);
-			dir=3;
+			if (!collision(moveX((angle+8)%16)*2, moveY((angle+8)%16)*2)) {
+				x+=moveX((angle+8)%16);
+				y-=moveY((angle+8)%16);
+				dir=3;
+			}
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
 			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler));
 		}
+		
+		if (key == 67) {
+			//handler.addObj(new Bomb(this.getX()+15, this.getY()+16, 8, 8,  moveX(angle), moveY(angle), angle, handler));
+		}
+		
 	}
 
 	public void keyReleased(int key) {

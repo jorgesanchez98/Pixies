@@ -8,7 +8,7 @@ public abstract class Chracter extends GameObject{
 	// Es un juego de plataformas, por lo que tiene gravedad, velocidad en x y en y
 	protected double dirX;
 	protected double dirY;
-	protected int angle=12, maxAng=16;
+	protected int angle=0, maxAng=16;
 	// Constructor que pide los valores del Game object 
 	public Chracter(int x, int y, int width, int height, Handler handler) {
 		super(x, y, width, height, handler);
@@ -21,7 +21,7 @@ public abstract class Chracter extends GameObject{
 	public abstract void tick();
 	
 	// Todos los personajes en éste juego tienen colisión
-	public abstract void collision(double dirX, double dirY);
+	public abstract boolean collision(double dirX, double dirY);
 	
 	// Obtenemos los bordes del personaje
 	@Override
