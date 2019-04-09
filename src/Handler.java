@@ -4,6 +4,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 // Clase encargada de manejar a los objetos
 public class Handler {
+	private boolean win=false;
 	// Se hace una lista de objetos
 	/*
 	 *  CopyOnWriteArrayList ayuda a que no importe que se intenten correr varios procesos
@@ -27,6 +28,8 @@ public class Handler {
 		while (iterator.hasNext())
 		{
 			GameObject aux = iterator.next();
+			if (!aux.getAlive())
+				removeObj(aux);
 			aux.tick();
 		}
 	}
@@ -54,4 +57,13 @@ public class Handler {
 		// Le remueve el objeto a la lista
 		this.obj.remove(obj);
 	}
+
+	public boolean isWin() {
+		return win;
+	}
+
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+	
 }

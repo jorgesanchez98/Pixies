@@ -7,24 +7,28 @@ import image.Assets;
 
 // Clase que define el comportamiento del jugador
 public class Bomb extends Chracter{
-
+	protected int dirX, dirY, index;
+	private AnimationSprite rocket;
+	// Constructor que recibe los atributos de un GameObject
 	protected BufferedImage sprite;
 	// Constructor que recibe los atributos de un GameObject
-	public Bomb(double x, double y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Bomb(int x, int y, int width, int height, int dirX, int dirY, BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
 		this.sprite=bi;
 		}
 		
 	// Método que nos ayuda a actualizar al jugador
 	@Override
-	public void tick() 
-	{	
+	public void tick() {
+		x+=dirX;
+		y-=dirY;
+		collision(dirX, dirY);
 	}
 	
 	// Método que se encarga de detectar las colisiones
 	
 	@Override
-	public void collision(double dirX, double dirY) 
+	public boolean collision(double dirX, double dirY) 
 	{
 		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
@@ -41,8 +45,8 @@ public class Bomb extends Chracter{
 				{
 					//his.setX(20000);
 					System.out.println("Colision");
-					//velY=0;
-					return;
+					//velY=0;x|
+					return true;
 
 				}
 				else {
@@ -50,12 +54,12 @@ public class Bomb extends Chracter{
 				}
 			}
 		}
+		return false;
 	}
 
 	public void paint(Graphics g) 
 	{		
-		// Los personajes en éste caso son óvalos, así que los dibujamos
-		g.drawImage(sprite, getX(), getY(), null);
+		rocket.render(g, x, y, index);
 	}
 	
 	

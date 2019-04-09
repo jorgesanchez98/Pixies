@@ -10,7 +10,7 @@ public class Rocket extends Chracter{
 
 	protected BufferedImage sprite;
 	// Constructor que recibe los atributos de un GameObject
-	public Rocket(double x, double y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Rocket(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
 		this.sprite=bi;
 		}
@@ -24,7 +24,7 @@ public class Rocket extends Chracter{
 	// Método que se encarga de detectar las colisiones
 	
 	@Override
-	public void collision(double dirX, double dirY) 
+	public boolean collision(double dirX, double dirY) 
 	{
 		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
@@ -42,7 +42,7 @@ public class Rocket extends Chracter{
 					//his.setX(20000);
 					System.out.println("Colision");
 					//velY=0;
-					return;
+					return true;
 
 				}
 				else {
@@ -50,6 +50,7 @@ public class Rocket extends Chracter{
 				}
 			}
 		}
+		return false;	
 	}
 
 	public void paint(Graphics g) 

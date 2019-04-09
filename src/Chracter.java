@@ -6,21 +6,22 @@ import java.awt.image.BufferedImage;
 public abstract class Chracter extends GameObject{
 	
 	// Es un juego de plataformas, por lo que tiene gravedad, velocidad en x y en y
-	protected double gravity = 0.2, velX;
-	protected double velY;
+	protected double dirX;
+	protected double dirY;
+	protected int angle=0, maxAng=16;
 	// Constructor que pide los valores del Game object 
-	public Chracter(double x, double y, int width, int height, Handler handler) {
+	public Chracter(int x, int y, int width, int height, Handler handler) {
 		super(x, y, width, height, handler);
 		// Se asigna la velocidad en x y y a que por defecto sea de 3
-		velX = 3;
-		velY=3;
+		dirX = 0;
+		dirY= 1;
 	}
 
 	// Todo personaje tiene un comportamiento diferente, así que el tick sigue siendo abstracto
 	public abstract void tick();
 	
 	// Todos los personajes en éste juego tienen colisión
-	public abstract void collision(double dirX, double dirY);
+	public abstract boolean collision(double dirX, double dirY);
 	
 	// Obtenemos los bordes del personaje
 	@Override
@@ -29,51 +30,49 @@ public abstract class Chracter extends GameObject{
 		return (new Rectangle(getX(), getY(), width, height));
 	}
 	
-	// Place meeting nos ayuda a revisar si el personaje colisiona con otro objeto
-	public boolean placeMeeting (double x, double y, GameObject obj)
-	{
-		// revisa si el rectángulo del otro objeto intersecta con el rectángulo del personaje
-		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) 
-			return true;
-		return false;
+	public void clockWise() {
+		//gira un "grado" en la dirección del relog
+		angle= ((((angle+1)%maxAng)+maxAng)%maxAng);
 	}
 	
-	// Método que nos ayuda a identificar cuando e personaje ha tocado piso
-	public boolean onFloor()
-	{
-		// Para cada objeto contenido en el Handler
-		for (GameObject obj: handler.obj)
-			// Si el objeto es una pared
-			if (obj instanceof Block)
-				// Revisa si está tocándolo el personaje
-				if (placeMeeting(x,y+1,obj))
-					return true;
-		return false;
+	public void counterClockWise() {
+		//gira un "grado" en la dirección contraria del relog
+		angle= ((((angle-1)%maxAng)+maxAng)%maxAng);
 	}
+	// Place meeting nos ayuda a revisar si el personaje colisiona con otro objeto
+
 	
 	// A partir de aquí son los setters y getters
-	public double getVelX()
-	{
-		return velX;
+
+	public int getAngle() {
+		return angle;
 	}
-	public double getVelY()
-	{
-		return velY;
+
+	public double getDirX() {
+		return Math.cos(angle*22.5);
 	}
-	public double getGravity()
-	{
-		return gravity;
+
+	public void setDirX(double dirX) {
+		this.dirX = dirX;
 	}
-	public void setVelX(double velX)
-	{
-		this.velX = velX;
+
+	public double getDirY() {
+		return Math.sin(angle*22.5);
 	}
-	public void setVelY(double velY)
-	{
-		this.velY = velY;
+
+	public void setDirY(double dirY) {
+		this.dirY = dirY;
 	}
-	public void setGravity(double gravity)
-	{
-		this.gravity = gravity;
+
+	public int getMaxAng() {
+		return maxAng;
+	}
+
+	public void setMaxAng(int maxAng) {
+		this.maxAng = maxAng;
+	}
+
+	public void setAngle(int angle) {
+		this.angle = angle;
 	}
 }

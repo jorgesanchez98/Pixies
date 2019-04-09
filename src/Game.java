@@ -1,37 +1,46 @@
 import java.awt.Color;
+import java.awt.Dimension;
+
 import image.Assets;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
+
+import image.Assets;
 
 // Clase principal para que el juego corra
 /*
- * Implementa la clase Runnable, la cual corre al método run() 
+ * Implementa la clase Runnable, la cual corre al mï¿½todo run() 
  * cuando se inicia el thread princilal 
  */
+
 public class Game implements Runnable{
-	// Variables que determinan el ancho, el alto y el título del juego
+	// Variables que determinan el ancho, el alto y el tï¿½tulo del juego
 	public static int width, height;
 	public String title;
 	
-	// Éste es el thread principal sobre el cuál va a correr el juego
+	// ï¿½ste es el thread principal sobre el cuï¿½l va a correr el juego
 	public Thread thread;
 	
 	// Se crean variables de las clases que creamos
 	private Window window;
 	private Handler handler;
-	private KeyInput keyInput,keyInput2;
+	private KeyInput keyInput;
 	
-	// Éstas 2 variables nos van a ayudar a hacer el renderizado en el juego
+	// ï¿½stas 2 variables nos van a ayudar a hacer el renderizado en el juego
 	private BufferStrategy bs;
-	private Graphics g;
+	private Graphics2D g;
 	private LevelCreator level;
-	private Player player, player2;
+	private Player player;
 	private Rocket rocket;
-	private Bomb bomb;
+	
 	// Con la variable booleana
 	private boolean running = false;
 	
-	// Se crea el constructor de la clase, recibe el tamaño de la ventana y su título
+	// Se crea el constructor de la clase, recibe el tamaï¿½o de la ventana y su tï¿½tulo
 	public Game(String title, int width, int height)
 	{
 		this.title = title;
@@ -39,18 +48,18 @@ public class Game implements Runnable{
 		Game.height = height;
 	}
 	
-	// Método que inicializa los recursos que serán utilizados a lo largo del juego
+	// Mï¿½todo que inicializa los recursos que serï¿½n utilizados a lo largo del juego
 	public void init()
 	{
-		// Inicializa todas las imágenes (se encuentran en Assets)
+		// Inicializa todas las imï¿½genes (se encuentran en Assets)
 		/*
 		 * Hacer uso de Assets nos da la ventaja de no tener que estar cargando
-		 * las imágenes cada que sean ocupadas, sino que solo se cargan una vez
+		 * las imï¿½genes cada que sean ocupadas, sino que solo se cargan una vez
 		 * y son referenciadas cuando se requieran usar.
 		 */
 		Assets.init();
 		
-		// Se crea la ventana, dándole su width, height y el título del juego
+		// Se crea la ventana, dï¿½ndole su width, height y el tï¿½tulo del juego
 		window = new Window(title, width, height);
 		// Se crea el Handler 
 		/*
@@ -61,32 +70,27 @@ public class Game implements Runnable{
 		//se creal el nivel
 		level = new LevelCreator (handler);
 		// Se crea al jugador
-		player = new Player(80, 200, 32, 32, Assets.tankU, handler,1);
-		player2 = new Player(600, 200, 32, 32, Assets.tankU2, handler,2);
+		player = new Player(80, 200, 32, 32, Assets.tankU, handler);
 		rocket = new Rocket(80, 250, 32, 32, Assets.rocketPU, handler);
-		bomb = new Bomb(80, 150, 32, 32, Assets.bomb, handler);
 		// Se crea el KeyInput
 		/*
-		 * En nuestro caso, quién se hará cargo de escuchar los inputs recibidos
+		 * En nuestro caso, quiï¿½n se harï¿½ cargo de escuchar los inputs recibidos
 		 * por el usuario, es el jugador.
 		 */
 		keyInput = new KeyInput(player);
-		keyInput2 = new KeyInput(player2);
-		// Añade el KeyInput a la ventana, para que ésta sea la intermediaria
+		// Aï¿½ade el KeyInput a la ventana, para que ï¿½sta sea la intermediaria
 		window.getFrame().addKeyListener(keyInput);
-		window.getFrame().addKeyListener(keyInput2);
 		
-		// Se le añaden los objetos pared y jugador al Handler
+		// Se le aï¿½aden los objetos pared y jugador al Handler
 		handler.addObj(player);
-		handler.addObj(player2);
 		handler.addObj(rocket);
-		handler.addObj(bomb);
 	}
 	
-	// El método start se encarga de iniciar al juego
+	// El mï¿½todo start se encarga de iniciar al juego
 	public synchronized void start()
 	{
-		// Si el juego se está corriendo, no hace nada
+		System.out.println("Hit the special block to win the game\nShoot with space, move with the arrows");
+		// Si el juego se estï¿½ corriendo, no hace nada
 		if (running) return;
 		// Hace que running pase al estado de true e inicia el thread principal
 		running = true;
@@ -94,10 +98,10 @@ public class Game implements Runnable{
 		thread.start();
 	}
 	
-	// El método stop se encarga de detener al juego
+	// El mï¿½todo stop se encarga de detener al juego
 	public synchronized void stop()
 	{
-		// Si el juego no está corriendo, no hace nada
+		// Si el juego no estï¿½ corriendo, no hace nada
 		if (!running) return;
 		// Hace que running pase al estado de false y termina el thread principal
 		running = false;
@@ -111,18 +115,21 @@ public class Game implements Runnable{
 		}
 	}
 	
-	// El método tick() se encarga de realizar el update del juego
+	// El mï¿½todo tick() se encarga de realizar el update del juego
 	public void tick()
 	{
-		// Se llama al método tick del Handler y del Spawner
+		if (handler.isWin())
+			running=false;
+			// Se llama al mï¿½todo tick del Handler y del Spawner
 		handler.tick();
 	}
 	
-	// El método render() se encarga de hacer el renderizado del juego
+	// El mï¿½todo render() se encarga de hacer el renderizado del juego
 	public void render()
 	{
 		// Se obtiene el BufferStrategy que tiene el Canvas de Window
 		bs = window.getCanvas().getBufferStrategy();
+		
 		// Si Canvas no tiene un BufferStrategy
 		if (bs == null)
 		{
@@ -130,24 +137,42 @@ public class Game implements Runnable{
 			window.getCanvas().createBufferStrategy(3);
 			return;
 		}
-		// Graphics obtiene lo que está dibujado en el BufferStrategy
-		g = bs.getDrawGraphics();
+		// Graphics obtiene lo que estï¿½ dibujado en el BufferStrategy
+		g = (Graphics2D) bs.getDrawGraphics();
 		// Se limpia el Buffer para dibujar en blanco
 		g.clearRect(0, 0, width, height);
+		
+		// Obtiene tamaï¿½os de la pantalla
+		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double scrWidth = scrSize.getWidth();
+		double scrHeight = scrSize.getHeight();
+		
+		
 		// Dibuja el fondo
-		g.drawImage(Assets.background, 0, 0, width, height, null);
+		//g.drawImage(Assets.background, 0, 0, null);
+		g.drawImage(Assets.background, 0, 0, (int)scrWidth, (int)scrHeight, null);
+		
+		// Scale the image
+		double wScale = scrWidth/width;
+		double aproxH = (height*15)/16;
+		double hScale = (scrHeight/aproxH);
+		AffineTransform at = new AffineTransform();
+		at.scale(wScale, hScale);
+		g.setTransform(at);
+		
 		
 		// Pinta los objetos contenidos en el handler
 		handler.render(g);
 		
 		// Deja de hacer uso del "pincel" para no consumir los recursos todo el tiempo
 		g.dispose();
-		// Muestra lo que Graphics dibujó en los Buffers
+		// Muestra lo que Graphics dibujï¿½ en los Buffers
 		bs.show();
+		
 	}
 	
 	
-	// Éste es el método primordial para el GameLoop
+	// ï¿½ste es el mï¿½todo primordial para el GameLoop
 	public void run()
 	{
 		// Llama a init() para inicializar lo que es requerido en el juego
@@ -155,12 +180,12 @@ public class Game implements Runnable{
 		// Se declara un target de actualizaciones por segundo con fps
 		// Con ticks se hace tracking de las actualizaciones que se hacen por segundo
 		int fps = 60, ticks = 0;
-		// timePerTick nos muestra cuánto tiempo debe pasar entre cada update
-		// timePerTick es 1000000000 porque se manejará el tiempo en nano segundos
+		// timePerTick nos muestra cuï¿½nto tiempo debe pasar entre cada update
+		// timePerTick es 1000000000 porque se manejarï¿½ el tiempo en nano segundos
 		// delta nos ayuda a saber si el tiempo de timePerTick ya ha pasado
 		double timePerTick = 1000000000 / fps, delta = 0;
 		// now nos da el tiempo actual y lastTime el tiempo anterior
-		// timer da seguimiento al tiempo que ha pasado desde el último ciclo
+		// timer da seguimiento al tiempo que ha pasado desde el ï¿½ltimo ciclo
 		long now, lastTime = System.nanoTime(), timer = 0;
 		
 		// Mientras el juego se encuentre corriendo...
@@ -182,24 +207,26 @@ public class Game implements Runnable{
 				tick();
 				render();
 				// Se le suma uno a ticks para dar seguimiento a las actualizaciones que
-				// se llevan en éste segundo
+				// se llevan en ï¿½ste segundo
 				ticks ++;
 				// Se reduce delta en uno para que se pueda volver a realizar el update
 				delta --;
 			}
 			
-			// Ésto significa que si ha pasado ya un segundo
+			// ï¿½sto significa que si ha pasado ya un segundo
 			if (timer >= 1000000000)
 			{
-				// Imprime el número de actualizaciones que se hicieron en ese segundo
+				// Imprime el nï¿½mero de actualizaciones que se hicieron en ese segundo
 				//System.out.println("Ticks and frames: " + ticks);
 				// Reinicia los contadores
 				ticks = 0;
 				timer = 0;
 			}
 		}
-		// Cuando el juego ya no esté corriendo, se detiene
+		// Cuando el juego ya no estï¿½ corriendo, se detiene
 		stop();
+		System.out.println("yeih");
+		System.exit(0);
 	}
 		
 	public int getWidth() { return width; }

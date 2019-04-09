@@ -25,6 +25,9 @@ public class LevelCreator {
 				if (red==0&&green==0&&blue==0) {
 					handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.block, handler));
 				}		
+				if (red==0&&green==0&&blue==255) {
+					handler.addObj(new Target(xx*30, yy*30, 31, 31, Assets.block2, handler));
+				}	
 			}
 		}
 	}
