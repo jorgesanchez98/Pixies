@@ -1,31 +1,46 @@
-import java.awt.Color;
 import java.awt.Graphics;
+
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ListIterator;
+
 import image.Assets;
 
-// Clase que define el comportamiento del jugador
+
+
+/*ESTA BRANCH VALE VERGA*/
+
+/* Clase que define el comportamiento del jugador*/
 public class Player extends Chracter{
 
-	private int dir=1;
-	protected BufferedImage sprite;
+	private int dir=1,pack5;
+	private AnimationSprite bat;
+	private static double PI=3.1415;
 	// Constructor que recibe los atributos de un GameObject
-	public Player(double x, double y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		this.sprite=bi;
+		SpriteBuilder builder = new SpriteBuilder ("./Textures/16dir.png", 32, 32);
+		for (int i=0; i<16 ; i++) {//add all frames
+			builder.addImage(i, 0);
+		}
+		bat=new AnimationSprite(x, y, builder.build());
+		bat.setAnimSpd(5);
 		}
 		
-	// Método que nos ayuda a actualizar al jugador
+	// Mï¿½todo que nos ayuda a actualizar al jugador
 	@Override
 	public void tick() 
 	{	
+		bat.update();
 	}
 	
-	// Método que se encarga de detectar las colisiones
+	// Mï¿½todo que se encarga de detectar las colisiones
 	
 	@Override
-	public void collision(double dirX, double dirY) 
+	public boolean collision(double dx, double dy) 
 	{
 		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
@@ -38,62 +53,97 @@ public class Player extends Chracter{
 			if (aux instanceof Block)
 			{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x+dirX, y+dirY, aux))
+				if (placeMeeting(x+dx, y-dy, aux))
 				{
-					velX=0;
-					velY=0;
-					return;
-
+					return true;
 				}
-				else {
-					velX=3;
-					velY=3;
+			}
+			if (aux instanceof Rocket)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x+dx, y-dy, aux))
+				{
+					handler.removeObj(aux);
+					pack5 = 5;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
-	public void paint(Graphics g) 
-	{		
-		g.drawImage(sprite, getX(), getY(), null);
+	public int moveX (int direction) {
+		int movX;
+		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
+			movX=(int)Math.ceil((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
+		else
+			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
+		return movX;
 	}
 	
-	// Método que lee las teclas que han sido presionadas
+	public static int moveY (int direction) {
+			int movX;
+			if (direction >= 0 && direction <=7)
+				movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+			else
+				movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+		return movX;
+	}
+	
+	  public static double round(double value, int places) {
+		    if (places < 0) throw new IllegalArgumentException();
+
+		    BigDecimal bd = new BigDecimal(value);
+		    bd = bd.setScale(places, RoundingMode.HALF_UP);
+		    return bd.doubleValue();
+	  }
+	
+	public void paint(Graphics g) 
+	{		
+		bat.render(g, x, y, angle);
+	}
+	
+	// Mï¿½todo que lee las teclas que han sido presionadas
 	public void keyPressed(int key) {
 		// Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
 		// Si es la flecha izquierda, vuelve la velocidad en x -3
 		if (key == KeyEvent.VK_LEFT) { 
-			collision(-3, 0);
-			x += -velX;
-			sprite=Assets.tankL;
 			dir=2;
+			counterClockWise();
+			System.out.println(angle);
 			}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
 		if (key == KeyEvent.VK_RIGHT) { 
-			collision(3, 0);
-			x += velX;
-			sprite=Assets.tankR;
 			dir=4;
+			clockWise();
+			System.out.println(angle);
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
 		if (key == KeyEvent.VK_UP) { 
-			collision(0, -3);
-			y += -velY;
-			sprite=Assets.tankU;
-			dir=1;
+			if (!collision(moveX(angle)*2, moveY(angle)*2)) {
+				x+=moveX(angle);
+				y-=moveY(angle);
+				dir=1;
+			}
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
 		if (key == KeyEvent.VK_DOWN) { 
-			collision(0, 3);
-			y += velY;
-			sprite=Assets.tankD;
-			dir=3;
+			if (!collision(moveX((angle+8)%16)*2, moveY((angle+8)%16)*2)) {
+				x+=moveX((angle+8)%16);
+				y-=moveY((angle+8)%16);
+				dir=3;
+			}
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
-			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, dir, handler));
+			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler));
 		}
+		
+		if (key == 67) {
+			//handler.addObj(new Bomb(this.getX()+15, this.getY()+16, 8, 8,  moveX(angle), moveY(angle), angle, handler));
+		}
+		
 	}
 
 	public void keyReleased(int key) {

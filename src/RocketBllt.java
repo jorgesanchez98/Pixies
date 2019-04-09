@@ -4,12 +4,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ListIterator;
 
-public class Bullet extends GameObject{
+public class RocketBllt extends GameObject{
 	protected BufferedImage sprite;
 	private int dirX, dirY;
 	
 	// Constructor que recibe los atributos de un GameObject
-	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler)
+	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler)
 	{
 		super (x,y,width,height,handler);
 		this.sprite=bi;
@@ -40,7 +40,7 @@ public class Bullet extends GameObject{
 			if (aux instanceof Block) {
 				if (placeMeeting(x, y, aux)) {
 					setAlive(false);
-					
+					aux.setAlive(false);
 				}
 			}
 			if (aux instanceof Target) {
