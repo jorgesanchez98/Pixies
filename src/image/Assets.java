@@ -23,7 +23,7 @@ public class Assets {
 		background = ImageLoader.loadImage("/Textures/background.png");
 		level = ImageLoader.loadImage("/Textures/level.png");
 		block = ImageLoader.loadImage("/Textures/brick.png");
-		//block2 = ImageLoader.loadImage("/Textures/brick2.png");
+		block2 = ImageLoader.loadImage("/Textures/brick2.png");
 		tankU = ImageLoader.loadImage("/Textures/triTank.png");
 		tankL = ImageLoader.loadImage("/Textures/triTankLeft.png");
 		tankD = ImageLoader.loadImage("/Textures/triTankDown.png");

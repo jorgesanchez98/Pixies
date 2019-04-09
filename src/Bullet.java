@@ -54,7 +54,6 @@ public class Bullet extends GameObject{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
 				if (placeMeeting(x+dirX, y+dirY, aux))
 				{
-					Player tempPlayer;
 					tempPlayer = (Player) aux;
 					handler.removeObj(aux);
 					handler.removeObj(this);
