@@ -2,17 +2,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ListIterator;
 
 public class Bullet extends GameObject{
 	protected BufferedImage sprite;
-	private int dir;
+	private int movX, movY;
 	
 	// Constructor que recibe los atributos de un GameObject
-	public Bullet (double x, double y, int width, int height,  BufferedImage bi, int dir, Handler handler)
+	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int movX, int movY, Handler handler)
 	{
 		super (x,y,width,height,handler);
 		this.sprite=bi;
-		this.dir=dir;
+		this.movX=movX;
+		this.movY=movY;
 	}
 	
 	@Override
@@ -24,24 +26,32 @@ public class Bullet extends GameObject{
 	
 	@Override
 	public void tick() {
-		switch(dir) {
-		case 1:
-			y-=5;
-			break;
-		case 2:
-			x-=5;
-			break;
-		case 3:
-			y+=5;
-			break;
-		case 4:
-			x+=5;
-			break;
-		}
-		
+		x+=movX;
+		y-=movY;
+		collision();
 	}
 	
-	
+	public void collision() {
+		ListIterator <GameObject> iterator = handler.obj.listIterator();
+		while (iterator.hasNext())
+		{
+			// Se crea un objeto auxiliar
+			GameObject aux = iterator.next();
+			if (aux instanceof Block) {
+				if (placeMeeting(x, y, aux)) {
+					setAlive(false);
+				}
+			}
+			if (aux instanceof Target) {
+				if (placeMeeting(x, y, aux)) {
+					setAlive(false);
+					aux.setAlive(false);
+					handler.setWin(true);
+				}
+			}
+		}
+	}
+
 	// Obtiene los bordes de la bala (nos ayuda con las colisiones)
 	@Override
 	public Rectangle getBounds()
