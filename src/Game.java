@@ -35,6 +35,7 @@ public class Game implements Runnable{
 	private Graphics2D g;
 	private LevelCreator level;
 	private Player player;
+	private Rocket rocket;
 	
 	// Con la variable booleana
 	private boolean running = false;
@@ -70,7 +71,7 @@ public class Game implements Runnable{
 		level = new LevelCreator (handler);
 		// Se crea al jugador
 		player = new Player(80, 200, 32, 32, Assets.tankU, handler);
-		
+		rocket = new Rocket(80, 250, 32, 32, Assets.rocketPU, handler);
 		// Se crea el KeyInput
 		/*
 		 * En nuestro caso, qui�n se har� cargo de escuchar los inputs recibidos
@@ -82,6 +83,7 @@ public class Game implements Runnable{
 		
 		// Se le a�aden los objetos pared y jugador al Handler
 		handler.addObj(player);
+		handler.addObj(rocket);
 	}
 	
 	// El m�todo start se encarga de iniciar al juego

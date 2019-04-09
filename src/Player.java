@@ -13,10 +13,10 @@ import image.Assets;
 
 /*ESTA BRANCH VALE VERGA*/
 
-// Clase que define el comportamiento del jugador
+/* Clase que define el comportamiento del jugador*/
 public class Player extends Chracter{
 
-	private int dir=1;
+	private int dir=1,pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	// Constructor que recibe los atributos de un GameObject
@@ -55,6 +55,16 @@ public class Player extends Chracter{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
 				if (placeMeeting(x+dx, y-dy, aux))
 				{
+					return true;
+				}
+			}
+			if (aux instanceof Rocket)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x+dx, y-dy, aux))
+				{
+					handler.removeObj(aux);
+					pack5 = 5;
 					return true;
 				}
 			}
