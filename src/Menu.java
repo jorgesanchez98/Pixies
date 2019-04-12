@@ -112,14 +112,14 @@ public class Menu implements MouseListener, KeyListener {
 			jugar.paint(g, Assets.jugar); 
 			salir.paint(g, Assets.salir);
 			tutorial.paint(g, Assets.tutorial);
-			titulo.paint(g, Assets.título);
+			titulo.paint(g, Assets.titulo);
 		} else if(option == 1) { 
 			//Menú Modo de Juego
-			corazon.paint(g, Assets.corazón);
+			corazon.paint(g, Assets.corazon);
 			vidas.paint(g, Assets.vidas);
 			reloj.paint(g, Assets.reloj);
 			tiempo.paint(g, Assets.tiempo);
-			atras1.paint(g, Assets.atrás1);
+			atras1.paint(g, Assets.atras1);
 			SModo.paint(g, Assets.SModo);
 		} else if(option == 2) { 
 			//Menú escenario
@@ -127,7 +127,7 @@ public class Menu implements MouseListener, KeyListener {
 			escenario2.paint(g, Assets.escenario2);
 			escenario3.paint(g, Assets.escenario3);
 			escenario4.paint(g, Assets.escenario4);
-			atras2.paint(g, Assets.atrás2);
+			atras2.paint(g, Assets.atras2);
 			SEscenario.paint(g, Assets.SEscenario);
 		} else if(option == 3) { 
 			//Inciar juego
@@ -149,7 +149,7 @@ public class Menu implements MouseListener, KeyListener {
 			textoTutorial4.paint(g, Assets.textoTutorial4);
 			textoTutorial5.paint(g, Assets.textoTutorial5);
 			textoTutorial6.paint(g, Assets.textoTutorial6);
-			atras3.paint(g, Assets.atrás3);
+			atras3.paint(g, Assets.atras3);
 		}
 	}
 	

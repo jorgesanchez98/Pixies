@@ -5,7 +5,7 @@ import image.Assets;
 
 // Clase encargada de Spawnear enemigos y llevar el control del nivel
 public class LevelCreator {
-	// Requiere del Handler para añadirle a los enemigos
+	// Requiere del Handler para anadirle a los enemigos
 	private Handler handler;
 	private BufferedImage level;
 	// Constructor que requiere del Handler

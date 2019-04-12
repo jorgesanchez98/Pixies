@@ -9,6 +9,8 @@ public class AnimationSprite {
 	private int animSpd;
 	private int animCount;
 	private int topCount;
+	
+	
 	private int width, height;
 	
 	public AnimationSprite (int x, int y, CachedSprite sprite) {
@@ -37,11 +39,11 @@ public class AnimationSprite {
 		}
 	}
 	
-	public void render(Graphics g, int x, int y) {
+	public void render (Graphics g, int x, int y, int index) {
 		if (width!=0)
-			g.drawImage(sprite.get(imageIndex), x, y, width, height, null);
+			g.drawImage(sprite.get(index), x, y, width, height, null);
 		else 
-			g.drawImage(sprite.get(imageIndex), x, y, null);
+			g.drawImage(sprite.get(index), x, y, null);
 	}
 	
 	public boolean hasReachedEnd() {

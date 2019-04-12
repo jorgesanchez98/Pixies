@@ -16,7 +16,7 @@ import image.Assets;
 // Clase que define el comportamiento del jugador
 public class Player extends Chracter{
 
-	private int dir=1;
+	private int dir=1, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	// Constructor que recibe los atributos de un GameObject
