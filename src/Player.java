@@ -13,16 +13,16 @@ import image.Assets;
 
 /*ESTA BRANCH VALE VERGA*/
 
-/* Clase que define el comportamiento del jugador*/
+// Clase que define el comportamiento del jugador
 public class Player extends Chracter{
 
-	private int dir=1,pack5;
+	private int dir=1;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	// Constructor que recibe los atributos de un GameObject
 	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		SpriteBuilder builder = new SpriteBuilder ("./Textures/16dir.png", 32, 32);
+		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
 		for (int i=0; i<16 ; i++) {//add all frames
 			builder.addImage(i, 0);
 		}
