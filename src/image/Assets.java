@@ -11,7 +11,7 @@ public class Assets {
 	 * Ejemplo de BufferedImage con varias imágenes:
 	 * public static BufferedImage background, player, c	loud, enemy...; 
 	*/
-	public static BufferedImage background, rocketPU, level, block, block2, tankU, tankL, tankD, tankR, bullet;
+	public static BufferedImage background, rocketPU, level, block, block2, tankU, tankL, tankD, tankR,bullet,Rbullet;
 
 	
 	// En éste método se inicializan todas las imágenes que se van a ocupar
@@ -28,6 +28,7 @@ public class Assets {
 		tankD = ImageLoader.loadImage("/Textures/triTankDown.png");
 		tankR = ImageLoader.loadImage("/Textures/triTankRight.png");
 		bullet = ImageLoader.loadImage("/Textures/bullet.png");
+		Rbullet = ImageLoader.loadImage("/Textures/Rbullet.png");
 		rocketPU = ImageLoader.loadImage("/Textures/rocketPU.png");
 	}
 }

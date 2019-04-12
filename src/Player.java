@@ -137,6 +137,10 @@ public class Player extends Chracter{
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
+			if(pack5>0) {
+				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle));
+				pack5--;
+			}else
 			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler));
 		}
 		
