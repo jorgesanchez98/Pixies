@@ -8,6 +8,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
+import java.nio.FloatBuffer;
+
+import org.lwjgl.glfw.*;
 
 import image.Assets;
 
@@ -118,6 +121,26 @@ public class Game implements Runnable{
 	// El m�todo tick() se encarga de realizar el update del juego
 	public void tick()
 	{
+		// Gamepad Functionality
+		GLFW.glfwPollEvents();
+		boolean gp1_present = GLFW.glfwJoystickPresent(GLFW.GLFW_JOYSTICK_1);
+		//boolean gp2_present = GLFW.glfwJoystickPresent(GLFW.GLFW_JOYSTICK_2);
+		if (gp1_present) {
+			// gamepad 1 present
+			FloatBuffer axes = GLFW.glfwGetJoystickAxes(GLFW.GLFW_JOYSTICK_1);
+			
+			int axisID = 1;
+			while (axes.hasRemaining()) {
+			    float state = axes.get();
+			    if (state < -0.95f || state > 0.95f) {
+			        // Full range gamepad 1 action
+			    } else if (state < -0.5f || state > 0.5f) {
+			        // Mid range gamepad 1 action
+			    }
+			    axisID++;
+			}
+		}
+		
 		if (handler.isWin())
 			running=false;
 			// Se llama al m�todo tick del Handler y del Spawner
