@@ -13,16 +13,16 @@ import image.Assets;
 
 /*ESTA BRANCH VALE VERGA*/
 
-/* Clase que define el comportamiento del jugador*/
+// Clase que define el comportamiento del jugador
 public class Player extends Chracter{
 
-	private int dir=1,pack5;
+	private int dir=1, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	// Constructor que recibe los atributos de un GameObject
 	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		SpriteBuilder builder = new SpriteBuilder ("./Textures/16dir.png", 32, 32);
+		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
 		for (int i=0; i<16 ; i++) {//add all frames
 			builder.addImage(i, 0);
 		}
@@ -137,6 +137,10 @@ public class Player extends Chracter{
 		}
 		
 		if (key == KeyEvent.VK_SPACE) {
+			if(pack5>0) {
+				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle));
+				pack5--;
+			}else
 			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler));
 		}
 		

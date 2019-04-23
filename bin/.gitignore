@@ -1,3 +1,9 @@
+/image/
+/.classpath
+/.project
+/Boton.class
+/Menu.class
+/MenuPanel.class
 /AnimationSprite.class
 /Block.class
 /Bullet.class

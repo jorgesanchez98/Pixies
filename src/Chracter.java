@@ -8,7 +8,7 @@ public abstract class Chracter extends GameObject{
 	// Es un juego de plataformas, por lo que tiene gravedad, velocidad en x y en y
 	protected double dirX;
 	protected double dirY;
-	protected int angle=0, maxAng=16;
+	protected int angle=12, maxAng=16;
 	// Constructor que pide los valores del Game object 
 	public Chracter(int x, int y, int width, int height, Handler handler) {
 		super(x, y, width, height, handler);
@@ -17,10 +17,10 @@ public abstract class Chracter extends GameObject{
 		dirY= 1;
 	}
 
-	// Todo personaje tiene un comportamiento diferente, así que el tick sigue siendo abstracto
+	// Todo personaje tiene un comportamiento diferente, asï¿½ que el tick sigue siendo abstracto
 	public abstract void tick();
 	
-	// Todos los personajes en éste juego tienen colisión
+	// Todos los personajes en ï¿½ste juego tienen colisiï¿½n
 	public abstract boolean collision(double dirX, double dirY);
 	
 	// Obtenemos los bordes del personaje
@@ -31,18 +31,18 @@ public abstract class Chracter extends GameObject{
 	}
 	
 	public void clockWise() {
-		//gira un "grado" en la dirección del relog
+		//gira un "grado" en la direcciï¿½n del relog
 		angle= ((((angle+1)%maxAng)+maxAng)%maxAng);
 	}
 	
 	public void counterClockWise() {
-		//gira un "grado" en la dirección contraria del relog
+		//gira un "grado" en la direcciï¿½n contraria del relog
 		angle= ((((angle-1)%maxAng)+maxAng)%maxAng);
 	}
 	// Place meeting nos ayuda a revisar si el personaje colisiona con otro objeto
 
 	
-	// A partir de aquí son los setters y getters
+	// A partir de aquï¿½ son los setters y getters
 
 	public int getAngle() {
 		return angle;
