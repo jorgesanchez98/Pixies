@@ -1,5 +1,53 @@
 package audio;
 
-public class MusicPlayer {
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+
+public class MusicPlayer implements Runnable{
+	// Instance variables
+	private ArrayList<String> musicFiles;
+	private int currentSongIndex = 0;
+	
+	//----------------------- CONSTRUCTOR ----------------------
+	public MusicPlayer(String... files) {
+		musicFiles = new ArrayList<String>();
+		for(String file: files) {
+			musicFiles.add("./audio_res/" + file + ".wav");
+		}
+	}
+	
+	//--------------------------- METHODS -----------------------------
+	private void playSound(String fileName) {
+		try {
+			// Setup
+			File soundFile = new File(fileName);
+			AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+			AudioFormat format = ais.getFormat();
+			DataLine.Info info = new DataLine.Info(Clip.class, format);
+			Clip clip = (Clip) AudioSystem.getLine(info);
+			clip.open(ais);
+			
+			// Volume
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-10);
+			
+			// Play the clip
+			clip.start();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void run() {
+		playSound(musicFiles.get(currentSongIndex));
+	}
 
 }
