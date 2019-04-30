@@ -6,22 +6,33 @@ import java.util.ListIterator;
 
 public class RocketBllt extends GameObject{
 	protected BufferedImage sprite;
-	private int dirX, dirY;
+	private int angle;
+	private float dirX, dirY;
+	private AnimationSprite bat;
 	
 	// Constructor que recibe los atributos de un GameObject
 	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler, int angle)
 	{
 		super (x,y,width,height,handler);
-		this.sprite=bi;
+		//this.sprite=bi;
 		this.dirX=dirX;
 		this.dirY=dirY;
+		SpriteBuilder builder = new SpriteBuilder ("./Textures/16cohete.png", 20, 20);
+		for (int i=0; i<16 ; i++) {//add all frames
+			builder.addImage(i, 0);
+		}
+		bat=new AnimationSprite(x, y, builder.build());
+		bat.setAnimSpd(5);
+		this.angle = angle;
+		
+		
 	}
 	
 	@Override
 	public void paint(Graphics g)
 	{
 		//pintamos la imagen pasada como argumento al contructor
-		g.drawImage(sprite, getX(), getY(), null);
+		bat.render(g, x, y, angle);
 	}
 	
 	@Override
@@ -29,6 +40,8 @@ public class RocketBllt extends GameObject{
 		x+=dirX;
 		y-=dirY;
 		collision();
+		//Checar la direccion de la bala
+		//System.out.println("Dir x = "+dirX+"   Dir Y = "+dirY);
 	}
 	
 	public void collision() {
