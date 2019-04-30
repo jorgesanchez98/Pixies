@@ -9,7 +9,7 @@ public class RocketBllt extends GameObject{
 	private int dirX, dirY;
 	
 	// Constructor que recibe los atributos de un GameObject
-	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler)
+	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler, int angle)
 	{
 		super (x,y,width,height,handler);
 		this.sprite=bi;
