@@ -1,13 +1,18 @@
 package audio;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer {
 	// Instance variables
 	private static AudioPlayer instance;
-	private HashMap<K, V> audios;
+	private HashMap<String, Clip> audios;
 	private float musicVol;
 	private float effectVol;
 	private String currentMusic;
@@ -16,6 +21,8 @@ public class AudioPlayer {
 	private AudioPlayer() {
 		musicVol = 1.0f;
 		effectVol = 1.0f;
+		
+		audios = new HashMap<String, Clip>();
 	}
 	
 	//-------------------- METHODS ------------------------------------
@@ -52,8 +59,36 @@ public class AudioPlayer {
 		if (effectVol >= 0 && effectVol <= 1) this.effectVol = effectVol;
 	}
 	
-	private Clip getSoundClip(String s) {
+	private Clip getSoundClip(String clipName) {
+		if (audios.get(clipName) != null) {
+			return audios.get(clipName);
+		}
 		
+		Clip clip = null;
+		AudioInputStream audioStream = null;
+		
+		try {
+			audioStream = AudioSystem.getAudioInputStream(getClass().getResource("./" + clipName + ".wav"));
+		} catch (UnsupportedAudioFileException UAFE) {
+			UAFE.printStackTrace();
+		} catch (IOException IOE) {
+			IOE.printStackTrace();
+		}
+		
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException LUE) {
+			LUE.printStackTrace();
+		}
+		
+		try {
+			clip.open(audioStream);
+		} catch (LineUnavailableException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		audios.put(currentMusic, clip);
+		return clip;
 	}
 	
 	private void setVolume(Clip c, float f) {

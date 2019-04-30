@@ -25,6 +25,7 @@ public class KeyInput implements KeyListener{
 		int key = e.getKeyCode();
 		// Se le pasa el código al método de tecla liberada del escuchador
 		player.keyReleased(key);
+		
 	}
 
 	@Override
