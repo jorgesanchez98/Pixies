@@ -1,21 +1,20 @@
 import java.awt.Graphics;
-
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 import image.Assets;
 
-
+//30/04/2019
 
 /*ESTA BRANCH VALE VERGA*/
 
 // Clase que define el comportamiento del jugador
 public class Player extends Chracter{
-
 	private int dir=1, counter=0, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
@@ -30,7 +29,7 @@ public class Player extends Chracter{
 		}
 		bat=new AnimationSprite(x, y, builder.build());
 		bat.setAnimSpd(5);
-		}
+	}
 		
 	// M�todo que nos ayuda a actualizar al jugador
 	@Override
@@ -52,18 +51,16 @@ public class Player extends Chracter{
 				}
 			}
 		}
-		if (counter==0) {
-			if (clock==true) {
-				clockWise();
-			}
-			if (anticlock==true) {
-				counterClockWise();
-			}
+		if (clock==true) {
+			clockWise();
+		}
+		if (anticlock==true) {
+			counterClockWise();
 		}
 		if (shootB)
 			handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler));
 		if (shootR)
-			handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle));
+			handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler));
 		counter=(counter+1)%6;
 		bat.update();
 	}
@@ -135,8 +132,8 @@ public class Player extends Chracter{
 	}
 	
 	// M�todo que lee las teclas que han sido presionadas
-	public void keyPressed(int key) {
-		// Si es escape, cierra el juego
+	public  void keyPressed(int key) {
+		//Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
 		// Si es la flecha izquierda, vuelve la velocidad en x -3
 		if (key == KeyEvent.VK_LEFT) { 
@@ -159,11 +156,14 @@ public class Player extends Chracter{
 				shootR=true;
 				pack5--;
 			
-		if (key == 86)
+			}
+		}
+			
+		if (key == 86) {
 			shootB=true;
 		}
 	}
-
+	
 	public void keyReleased(int key) {
 		if (key == KeyEvent.VK_LEFT) { 
 			anticlock=false;
@@ -186,7 +186,7 @@ public class Player extends Chracter{
 		if (key == 86)
 			shootB=false;
 		}
-	}
+	
 
 	public void keyTyped(int key) {
 		
