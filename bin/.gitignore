@@ -14,9 +14,8 @@
 /SpriteBuilder.class
 /Target.class
 /Window.class
-/.classpath
-/.gitignore
-/.project
 /Bomb.class
+/Rocket.class
+/RocketBllt.class
 /audio/
-/audio_res/
+/image/

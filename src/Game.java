@@ -54,12 +54,6 @@ public class Game implements Runnable{
 	// M�todo que inicializa los recursos que ser�n utilizados a lo largo del juego
 	public void init()
 	{
-		// Inicializa todas las im�genes (se encuentran en Assets)
-		/*
-		 * Hacer uso de Assets nos da la ventaja de no tener que estar cargando
-		 * las im�genes cada que sean ocupadas, sino que solo se cargan una vez
-		 * y son referenciadas cuando se requieran usar.
-		 */
 		Assets.init();
 		
 		// Se crea la ventana, d�ndole su width, height y el t�tulo del juego
