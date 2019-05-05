@@ -8,9 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
-import java.nio.FloatBuffer;
-
-import org.lwjgl.glfw.*;
 
 import image.Assets;
 
@@ -54,6 +51,12 @@ public class Game implements Runnable{
 	// M�todo que inicializa los recursos que ser�n utilizados a lo largo del juego
 	public void init()
 	{
+		// Inicializa todas las im�genes (se encuentran en Assets)
+		/*
+		 * Hacer uso de Assets nos da la ventaja de no tener que estar cargando
+		 * las im�genes cada que sean ocupadas, sino que solo se cargan una vez
+		 * y son referenciadas cuando se requieran usar.
+		 */
 		Assets.init();
 		
 		// Se crea la ventana, d�ndole su width, height y el t�tulo del juego
@@ -92,11 +95,6 @@ public class Game implements Runnable{
 		// Hace que running pase al estado de true e inicia el thread principal
 		running = true;
 		thread = new Thread(this);
-		
-		// MUSIC
-		AudioPlayer.get().setMusicVol(0.7f);
-		AudioPlayer.get().playMusic("LoungeGame");
-		
 		thread.start();
 	}
 	
@@ -120,26 +118,6 @@ public class Game implements Runnable{
 	// El m�todo tick() se encarga de realizar el update del juego
 	public void tick()
 	{
-		// Gamepad Functionality
-		GLFW.glfwPollEvents();
-		boolean gp1_present = GLFW.glfwJoystickPresent(GLFW.GLFW_JOYSTICK_1);
-		//boolean gp2_present = GLFW.glfwJoystickPresent(GLFW.GLFW_JOYSTICK_2);
-		if (gp1_present) {
-			// gamepad 1 present
-			FloatBuffer axes = GLFW.glfwGetJoystickAxes(GLFW.GLFW_JOYSTICK_1);
-			
-			int axisID = 1;
-			while (axes.hasRemaining()) {
-			    float state = axes.get();
-			    if (state < -0.95f || state > 0.95f) {
-			        // Full range gamepad 1 action
-			    } else if (state < -0.5f || state > 0.5f) {
-			        // Mid range gamepad 1 action
-			    }
-			    axisID++;
-			}
-		}
-		
 		if (handler.isWin())
 			running=false;
 			// Se llama al m�todo tick del Handler y del Spawner
