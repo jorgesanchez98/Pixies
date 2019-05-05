@@ -92,6 +92,11 @@ public class Game implements Runnable{
 		// Hace que running pase al estado de true e inicia el thread principal
 		running = true;
 		thread = new Thread(this);
+		
+		// MUSIC
+		AudioPlayer.get().setMusicVol(0.7f);
+		AudioPlayer.get().playMusic("LoungeGame");
+		
 		thread.start();
 	}
 	

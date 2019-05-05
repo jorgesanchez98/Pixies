@@ -1,4 +1,4 @@
-package audio;
+
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -31,16 +32,30 @@ public class AudioPlayer {
 		return instance;
 	}
 
-	public void playBackMusic(String s) {
-		
+	public void playMusic(String audioName) {
+		Clip clip = getSoundClip(audioName);
+		clip.setFramePosition(0);
+		setVolume(clip, musicVol);
+		clip.start();
+		if (currentMusic != null) {
+			stopMusic();
+		}
+		currentMusic = audioName;
 	}
 	
-	public void stopBackMusic() {
-		
+	public void stopMusic() {
+		if (currentMusic != null) {
+			Clip clip = audios.get(currentMusic);
+			clip.stop();
+			currentMusic = null;
+		}
 	}
 	
-	public void playEffectSound(String s) {
-		
+	public void playEffectSound(String audioName) {
+		Clip clip = getSoundClip(audioName);
+		clip.setFramePosition(0);
+		setVolume(clip, effectVol);
+		clip.start();
 	}
 
 	public float getMusicVol() {
@@ -68,7 +83,9 @@ public class AudioPlayer {
 		AudioInputStream audioStream = null;
 		
 		try {
-			audioStream = AudioSystem.getAudioInputStream(getClass().getResource("./" + clipName + ".wav"));
+			String route = "music/" + clipName + ".wav";
+			System.out.println("File Name is: " + route);
+			audioStream = AudioSystem.getAudioInputStream(getClass().getResource(route));
 		} catch (UnsupportedAudioFileException UAFE) {
 			UAFE.printStackTrace();
 		} catch (IOException IOE) {
@@ -91,7 +108,10 @@ public class AudioPlayer {
 		return clip;
 	}
 	
-	private void setVolume(Clip c, float f) {
-		
+	private void setVolume(Clip clip, float volume) {
+		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		float range = gainControl.getMaximum() - gainControl.getMinimum();
+		float gain = range*volume + gainControl.getMinimum();
+		gainControl.setValue(gain);
 	}
 }
