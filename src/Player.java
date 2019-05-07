@@ -18,6 +18,7 @@ public class Player extends Chracter{
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
+	private boolean pausado=false;
 
 
 public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
@@ -163,7 +164,19 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 				pack5--;
 			} else {
 				handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+			if (ableToShoot) {
+				if(pack5>0) {
+					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
+					pack5--;
+				} else {
+					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+				}
+				ableToShoot = false;
 			}
+		}
+		if (key==80) {
+			pausado=!pausado;
+			System.out.println("presione la p");
 		}
 	}
 	
@@ -188,6 +201,10 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		//	shootR=false;
 		}
 	}
+	public boolean getPausado() {
+		return pausado;
+	}
+	
 	public void keyTyped(int key) {
 	}
 }
