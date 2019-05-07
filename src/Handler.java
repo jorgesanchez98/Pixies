@@ -2,66 +2,51 @@ import java.awt.Graphics;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-// Clase encargada de manejar a los objetos
+//Manejador de objetos
 public class Handler {
 	private boolean win=false;
-	// Se hace una lista de objetos
-	/*
-	 *  CopyOnWriteArrayList ayuda a que no importe que se intenten correr varios procesos
-	 *  a la vez sobre éste, siempre podrá ser modificada la lista
-	 */	
+	
+	 // CopyOnWriteArrayList permite modificar la lista aún cuando se corren varios procesos	
 	public CopyOnWriteArrayList <GameObject> obj;
 
-	// Constructor del Handler
-	public Handler()
-	{
-		// Se instancia como una nueva lista de objetos
+	// Constructor
+	public Handler(){
 		obj = new CopyOnWriteArrayList <GameObject>();
 	}
 	
-	// Método encargado de acutalizar los objetos contenidos en el Handler
-	public void tick()
-	{
-		// Se hace un iterador de la lista (se puede hacer con un for each)
+	// Actualizador
+	public void tick() {
 		ListIterator <GameObject> iterator = obj.listIterator();
-		// Se actualizan todos los objetos
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			GameObject aux = iterator.next();
 			if (!aux.getAlive())
 				removeObj(aux);
 			aux.tick();
 		}
 	}
-	// Método encargado de renderizar los objetos contenidos en el Hanlder
-	public void render(Graphics g)
-	{
-		// Se hace un iterador de la lista (se puede hacer con un for each)
+	
+	//Render
+	public void render(Graphics g){
 		ListIterator <GameObject> iterator = obj.listIterator();
-		// Se renderizan todos los objetos
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()){
 			GameObject aux = iterator.next();
 			aux.paint(g);
 		}
 	}
-	// Método para añadirle objetos al Handler
-	public void addObj(GameObject obj)
-	{
-		// Le añade el objeto a la lista
+	
+	//Añadir objetos
+	public void addObj(GameObject obj){
 		this.obj.add(obj);
 	}
-	// Método para remover los objetos del Handler
-	public void removeObj(GameObject obj)
-	{
-		// Le remueve el objeto a la lista
+	//Eliminar objetos
+	public void removeObj(GameObject obj) {
 		this.obj.remove(obj);
 	}
-
+	
+	//Setters-Getters
 	public boolean isWin() {
 		return win;
 	}
-
 	public void setWin(boolean win) {
 		this.win = win;
 	}

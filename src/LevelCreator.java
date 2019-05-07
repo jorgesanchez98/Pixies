@@ -3,14 +3,14 @@ import java.awt.image.BufferedImage;
 
 import image.Assets;
 
-// Clase encargada de Spawnear enemigos y llevar el control del nivel
+// Creador del Layout del nivel
 public class LevelCreator {
-	// Requiere del Handler para anadirle a los enemigos
+	
 	private Handler handler;
 	private BufferedImage level;
-	// Constructor que requiere del Handler
-	public LevelCreator (Handler handler)
-	{
+	
+	// Constructor
+	public LevelCreator (Handler handler){
 		this.handler = handler;
 		this.level = Assets.level;
 		
