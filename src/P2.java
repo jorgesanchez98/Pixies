@@ -9,26 +9,18 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-//30/04/2019
-
-/*ESTA BRANCH VALE VERGA*/
-
-// Clase que define el comportamiento del jugador
-public class Player extends Chracter{
+public class P2 extends Chracter{
 	private int dir=1, counter=0, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
-	private static int vidas = 3;
-	private static int cohetes = 0;
-	private static int puntos = 0;
 
-
-public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
-		super(x,y,width,height,handler);
-		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
-		for (int i=0; i<16; i++) {
-			builder.addImage(i,0);
+	// Constructor que recibe los atributos de un GameObject
+	public P2(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
+		super(x, y, width, height, handler);
+		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dirP2.png", 32, 32);
+		for (int i=0; i<16 ; i++) {//add all frames
+			builder.addImage(i, 0);
 		}
 		bat=new AnimationSprite(x, y, builder.build());
 		bat.setAnimSpd(5);
@@ -63,36 +55,29 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		counter=(counter+1)%6;
 		bat.update();
 	}
-		
-		public int getVidas() {
-			return vidas;
-		}
-	public int getCohetes() {
-		return cohetes;
-	}
-	public int getPuntos() {
-		return puntos;
-	}
-	public void perderVida() {
-		vidas = vidas - 1;
-		//if() {}
-	}
-	public void ganarPunto() {
-		puntos = puntos + 1;
-		//if() {}
-	}
-
 	
-	public boolean collision(double dx, double dy) {
+	// M�todo que se encarga de detectar las colisiones
+	
+	@Override
+	public boolean collision(double dx, double dy) 
+	{
+		// Se genera un iterador para revisar todos los objetos
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
-		while (iterator.hasNext()) {
+		while (iterator.hasNext())
+		{
+			// Se crea un objeto auxiliar
 			GameObject aux = iterator.next();
-			if (aux instanceof Block) {
-				if (placeMeeting(x+dx, y-dy, aux)) {
+			
+			// Si el auxiliar es una pared
+			if (aux instanceof Block)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x+dx, y-dy, aux))
+				{
 					return true;
 				}
 			}
-			if (aux instanceof P2)
+			if (aux instanceof Player)
 			{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
 				if (placeMeeting(x+dx, y-dy, aux))
@@ -110,6 +95,7 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 					return true;
 				}
 			}
+			
 		}
 		return false;
 	}
@@ -122,24 +108,26 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
-	public static int moveY(int direction) {
-		int movX;
-		if (direction >= 0 && direction <=7)
-			movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
-		else
-			movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+	
+	public static int moveY (int direction) {
+			int movX;
+			if (direction >= 0 && direction <=7)
+				movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+			else
+				movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
 	
 	  public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+		    if (places < 0) throw new IllegalArgumentException();
 
-	    BigDecimal bd = new BigDecimal(value);
-	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
+		    BigDecimal bd = new BigDecimal(value);
+		    bd = bd.setScale(places, RoundingMode.HALF_UP);
+		    return bd.doubleValue();
 	  }
 	
-	public void paint(Graphics g) {		
+	public void paint(Graphics g) 
+	{		
 		bat.render(g, x, y, angle);
 	}
 	
@@ -147,51 +135,53 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 	public  void keyPressed(int key) {
 		//Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
-		if (key == KeyEvent.VK_LEFT) { 
+		// Si es la flecha izquierda, vuelve la velocidad en x -3
+		if (key == KeyEvent.VK_A) { 
 			anticlock=true;
 		}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_D) { 
 			clock=true;
 		}
-		if (key == KeyEvent.VK_UP) { 
+		// Si es la flecha arriba, vuelve la velocidad en y -3
+		if (key == KeyEvent.VK_W) { 
 			adelante=true;
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras=true;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 		
 			
 			if(pack5>0) {
-				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
+				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
 				pack5--;
 			}
 				else {
-					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
 				}
 		}
 	}
 	
 	
 	public void keyReleased(int key) {
-		if (key == KeyEvent.VK_LEFT) { 
+		if (key == KeyEvent.VK_A) { 
 			anticlock=false;
 		}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_D) { 
 			clock=false;
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
-		if (key == KeyEvent.VK_UP) { 
+		if (key == KeyEvent.VK_W) { 
 			adelante=false;
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras=false;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 		//	shootR=false;
 		}}
 	
@@ -199,4 +189,6 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 	public void keyTyped(int key) {
 		
 	}
+
 }
+

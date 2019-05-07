@@ -16,7 +16,9 @@ public class Menu implements MouseListener, KeyListener {
 	//Variables
 	protected final int PWidth;
 	protected final int PHeight;
-	private int option = 0;
+	private static int option = 0;
+	private static int escenario = 0;
+	private static int modo = 0;
 	
 	Boton jugar;
 	Boton salir;
@@ -57,28 +59,93 @@ public class Menu implements MouseListener, KeyListener {
 	public Menu(int PWidth, int PHeight) {
 		this.PWidth = PWidth;
 		this.PHeight = PHeight;
-		
+	}
+	public void crearPrincipal() {
 		jugar = new Boton(270,180,180,100);
 		salir = new Boton(270,300,180,100);
 		tutorial = new Boton(647,397,78,100);
 		titulo = new Boton(239,20,242,160);
-		
+	}
+	public void pintarPrincipal(Graphics2D g) {
+		jugar.paint(g, Assets.jugar); 
+		salir.paint(g, Assets.salir);
+		tutorial.paint(g, Assets.tutorial);
+		titulo.paint(g, Assets.titulo);
+	}
+	public void borrarPrincipal() {
+		jugar.setWidth(0);
+		jugar.setHeight(0);
+		salir.setWidth(0);
+		salir.setHeight(0);
+		tutorial.setWidth(0);
+		tutorial.setHeight(0);
+		titulo.setWidth(0);
+		titulo.setHeight(0);
+	}
+	
+	public void crearModalidad() {
 		corazon = new Boton(140,130,200,200);
 		vidas = new Boton(140,330,200,100);
 		reloj = new Boton(380,130,200,200);
 		tiempo = new Boton(380,330,200,100);
 		SModo = new Boton(85,30,550,97);
-		
 		atras1 = new Boton(-15,395,96,100);
-		atras2 = new Boton(-15,395,96,100);
-		atras3 = new Boton(-15,395,96,100);
-		
+	}
+	public void pintarModalidad(Graphics2D g) {
+		corazon.paint(g, Assets.corazon);
+		vidas.paint(g, Assets.vidas);
+		reloj.paint(g, Assets.reloj);
+		tiempo.paint(g, Assets.tiempo);
+		SModo.paint(g, Assets.SModo);
+		atras1.paint(g, Assets.atras1);
+	}
+	public void borrarModalidad() {
+		corazon.setWidth(0);
+		corazon.setHeight(0);
+		vidas.setWidth(0);
+		vidas.setHeight(0);
+		reloj.setWidth(0);
+		reloj.setHeight(0);
+		tiempo.setWidth(0);
+		tiempo.setHeight(0);
+		SModo.setWidth(0);
+		SModo.setHeight(0);
+		atras1.setWidth(0);
+		atras1.setHeight(0);
+	}
+	
+	public void crearEscenario() {
 		escenario1 = new Boton(200,120,150,150);
 		escenario2 = new Boton(370,120,150,150);
 		escenario3 = new Boton(200,290,150,150);
 		escenario4 = new Boton(370,290,150,150);
 		SEscenario = new Boton(90,30,550,100);
-		
+		atras2 = new Boton(-15,395,96,100);
+	}
+	public void pintarEscenario(Graphics2D g) {
+		escenario1.paint(g, Assets.escenario1);
+		escenario2.paint(g, Assets.escenario2);
+		escenario3.paint(g, Assets.escenario3);
+		escenario4.paint(g, Assets.escenario4);
+		SEscenario.paint(g, Assets.SEscenario);
+		atras2.paint(g, Assets.atras2);
+	}
+	public void borrarEscenario() {
+		escenario1.setWidth(0);
+		escenario1.setHeight(0);
+		escenario2.setWidth(0);
+		escenario2.setHeight(0);
+		escenario3.setWidth(0);
+		escenario3.setHeight(0);
+		escenario4.setWidth(0);
+		escenario4.setHeight(0);
+		SEscenario.setWidth(0);
+		SEscenario.setHeight(0);
+		atras2.setWidth(0);
+		atras2.setHeight(0);
+	}
+	
+	public void crearTutorial() {
 		CJugar = new Boton(175,10,366,130);
 		imagenTutorial1 = new Boton(130,120,50,50);
 		imagenTutorial2 = new Boton(130,170,50,50);
@@ -92,6 +159,52 @@ public class Menu implements MouseListener, KeyListener {
 		textoTutorial4 = new Boton(190,270,420,50);
 		textoTutorial5 = new Boton(190,320,420,50);
 		textoTutorial6 = new Boton(190,360,420,76);
+		atras3 = new Boton(-15,395,96,100);
+	}
+	public void pintarTutorial(Graphics2D g) {
+		CJugar.paint(g, Assets.CJugar);
+		imagenTutorial1.paint(g, Assets.imagenTutorial1);
+		imagenTutorial2.paint(g, Assets.imagenTutorial2);
+		imagenTutorial3.paint(g, Assets.imagenTutorial3);
+		imagenTutorial4.paint(g, Assets.imagenTutorial4);
+		imagenTutorial5.paint(g, Assets.imagenTutorial5);
+		imagenTutorial6.paint(g, Assets.imagenTutorial6);
+		textoTutorial1.paint(g, Assets.textoTutorial1);
+		textoTutorial2.paint(g, Assets.textoTutorial2);
+		textoTutorial3.paint(g, Assets.textoTutorial3);
+		textoTutorial4.paint(g, Assets.textoTutorial4);
+		textoTutorial5.paint(g, Assets.textoTutorial5);
+		textoTutorial6.paint(g, Assets.textoTutorial6);
+		atras3.paint(g, Assets.atras3);
+	}
+	public void borrarTutorial() {
+		CJugar = null;
+		imagenTutorial1.setWidth(0);
+		imagenTutorial1.setHeight(0);
+		imagenTutorial2.setWidth(0);
+		imagenTutorial2.setHeight(0);
+		imagenTutorial3.setWidth(0);
+		imagenTutorial3.setHeight(0);
+		imagenTutorial4.setWidth(0);
+		imagenTutorial4.setHeight(0);
+		imagenTutorial5.setWidth(0);
+		imagenTutorial5.setHeight(0);
+		imagenTutorial6.setWidth(0);
+		imagenTutorial6.setHeight(0);
+		textoTutorial1.setWidth(0);
+		textoTutorial1.setHeight(0);
+		textoTutorial2.setWidth(0);
+		textoTutorial2.setHeight(0);
+		textoTutorial3.setWidth(0);
+		textoTutorial3.setHeight(0);
+		textoTutorial4.setWidth(0);
+		textoTutorial4.setHeight(0);
+		textoTutorial5.setWidth(0);
+		textoTutorial5.setHeight(0);
+		textoTutorial6.setWidth(0);
+		textoTutorial6.setHeight(0);
+		atras3.setWidth(0);
+		atras3.setHeight(0);
 	}
 	
 	//Setters-Getters
@@ -101,55 +214,40 @@ public class Menu implements MouseListener, KeyListener {
 	public int getOption() {
 		return option;
 	}
+	public void setModo(int modo) {
+		this.modo = modo;
+	}
+	public int getModo() {
+		return modo;
+	}
+	public void setEscenario(int escenario) {
+		this.escenario = escenario;
+	}
+	public int getEscenario() {
+		return escenario;
+	}
 	
 	//Paint
 	public void draw(Graphics2D g) {
 	    g.drawImage(Assets.fondo,0,0,720,480,null);
 		g.drawImage(Assets.relieve,55,0,610,500,null);
 		
-		if(option == 0) { 
-			//Menú principal
-			jugar.paint(g, Assets.jugar); 
-			salir.paint(g, Assets.salir);
-			tutorial.paint(g, Assets.tutorial);
-			titulo.paint(g, Assets.titulo);
-		} else if(option == 1) { 
-			//Menú Modo de Juego
-			corazon.paint(g, Assets.corazon);
-			vidas.paint(g, Assets.vidas);
-			reloj.paint(g, Assets.reloj);
-			tiempo.paint(g, Assets.tiempo);
-			atras1.paint(g, Assets.atras1);
-			SModo.paint(g, Assets.SModo);
-		} else if(option == 2) { 
-			//Menú escenario
-			escenario1.paint(g, Assets.escenario1);
-			escenario2.paint(g, Assets.escenario2);
-			escenario3.paint(g, Assets.escenario3);
-			escenario4.paint(g, Assets.escenario4);
-			atras2.paint(g, Assets.atras2);
-			SEscenario.paint(g, Assets.SEscenario);
-		} else if(option == 3) { 
-			//Inciar juego
+		if(option == 0) { //Menú principal
+			crearPrincipal();
+			pintarPrincipal(g);
+		} else if(option == 1) { //Menú Modo de Juego
+			crearModalidad();
+			pintarModalidad(g);
+		} else if(option == 2) { //Menú escenario
+			crearEscenario();
+			pintarEscenario(g);
+		} else if(option == 3) { //Inciar juego
 			option = -1;
 			Game game = new Game("Tank",720,480);
 			game.start();
-		} else if(option == 4) { 
-			//Menú tutorial
-			CJugar.paint(g, Assets.CJugar);
-			imagenTutorial1.paint(g, Assets.imagenTutorial1);
-			imagenTutorial2.paint(g, Assets.imagenTutorial2);
-			imagenTutorial3.paint(g, Assets.imagenTutorial3);
-			imagenTutorial4.paint(g, Assets.imagenTutorial4);
-			imagenTutorial5.paint(g, Assets.imagenTutorial5);
-			imagenTutorial6.paint(g, Assets.imagenTutorial6);
-			textoTutorial1.paint(g, Assets.textoTutorial1);
-			textoTutorial2.paint(g, Assets.textoTutorial2);
-			textoTutorial3.paint(g, Assets.textoTutorial3);
-			textoTutorial4.paint(g, Assets.textoTutorial4);
-			textoTutorial5.paint(g, Assets.textoTutorial5);
-			textoTutorial6.paint(g, Assets.textoTutorial6);
-			atras3.paint(g, Assets.atras3);
+		} else if(option == 4) { //Menú tutorial
+			crearTutorial();
+			pintarTutorial(g);
 		}
 	}
 	
@@ -159,25 +257,47 @@ public class Menu implements MouseListener, KeyListener {
 	
 	//MouseListener
 	public void mouseClicked(MouseEvent ME) {
-		System.out.println("Hello There");
 		if(jugar.click(ME.getX(),ME.getY())) {
 			System.out.println("Funciona");
 			option = 1;
+			borrarPrincipal();
 		} else if(salir.click(ME.getX(),ME.getY())) {
 			System.exit(0);
 		} else if(tutorial.click(ME.getX(),ME.getY())) {
 			option = 4;
-		} else if(corazon.click(ME.getX(),ME.getY()) || vidas.click(ME.getX(),ME.getY()) || reloj.click(ME.getX(),ME.getY()) || tiempo.click(ME.getX(),ME.getY())) {
+		} 
+		
+		if(corazon.click(ME.getX(),ME.getY()) || vidas.click(ME.getX(),ME.getY()) || 
+		   reloj.click(ME.getX(),ME.getY()) || tiempo.click(ME.getX(),ME.getY())) {
 			option = 2;
+			if(corazon.click(ME.getX(), ME.getY()) || vidas.click(ME.getX(),ME.getY())) {
+				modo = 1;
+			} else if(reloj.click(ME.getX(),ME.getY()) || tiempo.click(ME.getX(),ME.getY())) {
+				modo = 2;
+			}
+			System.out.println("Modo " + modo);
 		} else if(atras1.click(ME.getX(),ME.getY())) {
 			option = 0;
+		} 
+		if(escenario1.click(ME.getX(),ME.getY()) || escenario2.click(ME.getX(),ME.getY()) || 
+		   escenario3.click(ME.getX(),ME.getY()) || escenario4.click(ME.getX(),ME.getY())) {
+			option = 3;
+			if(escenario1.click(ME.getX(),ME.getY())) {
+				escenario = 1;
+			} else if(escenario2.click(ME.getX(),ME.getY())) {
+				escenario = 2;
+			} else if(escenario3.click(ME.getX(),ME.getY())) {
+				escenario = 3;
+			} else if(escenario4.click(ME.getX(),ME.getY())) {
+				escenario = 4;
+			} 
+			System.out.println("Escenario " + escenario);
 		} else if(atras2.click(ME.getX(),ME.getY())) {
 			option = 1;
-		} else if(escenario1.click(ME.getX(),ME.getY()) || escenario2.click(ME.getX(),ME.getY()) || escenario3.click(ME.getX(),ME.getY()) || escenario4.click(ME.getX(),ME.getY())) {
-			option = 3;
-		} else if(atras3.click(ME.getX(),ME.getY())) {
+		} 
+		if(atras3.click(ME.getX(),ME.getY())) {
 			option = 0;
-		}
+		} 
 	}
 	public void mouseEntered(MouseEvent arg0) {
 	}
