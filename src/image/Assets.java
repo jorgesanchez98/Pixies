@@ -1,16 +1,8 @@
 package image;
-
-// Se importan las librer�as a ocupar
 import java.awt.image.BufferedImage;
 
 public class Assets {
-	
-	// Aqu� se cargan todas las im�genes que se requieran en el juego
-	// Es est�tico y p�blico dado a que requerimos acceder a ellas desde varias clases
-	/*
-	 * Ejemplo de BufferedImage con varias im�genes:
-	 * public static BufferedImage background, player, c	loud, enemy...; 
-	*/
+
 	public static BufferedImage background, level, block, block2, tankU, tankL,Rbullet, tankD, tankR, bullet, rocketPU;
 	public static BufferedImage relieve, fondo;
 	public static BufferedImage jugar, salir, titulo, tutorial;
@@ -19,13 +11,10 @@ public class Assets {
 	public static BufferedImage CJugar, imagenTutorial1, imagenTutorial2, imagenTutorial3, imagenTutorial4, imagenTutorial5, imagenTutorial6;
 	public static BufferedImage textoTutorial1, textoTutorial2, textoTutorial3, textoTutorial4, textoTutorial5, textoTutorial6;
 	public static BufferedImage atras1, atras2, atras3;
+	public static BufferedImage life;
 
 	
-	// En �ste m�todo se inicializan todas las im�genes que se van a ocupar
-	public static void init()
-	{
-		// Se hace uso de la clase ImageLoader para cargar la im�gen 
-		// (la clase debi� ser creada previamente)
+	public static void init() {
 		background = ImageLoader.loadImage("/Textures/background.png");
 		level = ImageLoader.loadImage("/Textures/level.png");
 		rocketPU = ImageLoader.loadImage("/Textures/rocketPU.png");
@@ -39,6 +28,7 @@ public class Assets {
 		Rbullet = ImageLoader.loadImage("/Textures/Rbullet.png");
 		relieve = ImageLoader.loadImage("/Menus/Tanque.png");
 		fondo = ImageLoader.loadImage("/Menus/Fondo.jpg");
+		life = ImageLoader.loadImage("/Textures/Life.png");
 		
 		jugar = ImageLoader.loadImage("/Menus/Jugar.png");
 		salir = ImageLoader.loadImage("/Menus/Salir.png");
@@ -60,7 +50,7 @@ public class Assets {
 		CJugar = ImageLoader.loadImage("/Menus/CJugar.png");
 		imagenTutorial1 = ImageLoader.loadImage("/Menus/Mover.png");
 		imagenTutorial2 = ImageLoader.loadImage("/Menus/Proyectil.png");
-		imagenTutorial3 = ImageLoader.loadImage("/Menus/Proyectil.png");  //CORREGIR
+		imagenTutorial3 = ImageLoader.loadImage("/Menus/RocketPU.png");  
 		imagenTutorial4 = ImageLoader.loadImage("/Menus/TankSprite.png");
 		imagenTutorial5 = ImageLoader.loadImage("/Menus/Corazon.png");
 		imagenTutorial6 = ImageLoader.loadImage("/Menus/Reloj.png");
