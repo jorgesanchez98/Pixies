@@ -3,19 +3,20 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
-import java.util.*;
-
-import javax.swing.Timer;
 
 import image.Assets;
 
-public class Game implements Runnable {
+public class Game implements Runnable, MouseListener {
 	public static int width, height;
 	public String title;
 	public int tiempo = 120;
 	
+	private Boton pausa;
+	private boolean pausado=false;
 	public Thread thread;
 	private Window window;
 	private Handler handler;
@@ -66,6 +67,7 @@ public class Game implements Runnable {
 		handler.addObj(player2);
 		handler.addObj(rocket);
 		HUD = new HUD(0,452,720,30);
+		pausa=new Boton (300,475,32,32);
 	}
 	
 	// El m�todo start se encarga de iniciar al juego
@@ -137,6 +139,7 @@ public class Game implements Runnable {
 		HUD.render(g);
 		g.dispose();
 		bs.show();
+		pausa.paint(g, Assets.pausa);
 	}
 	/*
 	public void segundoMenos() {
@@ -152,20 +155,22 @@ public class Game implements Runnable {
 		long now, lastTime = System.nanoTime(), timer = 0;
 
 		while (running) {
-			now = System.nanoTime();
-			delta += (now-lastTime) / timePerTick;
-			timer += now - lastTime;
-			lastTime = now;
-
-			if (delta >= 1) {
-				tick();
-				render();
-				ticks++;
-				delta--;
-			}
-			if (timer>=1000000000) {
-				ticks = 0;
-				timer = 0;
+			if (player.getPausado()==false) {
+				now = System.nanoTime();
+				delta += (now-lastTime) / timePerTick;
+				timer += now - lastTime;
+				lastTime = now;
+	
+				if (delta >= 1) {
+					tick();
+					render();
+					ticks++;
+					delta--;
+				}
+				if (timer>=1000000000) {
+					ticks = 0;
+					timer = 0;
+				}
 			}
 		}
 		System.out.println("" + tiempo);
@@ -178,5 +183,23 @@ public class Game implements Runnable {
 	}
 	public int getHeight() { 
 		return height; 
+	}
+
+	public void mouseClicked(MouseEvent m) {
+		if (pausa.click(m.getX(), m.getY())){
+			pausado=!pausado;
+		}
+	}
+
+	public void mouseEntered(MouseEvent arg0) {
+	}
+
+	public void mouseExited(MouseEvent arg0) {
+	}
+
+	public void mousePressed(MouseEvent arg0) {
+	}
+
+	public void mouseReleased(MouseEvent arg0) {
 	}
 }

@@ -11,7 +11,7 @@ public class Assets {
 	public static BufferedImage CJugar, imagenTutorial1, imagenTutorial2, imagenTutorial3, imagenTutorial4, imagenTutorial5, imagenTutorial6;
 	public static BufferedImage textoTutorial1, textoTutorial2, textoTutorial3, textoTutorial4, textoTutorial5, textoTutorial6;
 	public static BufferedImage atras1, atras2, atras3;
-	public static BufferedImage life;
+	public static BufferedImage life, pausa;
 
 	
 	public static void init() {
@@ -29,6 +29,7 @@ public class Assets {
 		relieve = ImageLoader.loadImage("/Menus/Tanque.png");
 		fondo = ImageLoader.loadImage("/Menus/Fondo.jpg");
 		life = ImageLoader.loadImage("/Textures/Life.png");
+		pausa = ImageLoader.loadImage("/Textures/pausa.png");
 		
 		jugar = ImageLoader.loadImage("/Menus/Jugar.png");
 		salir = ImageLoader.loadImage("/Menus/Salir.png");
