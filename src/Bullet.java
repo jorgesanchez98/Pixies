@@ -54,11 +54,13 @@ public class Bullet extends GameObject{
 					setAlive(false);
 					if(menu.getModo()==1) {
 						player2.perderVida();
+						handler.removeObj(this);
 						if(player2.getVidas()==0) {
 							aux.setAlive(false);
 						} 
 					} else if(menu.getModo()==2) {
 						player.ganarPunto();
+						handler.removeObj(this);
 					}
 				}
 			}

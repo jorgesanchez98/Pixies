@@ -67,11 +67,13 @@ public class RocketBllt extends GameObject{
 				{
 					if(menu.getModo()==1) {
 						player2.perderVidaCohete();
+						handler.removeObj(this);
 						if(player2.getVidas()<=0) {
 							aux.setAlive(false);
 						} 
 					} else if(menu.getModo()==2) {
 						player.ganarPuntoCohete();
+						handler.removeObj(this);
 					}
 				}
 			}
