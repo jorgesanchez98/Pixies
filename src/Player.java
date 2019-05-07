@@ -19,22 +19,12 @@ public class Player extends Chracter{
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
-
-	// Constructor que recibe los atributos de un GameObject
-	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
-		super(x, y, width, height, handler);
-// Clase que define el comportamiento del jugador
-public class Player extends Chracter{
-
 	private static int vidas = 3;
 	private static int cohetes = 0;
 	private static int puntos = 0;
-	private static double PI = 3.1415;
-	
-	private int dir=1, pack5;
-	private AnimationSprite bat;
 
-	public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+
+public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
 		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
 		for (int i=0; i<16; i++) {
@@ -71,9 +61,12 @@ public class Player extends Chracter{
 			counterClockWise();
 		}
 		counter=(counter+1)%6;
-	public int getVidas() {
-		return vidas;
+		bat.update();
 	}
+		
+		public int getVidas() {
+			return vidas;
+		}
 	public int getCohetes() {
 		return cohetes;
 	}
@@ -89,9 +82,7 @@ public class Player extends Chracter{
 		//if() {}
 	}
 
-	public void tick() {	
-		bat.update();
-	}
+	
 	public boolean collision(double dx, double dy) {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()) {
