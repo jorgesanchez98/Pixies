@@ -23,7 +23,7 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics2D g;
 	private LevelCreator level;
-	private Player player;
+	private Player player1;
 	private P2 player2;
 	private Rocket rocket;
 	private HUD HUD;
@@ -43,45 +43,29 @@ public class Game implements Runnable {
 	
 		window = new Window(title, width, height);
 		handler = new Handler();
-		//se creal el nivel
 		level = new LevelCreator (handler);
-		// Se crea al jugador
-		player = new Player(80, 200, 32, 32, Assets.tankU, handler);
-		player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
-		rocket = new Rocket(80, 250, 32, 32, Assets.rocketPU, handler);
-		// Se crea el KeyInput
-		/*
-		 * En nuestro caso, quiï¿½n se harï¿½ cargo de escuchar los inputs recibidos
-		 * por el usuario, es el jugador.
-		 */
-		keyInput = new KeyInput(player,player2);
-		//keyInput = new KeyInput(player2);
-		// Aï¿½ade el KeyInput a la ventana, para que ï¿½sta sea la intermediaria
+		player1 = new Player(80,200,32,32,Assets.tankU, handler);
+		player2 = new P2(150,200,32,32,Assets.tankU, handler);
+		rocket = new Rocket(80,250,32,32,Assets.rocketPU, handler);
+		keyInput = new KeyInput(player1,player2);
 		window.getFrame().addKeyListener(keyInput);
-		handler.addObj(player);
+		handler.addObj(player1);
 		handler.addObj(player2);
 		handler.addObj(rocket);
 		HUD = new HUD(0,452,720,30);
 	}
-	
-	// El mï¿½todo start se encarga de iniciar al juego
-	public synchronized void start()
-	{
-		System.out.println("Hit the special block to win the game\nShoot with space, move with the arrows");
+
+	public synchronized void start() {
+		System.out.println("May the game begin");
 		if (running) return;
 		running = true;
 		thread = new Thread(this);
-		
-		// MUSIC
+
+		//Música
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
 		
 		thread.start();
-		/*
-		if(menu.getModo()==2) {
-			timer.start();
-		}
-		*/
 	}
 	
 	//Finalizador del juego
@@ -104,10 +88,7 @@ public class Game implements Runnable {
 	
 	//Render
 	public void render() {
-		// Se obtiene el BufferStrategy que tiene el Canvas de Window
 		bs = window.getCanvas().getBufferStrategy();
-		
-		//Creador del BufferStrategy
 		if (bs == null) {
 			window.getCanvas().createBufferStrategy(3);
 			return;
@@ -134,11 +115,6 @@ public class Game implements Runnable {
 		g.dispose();
 		bs.show();
 	}
-	/*
-	public void segundoMenos() {
-		tiempo = tiempo - 1;
-	}
-	*/
 	
 	//Runnable
 	public void run() {
@@ -164,7 +140,6 @@ public class Game implements Runnable {
 				timer = 0;
 			}
 		}
-		System.out.println("" + tiempo);
 		stop();
 		System.exit(0);
 	}	

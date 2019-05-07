@@ -14,25 +14,22 @@ public class P2 extends Chracter{
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
-	private static int vidas = 3;
+	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
 
-	// Constructor que recibe los atributos de un GameObject
-	public P2(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
-		super(x, y, width, height, handler);
+	public P2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+		super(x,y,width,height,handler);
 		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dirP2.png", 32, 32);
-		for (int i=0; i<16 ; i++) {//add all frames
-			builder.addImage(i, 0);
+		for (int i=0; i<16; i++) {
+			builder.addImage(i,0);
 		}
 		bat=new AnimationSprite(x, y, builder.build());
 		bat.setAnimSpd(5);
 	}
 		
-	// Mï¿½todo que nos ayuda a actualizar al jugador
-	@Override
-	public void tick() 
-	{	
+	//Actualizador
+	public void tick() {	
 		if (counter==0 || counter==1 || counter==2) {
 			if (adelante==true) {
 				if (!collision(moveX(angle)*2, moveY(angle)*2)) {
@@ -75,47 +72,36 @@ public class P2 extends Chracter{
 	public void ganarPunto() {
 		puntos = puntos + 1;
 	}
+	public void perderVidaCohete() {
+		vidas = vidas - 3;
+	}
+	public void ganarPuntoCohete() {
+		puntos = puntos + 3;
+	}
 	
-	// Mï¿½todo que se encarga de detectar las colisiones
-	
-	@Override
-	public boolean collision(double dx, double dy) 
-	{
-		// Se genera un iterador para revisar todos los objetos
+	//Detección de colisiones
+	public boolean collision(double dx, double dy) {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
-		while (iterator.hasNext())
-		{
-			// Se crea un objeto auxiliar
+		while (iterator.hasNext()) {
 			GameObject aux = iterator.next();
-			
-			// Si el auxiliar es una pared
-			if (aux instanceof Block)
-			{
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x+dx, y-dy, aux))
-				{
+			if (aux instanceof Block) {
+				if (placeMeeting(x+dx, y-dy, aux)) {
 					return true;
 				}
 			}
-			if (aux instanceof Player)
-			{
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x+dx, y-dy, aux))
-				{
+			if (aux instanceof Player) {
+				
+				if (placeMeeting(x+dx, y-dy, aux)) {
 					return true;
 				}
 			}
-			if (aux instanceof Rocket)
-			{
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x+dx, y-dy, aux))
-				{
+			if (aux instanceof Rocket) {
+				if (placeMeeting(x+dx, y-dy, aux)) {
 					handler.removeObj(aux);
 					pack5 = 5;
 					return true;
 				}
-			}
-			
+			}	
 		}
 		return false;
 	}
@@ -151,64 +137,54 @@ public class P2 extends Chracter{
 		bat.render(g, x, y, angle);
 	}
 	
-	// Mï¿½todo que lee las teclas que han sido presionadas
+	//KeyListeners
 	public  void keyPressed(int key) {
-		//Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
-		// Si es la flecha izquierda, vuelve la velocidad en x -3
 		if (key == KeyEvent.VK_A) { 
 			anticlock=true;
 		}
-		// Si es la flecha derecha, vuelve la velocidad en x +3
+		//x+3
 		if (key == KeyEvent.VK_D) { 
 			clock=true;
 		}
-		// Si es la flecha arriba, vuelve la velocidad en y -3
+		//y-3
 		if (key == KeyEvent.VK_W) { 
 			adelante=true;
 		}
-		// Si es la flecha abajo, vuelve la velocidad en y +3
+		//y+3
 		if (key == KeyEvent.VK_S) { 
 			atras=true;
 		}
 		if (key == KeyEvent.VK_E) {
-		
-			
 			if(pack5>0) {
 				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
 				pack5--;
+			} else {
+				handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
 			}
-				else {
-					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
-				}
 		}
 	}
-	
-	
 	public void keyReleased(int key) {
 		if (key == KeyEvent.VK_A) { 
 			anticlock=false;
 		}
-		// Si es la flecha derecha, vuelve la velocidad en x +3
+		//x+3
 		if (key == KeyEvent.VK_D) { 
 			clock=false;
 		}
-		// Si es la flecha arriba, vuelve la velocidad en y -3
+		//y-3
 		if (key == KeyEvent.VK_W) { 
 			adelante=false;
 		}
-		// Si es la flecha abajo, vuelve la velocidad en y +3
+		//y+3
 		if (key == KeyEvent.VK_S) { 
 			atras=false;
 		}
 		if (key == KeyEvent.VK_E) {
 		//	shootR=false;
-		}}
-	
-
-	public void keyTyped(int key) {
-		
+		}
 	}
-
+	public void keyTyped(int key) {	
+	}
 }
 

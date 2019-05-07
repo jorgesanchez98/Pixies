@@ -11,10 +11,10 @@ public class Bullet extends GameObject{
 	private int dirX, dirY,index;
 	Player player = new Player(80, 200, 32, 32, Assets.tankU, handler);
 	P2 player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
+	Menu menu = new Menu(720,480);
 	
-	// Constructor que recibe los atributos de un GameObject
-	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler,int index)
-	{
+	// Constructor
+	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler,int index) {
 		super (x,y,width,height,handler);
 		this.sprite=bi;
 		this.dirX=dirX;
@@ -22,14 +22,11 @@ public class Bullet extends GameObject{
 		this.index = index;
 	}
 	
-	@Override
-	public void paint(Graphics g)
-	{
-		//pintamos la imagen pasada como argumento al contructor
+	//Paint 
+	public void paint(Graphics g) {
 		g.drawImage(sprite, getX(), getY(), null);
 	}
 	
-	@Override
 	public void tick() {
 		x+=dirX;
 		y-=dirY;
@@ -38,14 +35,11 @@ public class Bullet extends GameObject{
 	
 	public void collision() {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
-		while (iterator.hasNext())
-		{
-			// Se crea un objeto auxiliar
+		while (iterator.hasNext()) {
 			GameObject aux = iterator.next();
 			if (aux instanceof Block) {
 				if (placeMeeting(x, y, aux)) {
 					setAlive(false);
-					
 				}
 			}
 			if (aux instanceof Target) {
@@ -55,39 +49,38 @@ public class Bullet extends GameObject{
 					handler.setWin(true);
 				}
 			}
-			if (aux instanceof P2)
-			{
-				if (placeMeeting(x, y, aux) && index!=2)
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				{
+			if (aux instanceof P2) { //Colisión Bala-Player2
+				if (placeMeeting(x, y, aux) && index!=2) {
 					setAlive(false);
-					if(player2.getVidas()>0) {
+					if(menu.getModo()==1) {
 						player2.perderVida();
-					} else if(player2.getVidas()==0) {
-						aux.setAlive(false);
+						if(player2.getVidas()==0) {
+							aux.setAlive(false);
+						} 
+					} else if(menu.getModo()==2) {
+						player.ganarPunto();
 					}
 				}
 			}
-			if (aux instanceof Player)
-			{
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x, y, aux) && index!=1)
-				{
-					setAlive(false);
-					if(player.getVidas()>0) {
+			if (aux instanceof Player) { //Colisión Bala-Player1
+				if (placeMeeting(x, y, aux) && index!=1) {
+					if(menu.getModo()==1) {
 						player.perderVida();
-					} else if(player.getVidas()==0) {
-						aux.setAlive(false);
+						handler.removeObj(this);
+						if(player.getVidas()==0) {
+							aux.setAlive(false);
+						} 
+					} else if(menu.getModo()==2) {
+						player2.ganarPunto();
+						handler.removeObj(this);
 					}
 				}
 			}
 		}
 	}
 
-	// Obtiene los bordes de la bala (nos ayuda con las colisiones)
-	@Override
-	public Rectangle getBounds()
-	{
+	//Bordes del rectángulo
+	public Rectangle getBounds() {
 		return (new Rectangle(getX(), getY(), width, height));
 	}
 }

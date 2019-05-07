@@ -22,12 +22,10 @@ public class SpriteBuilder {
 		this.cellH=cellH;
 		this.cellW=cellW;
 	}
-	
 	public SpriteBuilder addImage(int i, int j) {
 		images.add(spriteSheet.getSubimage(i*cellW, j*cellH, cellW, cellH));
 		return this;
 	}
-	
 	public CachedSprite build() {
 		return new CachedSprite(images);	
 	}

@@ -1,8 +1,5 @@
-
-
 import java.io.IOException;
 import java.util.HashMap;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -11,27 +8,26 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer {
-	// Instance variables
+	
+	//Variables
 	private static AudioPlayer instance;
 	private HashMap<String, Clip> audios;
 	private float musicVol;
 	private float effectVol;
 	private String currentMusic;
 	
-	//---------------------- CONSTRUCTOR -----------------------------
+	//Constructor
 	private AudioPlayer() {
 		musicVol = 1.0f;
 		effectVol = 1.0f;
-		
 		audios = new HashMap<String, Clip>();
 	}
 	
-	//-------------------- METHODS ------------------------------------
+	//Métodos
 	public static AudioPlayer get() {
 		if (instance == null) instance = new AudioPlayer();
 		return instance;
 	}
-
 	public void playMusic(String audioName) {
 		Clip clip = getSoundClip(audioName);
 		clip.setFramePosition(0);
@@ -42,7 +38,6 @@ public class AudioPlayer {
 		}
 		currentMusic = audioName;
 	}
-	
 	public void stopMusic() {
 		if (currentMusic != null) {
 			Clip clip = audios.get(currentMusic);
@@ -50,7 +45,6 @@ public class AudioPlayer {
 			currentMusic = null;
 		}
 	}
-	
 	public void playEffectSound(String audioName) {
 		Clip clip = getSoundClip(audioName);
 		clip.setFramePosition(0);
@@ -58,22 +52,21 @@ public class AudioPlayer {
 		clip.start();
 	}
 
+	//Setters-Getters
 	public float getMusicVol() {
 		return musicVol;
 	}
-
 	public float getEffectVol() {
 		return effectVol;
 	}
-
 	public void setMusicVol(float musicVol) {
 		if (musicVol >= 0 && musicVol <= 1) this.musicVol = musicVol;
 	}
-
 	public void setEffectVol(float effectVol) {
 		if (effectVol >= 0 && effectVol <= 1) this.effectVol = effectVol;
 	}
 	
+	//Métodos del clip
 	private Clip getSoundClip(String clipName) {
 		if (audios.get(clipName) != null) {
 			return audios.get(clipName);
@@ -81,7 +74,6 @@ public class AudioPlayer {
 		
 		Clip clip = null;
 		AudioInputStream audioStream = null;
-		
 		try {
 			String route = "music/" + clipName + ".wav";
 			System.out.println("File Name is: " + route);
@@ -107,7 +99,6 @@ public class AudioPlayer {
 		audios.put(currentMusic, clip);
 		return clip;
 	}
-	
 	private void setVolume(Clip clip, float volume) {
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		float range = gainControl.getMaximum() - gainControl.getMinimum();
