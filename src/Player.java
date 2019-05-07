@@ -22,6 +22,7 @@ public class Player extends Chracter{
 	private static int vidas = 3;
 	private static int cohetes = 0;
 	private static int puntos = 0;
+	private static boolean ableToShoot = true;
 
 
 public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
@@ -122,6 +123,9 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
+	
+	
+	
 	public static int moveY(int direction) {
 		int movX;
 		if (direction >= 0 && direction <=7)
@@ -131,13 +135,13 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		return movX;
 	}
 	
-	  public static double round(double value, int places) {
+	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
-	  }
+	}
 	
 	public void paint(Graphics g) {		
 		bat.render(g, x, y, angle);
@@ -163,14 +167,15 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		}
 		if (key == KeyEvent.VK_SPACE) {
 		
-			
-			if(pack5>0) {
-				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
-				pack5--;
-			}
-				else {
+			if (ableToShoot) {
+				/*if(pack5>0) {
+					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
+					pack5--;
+				} else {
 					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
-				}
+				}*/
+				ableToShoot = false;
+			}
 		}
 	}
 	
@@ -192,8 +197,9 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			atras=false;
 		}
 		if (key == KeyEvent.VK_SPACE) {
-		//	shootR=false;
-		}}
+			if (!ableToShoot) ableToShoot = true;
+		}
+	}
 	
 
 	public void keyTyped(int key) {
