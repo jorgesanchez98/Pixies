@@ -54,4 +54,7 @@ public class Window {
 	public JFrame getFrame() { 
 		return frame; 
 	}
+	public void dispose() {
+		frame.dispose();
+	}
 }

@@ -12,11 +12,11 @@ public class HUD {
 	private int y;
 	private int width;
 	private int height;
-	private static int tiempo = 10;
+	private static int tiempo = 120;
 	
 	Handler handler = new Handler();
 	Player player1 = new Player(80,200,32,32,Assets.tankU,handler);
-	P2 player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
+	P2 player2 = new P2(150,200,32,32,Assets.tankU, handler);
 	Game game = new Game("Tank",720,480);
 	Menu menu = new Menu(720,480);
 	
@@ -59,7 +59,7 @@ public class HUD {
 	public int getHeight() {
 		return height;
 	}
-	public int getTiempo() {
+	public static int getTiempo() {
 		return tiempo;
 	}
 	public void segundoMenos() {
@@ -78,14 +78,12 @@ public class HUD {
 			int PVY1 = 455;
 			int PVX1 = 50;
 			for(int i = 0; i < player1.getVidas(); i++) {
-				System.out.println("i = " + i);
 				g.drawImage(Assets.life,PVX1,PVY1,20,20,null);
 				PVX1 = PVX1 + 20;
 			}
 			int PVY2 = 455;
 			int PVX2 = 555;
 			for(int i = 0; i < player2.getVidas(); i++) {
-				System.out.println("i = " + i);
 				g.drawImage(Assets.life,PVX2,PVY2,20,20,null);
 				PVX2 = PVX2 + 20;
 			}

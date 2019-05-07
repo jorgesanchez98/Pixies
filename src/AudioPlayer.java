@@ -99,6 +99,13 @@ public class AudioPlayer {
 		audios.put(currentMusic, clip);
 		return clip;
 	}
+	public void checkLoopMusic() {
+		Clip actualMusic = getSoundClip(currentMusic);
+		if(!actualMusic.isActive()) {
+			playMusic(currentMusic);
+		}
+	}
+	
 	private void setVolume(Clip clip, float volume) {
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		float range = gainControl.getMaximum() - gainControl.getMinimum();

@@ -17,6 +17,7 @@ public class P2 extends Chracter{
 	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
+	private static boolean ableToShoot = true;
 
 	public P2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
@@ -156,11 +157,14 @@ public class P2 extends Chracter{
 			atras=true;
 		}
 		if (key == KeyEvent.VK_E) {
-			if(pack5>0) {
-				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
-				pack5--;
-			} else {
-				handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
+			if(ableToShoot) {
+				if(pack5>0) {
+					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
+					pack5--;
+				} else {
+					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
+				}
+				ableToShoot = false;
 			}
 		}
 	}
@@ -181,7 +185,7 @@ public class P2 extends Chracter{
 			atras=false;
 		}
 		if (key == KeyEvent.VK_E) {
-		//	shootR=false;
+			if(!ableToShoot) ableToShoot = true;
 		}
 	}
 	public void keyTyped(int key) {	
