@@ -97,14 +97,10 @@ public class Menu implements MouseListener, KeyListener {
 	}
 	
 	public void borrarPrincipal() {
-		jugar.setWidth(0);
-		jugar.setHeight(0);
-		salir.setWidth(0);
-		salir.setHeight(0);
-		tutorial.setWidth(0);
-		tutorial.setHeight(0);
-		titulo.setWidth(0);
-		titulo.setHeight(0);
+		jugar.setSize(1,1,1,1);
+		salir.setSize(1,1,1,1);
+		tutorial.setSize(1,1,1,1);
+		titulo.setSize(1,1,1,1);
 	}
 
 	public void borrarModalidad() {
