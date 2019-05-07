@@ -9,12 +9,14 @@
 /Game.class
 /GameObject.class
 /GamePadInput.class
+/HUD.class
 /Handler.class
 /KeyInput.class
 /Launcher.class
 /LevelCreator.class
 /Main.class
 /Menu.class
+/image/
 /MenuPanel.class
 /Player.class
 /Rocket.class
@@ -22,6 +24,3 @@
 /SpriteBuilder.class
 /Target.class
 /Window.class
-/image/
-/HUD.class
-/HUB.class
