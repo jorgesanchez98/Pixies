@@ -54,4 +54,5 @@ public class Window {
 	public JFrame getFrame() { 
 		return frame; 
 	}
+	
 }
