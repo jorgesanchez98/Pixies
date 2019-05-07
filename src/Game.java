@@ -35,6 +35,7 @@ public class Game implements Runnable{
 	private Graphics2D g;
 	private LevelCreator level;
 	private Player player;
+	private P2 player2;
 	private Rocket rocket;
 	
 	// Con la variable booleana
@@ -71,18 +72,21 @@ public class Game implements Runnable{
 		level = new LevelCreator (handler);
 		// Se crea al jugador
 		player = new Player(80, 200, 32, 32, Assets.tankU, handler);
+		player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
 		rocket = new Rocket(80, 250, 32, 32, Assets.rocketPU, handler);
 		// Se crea el KeyInput
 		/*
 		 * En nuestro caso, qui�n se har� cargo de escuchar los inputs recibidos
 		 * por el usuario, es el jugador.
 		 */
-		keyInput = new KeyInput(player);
+		keyInput = new KeyInput(player,player2);
+		//keyInput = new KeyInput(player2);
 		// A�ade el KeyInput a la ventana, para que �sta sea la intermediaria
 		window.getFrame().addKeyListener(keyInput);
 		
 		// Se le a�aden los objetos pared y jugador al Handler
 		handler.addObj(player);
+		handler.addObj(player2);
 		handler.addObj(rocket);
 	}
 	

@@ -9,21 +9,16 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-//30/04/2019
-
-/*ESTA BRANCH VALE VERGA*/
-
-// Clase que define el comportamiento del jugador
-public class Player extends Chracter{
+public class P2 extends Chracter{
 	private int dir=1, counter=0, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
 
 	// Constructor que recibe los atributos de un GameObject
-	public Player(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
+	public P2(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
-		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
+		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dirP2.png", 32, 32);
 		for (int i=0; i<16 ; i++) {//add all frames
 			builder.addImage(i, 0);
 		}
@@ -82,7 +77,7 @@ public class Player extends Chracter{
 					return true;
 				}
 			}
-			if (aux instanceof P2)
+			if (aux instanceof Player)
 			{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
 				if (placeMeeting(x+dx, y-dy, aux))
@@ -100,6 +95,7 @@ public class Player extends Chracter{
 					return true;
 				}
 			}
+			
 		}
 		return false;
 	}
@@ -140,52 +136,52 @@ public class Player extends Chracter{
 		//Si es escape, cierra el juego
 		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
 		// Si es la flecha izquierda, vuelve la velocidad en x -3
-		if (key == KeyEvent.VK_LEFT) { 
+		if (key == KeyEvent.VK_A) { 
 			anticlock=true;
 		}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_D) { 
 			clock=true;
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
-		if (key == KeyEvent.VK_UP) { 
+		if (key == KeyEvent.VK_W) { 
 			adelante=true;
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras=true;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 		
 			
 			if(pack5>0) {
-				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
+				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
 				pack5--;
 			}
 				else {
-					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
 				}
 		}
 	}
 	
 	
 	public void keyReleased(int key) {
-		if (key == KeyEvent.VK_LEFT) { 
+		if (key == KeyEvent.VK_A) { 
 			anticlock=false;
 		}
 		// Si es la flecha derecha, vuelve la velocidad en x +3
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_D) { 
 			clock=false;
 		}
 		// Si es la flecha arriba, vuelve la velocidad en y -3
-		if (key == KeyEvent.VK_UP) { 
+		if (key == KeyEvent.VK_W) { 
 			adelante=false;
 		}
 		// Si es la flecha abajo, vuelve la velocidad en y +3
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras=false;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 		//	shootR=false;
 		}}
 	
@@ -195,3 +191,4 @@ public class Player extends Chracter{
 	}
 
 }
+

@@ -5,17 +5,18 @@ import java.util.ListIterator;
 
 public class RocketBllt extends GameObject{
 	protected BufferedImage sprite;
-	private int angle;
+	private int angle,index;
 	private float dirX, dirY;
 	private AnimationSprite bat;
 	
 	// Constructor que recibe los atributos de un GameObject
-	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler, int angle)
+	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler, int angle, int index)
 	{
 		super (x,y,width,height,handler);
 		//this.sprite=bi;
 		this.dirX=dirX;
 		this.dirY=dirY;
+		this.index=index;
 		SpriteBuilder builder = new SpriteBuilder ("./Textures/16cohete.png", 20, 20);
 		for (int i=0; i<16 ; i++) {//add all frames
 			builder.addImage(i, 0);
@@ -60,6 +61,24 @@ public class RocketBllt extends GameObject{
 					setAlive(false);
 					aux.setAlive(false);
 					handler.setWin(true);
+				}
+			}
+			if (aux instanceof P2)
+			{
+				if (placeMeeting(x, y, aux) && index!=2)
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				{
+					setAlive(false);
+					aux.setAlive(false);
+				}
+			}
+			if (aux instanceof Player)
+			{
+				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
+				if (placeMeeting(x, y, aux) && index!=1)
+				{
+					setAlive(false);
+					aux.setAlive(false);
 				}
 			}
 		}
