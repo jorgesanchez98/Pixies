@@ -14,7 +14,6 @@ import image.Assets;
 public class Game implements Runnable {
 	public static int width, height;
 	public String title;
-	public int tiempo = 120;
 	
 	public Thread thread;
 	private Window window;
@@ -114,6 +113,29 @@ public class Game implements Runnable {
 		HUD.render(g);
 		g.dispose();
 		bs.show();
+		
+		Font font = new Font("Times New Roman",Font.PLAIN,30);
+		g.setFont(font);
+		/*
+		if(menu.getModo()==1) {
+			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
+				if(player1.getVidas()>0) {
+					g.drawString("¡Gana P1!", 330, 200);
+				} else if(player2.getVidas()>0) {
+					g.drawString("¡Gana P2!", 330, 200);
+				}
+			}
+		} else if(menu.getModo()==2) {
+			if(HUD.getTiempo()<=0) {
+				if(player1.getPuntos()>player2.getPuntos()) {
+					g.drawString("¡Gana P1!", 330, 200);
+				} else if(player2.getVidas()>player1.getPuntos()) {
+					g.drawString("¡Gana P2!", 330, 200);
+				}
+			}
+		}
+		*/
+		
 	}
 	
 	//Runnable
@@ -139,9 +161,12 @@ public class Game implements Runnable {
 				ticks = 0;
 				timer = 0;
 			}
+			//REVISAR
+			/*if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
+				running = false;
+			}*/
 		}
 		stop();
-		System.exit(0);
 	}	
 	
 	public int getWidth() { 
