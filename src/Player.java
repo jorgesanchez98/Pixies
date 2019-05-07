@@ -17,9 +17,9 @@ public class Player extends Chracter{
 	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
+	private static boolean ableToShoot = true;
 
-
-public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+	public Player(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
 		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dir.png", 32, 32);
 		for (int i=0; i<16; i++) {
@@ -154,11 +154,14 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			atras=true;
 		}
 		if (key == KeyEvent.VK_SPACE) {
-			if(pack5>0) {
-				handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
-				pack5--;
-			} else {
-				handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+			if(ableToShoot) {
+				if(pack5>0) {
+					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
+					pack5--;
+				} else {
+					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,1));
+				}
+				ableToShoot = false;
 			}
 		}
 	}
@@ -181,7 +184,7 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			atras=false;
 		}
 		if (key == KeyEvent.VK_SPACE) {
-		//	shootR=false;
+			if(!ableToShoot) ableToShoot = true;
 		}
 	}
 	public void keyTyped(int key) {

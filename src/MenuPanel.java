@@ -110,14 +110,6 @@ public class MenuPanel extends JPanel implements Runnable {
 	public void gameOverMsg(Graphics DBG) {
 		System.out.println("GAME OVER");
 	}
-	/*
-	public boolean passedMenu() {
-		if(menu.getOption() == 3) {
-			menu.setOption(-1);
-			return true;
-		}
-		return false;
-	}*/
 	
 	//Paint
 	public void paint(Graphics GL) {

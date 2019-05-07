@@ -43,9 +43,9 @@ public class Game implements Runnable {
 		window = new Window(title, width, height);
 		handler = new Handler();
 		level = new LevelCreator (handler);
-		player1 = new Player(80,200,32,32,Assets.tankU, handler);
-		player2 = new P2(150,200,32,32,Assets.tankU, handler);
-		rocket = new Rocket(80,250,32,32,Assets.rocketPU, handler);
+		player1 = new Player(60,220,32,32,Assets.tankU, handler);
+		player2 = new P2(620,220,32,32,Assets.tankU, handler);
+		rocket = new Rocket(350,300,32,32,Assets.rocketPU, handler);
 		keyInput = new KeyInput(player1,player2);
 		window.getFrame().addKeyListener(keyInput);
 		handler.addObj(player1);
@@ -114,8 +114,6 @@ public class Game implements Runnable {
 		g.dispose();
 		bs.show();
 		
-		Font font = new Font("Times New Roman",Font.PLAIN,30);
-		g.setFont(font);
 		/*
 		if(menu.getModo()==1) {
 			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
@@ -135,7 +133,6 @@ public class Game implements Runnable {
 			}
 		}
 		*/
-		
 	}
 	
 	//Runnable
@@ -161,12 +158,21 @@ public class Game implements Runnable {
 				ticks = 0;
 				timer = 0;
 			}
-			//REVISAR
-			/*if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
+			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
+				/*
+				window.dispose();
+				int P1Vidas = player1.getVidas();
+				int P2Vidas = player2.getVidas();
+				int P1Puntos = player1.getPuntos();
+				int P2Puntos = player2.getPuntos();
+				int HUDTime = HUD.getTiempo();
+				menu.drawWin((Menu) g, P1Vidas, P2Vidas, P1Puntos, P2Puntos, HUDTime);
+				*/
 				running = false;
-			}*/
+			}
 		}
 		stop();
+		System.exit(0);
 	}	
 	
 	public int getWidth() { 
