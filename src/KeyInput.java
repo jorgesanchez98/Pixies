@@ -3,10 +3,10 @@ import java.awt.event.KeyListener;
 
 // Clase encargada de leer la entrada de teclado del usuario
 public class KeyInput implements KeyListener{
-	// Se crea a quién va a ser el escuchador de las teclas
+	// Se crea a quiï¿½n va a ser el escuchador de las teclas
 	Player player;
 	P2 p2;
-	// Se hace el constructor, pasándole al escuchador
+	// Se hace el constructor, pasï¿½ndole al escuchador
 	public KeyInput(Player player, P2 p2) 
 	{
 		this.player = player;
@@ -15,18 +15,18 @@ public class KeyInput implements KeyListener{
 	// Si una tecla es presionada
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// Se obtiene el código entero de la tecla
+		// Se obtiene el cï¿½digo entero de la tecla
 		int key = e.getKeyCode();
-		// Se le pasa el código al método de tecla presionada del escuchador
+		// Se le pasa el cï¿½digo al mï¿½todo de tecla presionada del escuchador
 		player.keyPressed(key);
 		p2.keyPressed(key);
 	}
 	// Si una tecla es liberada
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// Se obtiene el código entero de la tecla
+		// Se obtiene el cï¿½digo entero de la tecla
 		int key = e.getKeyCode();
-		// Se le pasa el código al método de tecla liberada del escuchador
+		// Se le pasa el cï¿½digo al mï¿½todo de tecla liberada del escuchador
 		player.keyReleased(key);
 		p2.keyReleased(key);
 	}

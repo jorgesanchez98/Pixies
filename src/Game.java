@@ -94,11 +94,14 @@ public class Game implements Runnable{
 	public synchronized void start()
 	{
 		System.out.println("Hit the special block to win the game\nShoot with space, move with the arrows");
-		// Si el juego se est� corriendo, no hace nada
 		if (running) return;
-		// Hace que running pase al estado de true e inicia el thread principal
 		running = true;
 		thread = new Thread(this);
+		
+		// MUSIC
+		AudioPlayer.get().setMusicVol(0.7f);
+		AudioPlayer.get().playMusic("LoungeGame");
+		
 		thread.start();
 	}
 	
