@@ -127,7 +127,7 @@ public class Game implements Runnable, MouseListener {
 		long now, lastTime = System.nanoTime(), timer = 0;
 
 		while (running) {
-			if (player.getPausado()==false) {
+			if (player1.getPausado()==false) {
 				now = System.nanoTime();
 				delta += (now-lastTime) / timePerTick;
 				timer += now - lastTime;
