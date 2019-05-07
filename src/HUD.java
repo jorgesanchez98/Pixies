@@ -12,7 +12,7 @@ public class HUD {
 	private int y;
 	private int width;
 	private int height;
-	private static int tiempo = 120;
+	private static int tiempo = 10;
 	
 	Handler handler = new Handler();
 	Player player1 = new Player(80,200,32,32,Assets.tankU,handler);
@@ -59,6 +59,9 @@ public class HUD {
 	public int getHeight() {
 		return height;
 	}
+	public int getTiempo() {
+		return tiempo;
+	}
 	public void segundoMenos() {
 		tiempo = tiempo - 1;
 	}
@@ -69,28 +72,28 @@ public class HUD {
 		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.drawString("P1",5,475);
-		g.drawString("P2",675,475);
+		g.drawString("P2",680,475);
 		
 		if(menu.getModo()==1) {
-			int PVY = 455;
-			//-----------
+			int PVY1 = 455;
 			int PVX1 = 50;
 			for(int i = 0; i < player1.getVidas(); i++) {
 				System.out.println("i = " + i);
-				g.drawImage(Assets.life,PVX1,PVY,20,20,null);
+				g.drawImage(Assets.life,PVX1,PVY1,20,20,null);
 				PVX1 = PVX1 + 20;
 			}
+			int PVY2 = 455;
 			int PVX2 = 555;
 			for(int i = 0; i < player2.getVidas(); i++) {
 				System.out.println("i = " + i);
-				g.drawImage(Assets.life,PVX2,PVY,20,20,null);
+				g.drawImage(Assets.life,PVX2,PVY2,20,20,null);
 				PVX2 = PVX2 + 20;
 			}
 			
 		} else if(menu.getModo()==2) {
 			g.drawString("" + tiempo, 350, 475);
 			g.drawString("| " + player1.getPuntos(),40,475);
-			g.drawString("" + player2.getPuntos() + " |",600,475);
+			g.drawString("" + player2.getPuntos() + " |",645,475);
 		}
 	}
 }
