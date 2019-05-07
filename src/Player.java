@@ -19,7 +19,7 @@ public class Player extends Chracter{
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
-	private static int vidas = 3;
+	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
 
@@ -64,9 +64,9 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		bat.update();
 	}
 		
-		public int getVidas() {
-			return vidas;
-		}
+	public int getVidas() {
+		return vidas;
+	}
 	public int getCohetes() {
 		return cohetes;
 	}
@@ -74,6 +74,7 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 		return puntos;
 	}
 	public void perderVida() {
+		System.out.println("Vidas = " + vidas);
 		vidas = vidas - 1;
 		//if() {}
 	}

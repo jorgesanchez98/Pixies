@@ -14,6 +14,9 @@ public class P2 extends Chracter{
 	private AnimationSprite bat;
 	private static double PI=3.1415;
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
+	private static int vidas = 3;
+	private static int cohetes = 0;
+	private static int puntos = 0;
 
 	// Constructor que recibe los atributos de un GameObject
 	public P2(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
@@ -54,6 +57,23 @@ public class P2 extends Chracter{
 		}
 		counter=(counter+1)%6;
 		bat.update();
+	}
+	
+	public int getVidas() {
+		return vidas;
+	}
+	public int getCohetes() {
+		return cohetes;
+	}
+	public int getPuntos() {
+		return puntos;
+	}
+	public void perderVida() {
+		System.out.println("Vidas = " + vidas);
+		vidas = vidas - 1;
+	}
+	public void ganarPunto() {
+		puntos = puntos + 1;
 	}
 	
 	// M�todo que se encarga de detectar las colisiones

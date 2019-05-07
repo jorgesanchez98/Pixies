@@ -73,7 +73,8 @@ public class HUD {
 		if(menu.getModo()==1) {
 			int PVX = 50;
 			int PVY = 455;
-			for(int i = 0; i<player.getVidas(); i++) {
+			for(int i = 0; i < player.getVidas(); i++) {
+				System.out.println("i = " + i);
 				g.drawImage(Assets.life,PVX,PVY,20,20,null);
 				PVX = PVX + 20;
 			}

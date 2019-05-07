@@ -4,9 +4,13 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ListIterator;
 
+import image.Assets;
+
 public class Bullet extends GameObject{
 	protected BufferedImage sprite;
 	private int dirX, dirY,index;
+	Player player = new Player(80, 200, 32, 32, Assets.tankU, handler);
+	P2 player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
 	
 	// Constructor que recibe los atributos de un GameObject
 	public Bullet (int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler,int index)
@@ -57,7 +61,11 @@ public class Bullet extends GameObject{
 				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
 				{
 					setAlive(false);
-					aux.setAlive(false);
+					if(player2.getVidas()>0) {
+						player2.perderVida();
+					} else if(player2.getVidas()==0) {
+						aux.setAlive(false);
+					}
 				}
 			}
 			if (aux instanceof Player)
@@ -66,7 +74,11 @@ public class Bullet extends GameObject{
 				if (placeMeeting(x, y, aux) && index!=1)
 				{
 					setAlive(false);
-					aux.setAlive(false);
+					if(player.getVidas()>0) {
+						player.perderVida();
+					} else if(player.getVidas()==0) {
+						aux.setAlive(false);
+					}
 				}
 			}
 		}

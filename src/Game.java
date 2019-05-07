@@ -28,11 +28,7 @@ public class Game implements Runnable {
 	private Rocket rocket;
 	private HUD HUD;
 	private boolean running = false;
-	
 	Menu menu = new Menu(720,480);
-	Color color = new Color(150,150,150);
-	Font font = new Font("Times New Roman",Font.PLAIN,36);
-	//Timer timer = new Timer(1000,AE->segundoMenos());
 	
 	//Constructor
 	public Game(String title, int width, int height) {
