@@ -178,6 +178,7 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			pausado=!pausado;
 			System.out.println("presione la p");
 		}
+		}
 	}
 	
 	
