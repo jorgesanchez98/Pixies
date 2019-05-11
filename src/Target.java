@@ -7,7 +7,7 @@ public class Target extends GameObject{
 	protected BufferedImage sprite;
 	
 	//Constructor
-	public Target (int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Target (int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super (x,y,width,height,handler);
 		this.sprite=bi;
 	}
@@ -18,7 +18,7 @@ public class Target extends GameObject{
 	}
 	public void tick() {}
 	
-	//Bordes del rectángulo
+	//Rectangle
 	public Rectangle getBounds() {
 		return (new Rectangle(getX(), getY(), width, height));
 	}

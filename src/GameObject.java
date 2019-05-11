@@ -21,17 +21,19 @@ public abstract class GameObject {
 		alive=true;
 	}
 	
+	//Métodos abstractos
 	public abstract void paint(Graphics g);
 	public abstract void tick();
 	public abstract Rectangle getBounds();
 	
-	//Detección de colisión entre rectángulos
+	//Colisión entre rectángulos
 	public boolean placeMeeting (double x, double y, GameObject obj) {
 		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) 
 			return true;
 		return false;
 	}
 	
+	//Setters-Getters
 	public void setX(int x) {
 		this.x = x;
 	}

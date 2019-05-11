@@ -57,7 +57,7 @@ public class Boton {
 		g.drawImage(BI,x,y,width,height,null);
 	}
 	
-	//Detección del MouseListener
+	//Detección de click
 	public boolean click(int mx, int my) {
 		boolean detection = false;
 		if(x<mx && x+width>mx && y<my && y+height>my) {

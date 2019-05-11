@@ -9,7 +9,9 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-public class P2 extends Chracter{
+public class Player2 extends Character{
+	
+	//Variables
 	private int dir=1, counter=0, pack5;
 	private AnimationSprite bat;
 	private static double PI=3.1415;
@@ -19,7 +21,8 @@ public class P2 extends Chracter{
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
 
-	public P2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+	//Constructor
+	public Player2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
 		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dirP2.png", 32, 32);
 		for (int i=0; i<16; i++) {
@@ -57,6 +60,7 @@ public class P2 extends Chracter{
 		bat.update();
 	}
 	
+	//Setters-Getters
 	public int getVidas() {
 		return vidas;
 	}
@@ -66,6 +70,8 @@ public class P2 extends Chracter{
 	public int getPuntos() {
 		return puntos;
 	}
+	
+	//Métodos Modos de Juego
 	public void perderVida() {
 		System.out.println("Vidas = " + vidas);
 		vidas = vidas - 1;
@@ -79,6 +85,12 @@ public class P2 extends Chracter{
 	public void ganarPuntoCohete() {
 		puntos = puntos + 3;
 	}
+	public void tomarCohete() {
+		cohetes = cohetes + 5;
+	}
+	public void dispararCohete() {
+		cohetes = cohetes - 1;
+	}
 	
 	//Detección de colisiones
 	public boolean collision(double dx, double dy) {
@@ -90,8 +102,12 @@ public class P2 extends Chracter{
 					return true;
 				}
 			}
-			if (aux instanceof Player) {
-				
+			if (aux instanceof Target) {
+				if (placeMeeting(x+dx, y-dy, aux)) {
+					return true;
+				}
+			}
+			if (aux instanceof Player1) {
 				if (placeMeeting(x+dx, y-dy, aux)) {
 					return true;
 				}
@@ -99,7 +115,7 @@ public class P2 extends Chracter{
 			if (aux instanceof Rocket) {
 				if (placeMeeting(x+dx, y-dy, aux)) {
 					handler.removeObj(aux);
-					pack5 = 5;
+					tomarCohete();
 					return true;
 				}
 			}	
@@ -107,6 +123,7 @@ public class P2 extends Chracter{
 		return false;
 	}
 
+	//Métodos de movimiento
 	public int moveX (int direction) {
 		int movX;
 		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
@@ -115,7 +132,6 @@ public class P2 extends Chracter{
 			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
-	
 	public static int moveY (int direction) {
 			int movX;
 			if (direction >= 0 && direction <=7)
@@ -125,16 +141,17 @@ public class P2 extends Chracter{
 		return movX;
 	}
 	
-	  public static double round(double value, int places) {
+	//Redondeo de escala
+	public static double round(double value, int places) {
 		    if (places < 0) throw new IllegalArgumentException();
-
+	
 		    BigDecimal bd = new BigDecimal(value);
 		    bd = bd.setScale(places, RoundingMode.HALF_UP);
 		    return bd.doubleValue();
-	  }
+	}
 	
-	public void paint(Graphics g) 
-	{		
+	//Paint
+	public void paint(Graphics g) {		
 		bat.render(g, x, y, angle);
 	}
 	
@@ -144,23 +161,20 @@ public class P2 extends Chracter{
 		if (key == KeyEvent.VK_A) { 
 			anticlock=true;
 		}
-		//x+3
 		if (key == KeyEvent.VK_D) { 
 			clock=true;
 		}
-		//y-3
 		if (key == KeyEvent.VK_W) { 
 			adelante=true;
 		}
-		//y+3
 		if (key == KeyEvent.VK_S) { 
 			atras=true;
 		}
 		if (key == KeyEvent.VK_E) {
 			if(ableToShoot) {
-				if(pack5>0) {
+				if(getCohetes()>0) {
 					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,2));
-					pack5--;
+					dispararCohete();
 				} else {
 					handler.addObj(new Bullet(this.getX()+15, this.getY()+16, 8, 8, Assets.bullet, moveX(angle), moveY(angle), handler,2));
 				}

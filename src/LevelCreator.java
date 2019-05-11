@@ -3,16 +3,27 @@ import java.awt.image.BufferedImage;
 
 import image.Assets;
 
-// Creador del Layout del nivel
+//Layout del nivel
 public class LevelCreator {
 	
+	//Variables
 	private Handler handler;
 	private BufferedImage level;
+	private KeyInput keyInput;
+	private Player1 player1;
+	private Player2 player2;
+	Menu menu = new Menu(720,480);
+	
 	
 	// Constructor
 	public LevelCreator (Handler handler){
 		this.handler = handler;
-		this.level = Assets.level;
+		switch(menu.getEscenario()) {
+		case 1: this.level = Assets.level1; break;
+		case 2: this.level = Assets.level2; break;
+		case 3: this.level = Assets.level3; break;
+		case 4: this.level = Assets.level4; break;
+		}
 		
 		int w=level.getWidth();
 		int h=level.getHeight();
@@ -27,8 +38,12 @@ public class LevelCreator {
 				}		
 				if (red==0&&green==0&&blue==255) {
 					handler.addObj(new Target(xx*30, yy*30, 31, 31, Assets.block2, handler));
-				}	
+				}
+				if (red==0&&green==255&&blue==0) {
+					handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.rocketPU, handler));
+				}
 			}
 		}
 	}
 }
+

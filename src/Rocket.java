@@ -5,12 +5,12 @@ import java.awt.image.BufferedImage;
 import java.util.ListIterator;
 import image.Assets;
 
-public class Rocket extends Chracter{
+public class Rocket extends Character{
 
 	protected BufferedImage sprite;
 	
 	// Constructor
-	public Rocket(int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Rocket(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x, y, width, height, handler);
 		this.sprite=bi;
 		}
@@ -23,15 +23,12 @@ public class Rocket extends Chracter{
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()){
 			GameObject aux = iterator.next();
-			if (aux instanceof Player) {
+			if (aux instanceof Player1) {
 				if (placeMeeting(x+dirX, y+dirY, aux)) {
 					//his.setX(20000);
 					System.out.println("Colision");
 					//velY=0;
 					return true;
-				}
-				else {
-
 				}
 			}
 		}

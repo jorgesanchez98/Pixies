@@ -2,10 +2,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Block extends GameObject{
+public class Block extends GameObject {
+	
+	//Variables
 	protected BufferedImage sprite;
+	
 	//Constructor
-	public Block (int x, int y, int width, int height,  BufferedImage bi, Handler handler) {
+	public Block (int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super (x,y,width,height,handler);
 		this.sprite=bi;
 	}
@@ -16,7 +19,7 @@ public class Block extends GameObject{
 	}
 	public void tick() {}
 	
-	//Bordes de pared
+	//Rectangle
 	public Rectangle getBounds(){
 		return (new Rectangle(getX(), getY(), width, height));
 	}

@@ -12,9 +12,12 @@ import javax.swing.Timer;
 import image.Assets;
 
 public class Game implements Runnable {
+	
+	//Variables
 	public static int width, height;
 	public String title;
 	
+	//Objetos del juego
 	public Thread thread;
 	private Window window;
 	private Handler handler;
@@ -22,8 +25,8 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics2D g;
 	private LevelCreator level;
-	private Player player1;
-	private P2 player2;
+	private Player1 player1;
+	private Player2 player2;
 	private Rocket rocket;
 	private HUD HUD;
 	private boolean running = false;
@@ -39,31 +42,43 @@ public class Game implements Runnable {
 	//Inicializador
 	public void init() {
 		Assets.init();
-	
 		window = new Window(title, width, height);
 		handler = new Handler();
-		level = new LevelCreator (handler);
-		player1 = new Player(60,220,32,32,Assets.tankU, handler);
-		player2 = new P2(620,220,32,32,Assets.tankU, handler);
-		rocket = new Rocket(350,300,32,32,Assets.rocketPU, handler);
+		level = new LevelCreator(handler);
+		HUD = new HUD(0,452,720,30);
+		
+		switch(menu.getEscenario()) {
+		case 1: player1 = new Player1(60,60,32,32,Assets.tankU, handler);
+				player2 = new Player2(630,360,32,32,Assets.tankU, handler);
+				break;
+		case 2: player1 = new Player1(270,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(420,210,32,32,Assets.tankU, handler);
+				break;
+		case 3: player1 = new Player1(90,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(600,210,32,32,Assets.tankU, handler);
+				break;
+		case 4: player1 = new Player1(60,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(630,210,32,32,Assets.tankU, handler);
+				break;
+		}
+		
 		keyInput = new KeyInput(player1,player2);
 		window.getFrame().addKeyListener(keyInput);
 		handler.addObj(player1);
 		handler.addObj(player2);
-		handler.addObj(rocket);
-		HUD = new HUD(0,452,720,30);
 	}
 
+	//Inicializador del juego
 	public synchronized void start() {
 		System.out.println("May the game begin");
-		if (running) return;
+		if(running) return;
 		running = true;
 		thread = new Thread(this);
 
-		//Música
+		//Iniciar música
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
-		
+
 		thread.start();
 	}
 	
@@ -93,14 +108,14 @@ public class Game implements Runnable {
 			return;
 		}
 		g = (Graphics2D) bs.getDrawGraphics();
-		g.clearRect(0, 0, width, height);
+		g.clearRect(0,0,width,height);
 		//g.drawImage(Assets.background, 0, 0, null);
 		
 		//Escalado de pantalla
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double scrWidth = scrSize.getWidth();
 		double scrHeight = scrSize.getHeight();
-		g.drawImage(Assets.background, 0, 0, (int)scrWidth, (int)scrHeight, null);
+		g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
 		double wScale = scrWidth/width;
 		double aproxH = (height*17)/17;
 		double hScale = (scrHeight/aproxH);
@@ -108,7 +123,7 @@ public class Game implements Runnable {
 		at.scale(wScale, hScale);
 		g.setTransform(at);
 		
-		//Pinta los objetos del Handler
+		//Render
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
@@ -175,6 +190,7 @@ public class Game implements Runnable {
 		System.exit(0);
 	}	
 	
+	//Getters
 	public int getWidth() { 
 		return width; 
 	}

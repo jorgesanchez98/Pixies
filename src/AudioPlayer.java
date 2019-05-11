@@ -106,6 +106,7 @@ public class AudioPlayer {
 		}
 	}
 	
+	//Ajuste de volumen
 	private void setVolume(Clip clip, float volume) {
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		float range = gainControl.getMaximum() - gainControl.getMinimum();

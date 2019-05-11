@@ -48,12 +48,15 @@ public class Window {
 		frame.requestFocus();
 	}
 	
+	//Getters
 	public Canvas getCanvas() { 
 		return canvas; 
 	}
 	public JFrame getFrame() { 
 		return frame; 
 	}
+	
+	//Dispose Frame
 	public void dispose() {
 		frame.dispose();
 	}

@@ -6,65 +6,63 @@ import java.util.ListIterator;
 import image.Assets;
 
 public class RocketBllt extends GameObject{
+	
+	//Variables
 	protected BufferedImage sprite;
 	private int angle,index;
 	private float dirX, dirY;
 	private AnimationSprite bat;
-	Player player = new Player(80, 200, 32, 32, Assets.tankU, handler);
-	P2 player2 = new P2(150, 200, 32, 32, Assets.tankU, handler);
+	
+	//Objetos
+	Player1 player = new Player1(80, 200, 32, 32, Assets.tankU, handler);
+	Player2 player2 = new Player2(150, 200, 32, 32, Assets.tankU, handler);
 	Menu menu = new Menu(720,480);
 	
 	// Constructor 
-	public RocketBllt(int x, int y, int width, int height,  BufferedImage bi, int dirX, int dirY, Handler handler, int angle, int index) {
+	public RocketBllt(int x, int y, int width, int height, BufferedImage bi, int dirX, int dirY, Handler handler, int angle, int index) {
 		super (x,y,width,height,handler);
 		//this.sprite=bi;
 		this.dirX=dirX;
 		this.dirY=dirY;
 		this.index=index;
-		SpriteBuilder builder = new SpriteBuilder ("./Textures/16cohete.png", 20, 20);
+		this.angle = angle;
+		SpriteBuilder builder = new SpriteBuilder ("./Textures/16cohete.png",20,20);
 		for (int i=0; i<16 ; i++) {
 			builder.addImage(i, 0);
 		}
 		bat=new AnimationSprite(x, y, builder.build());
 		bat.setAnimSpd(5);
-		this.angle = angle;
 	}
 	
+	//Paint
 	public void paint(Graphics g) {
 		bat.render(g, x, y, angle);
 	}
 	
+	//Colisión
 	public void tick() {
 		x+=dirX;
 		y-=dirY;
 		collision();
-		//Checar la direccion de la bala
-		//System.out.println("Dir x = "+dirX+"   Dir Y = "+dirY);
 	}
-	
 	public void collision() {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()) {
 			// Se crea un objeto auxiliar
 			GameObject aux = iterator.next();
 			if (aux instanceof Block) {
-				if (placeMeeting(x, y, aux)) {
+				if (placeMeeting(x,y,aux)) {
 					setAlive(false);
 					aux.setAlive(false);
 				}
 			}
 			if (aux instanceof Target) {
-				if (placeMeeting(x, y, aux)) {
-					setAlive(false);
-					aux.setAlive(false);
-					handler.setWin(true);
+				if (placeMeeting(x,y,aux)) {
+					setAlive(false); 
 				}
 			}
-			if (aux instanceof P2)
-			{
-				if (placeMeeting(x, y, aux) && index!=2)
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				{
+			if (aux instanceof Player2) {
+				if (placeMeeting(x, y, aux) && index!=2) {
 					if(menu.getModo()==1) {
 						player2.perderVidaCohete();
 						handler.removeObj(this);
@@ -77,11 +75,8 @@ public class RocketBllt extends GameObject{
 					}
 				}
 			}
-			if (aux instanceof Player)
-			{
-				// Si hace contacto con la pared en el eje de las x al sumarle la velocidad
-				if (placeMeeting(x, y, aux) && index!=1)
-				{
+			if (aux instanceof Player1) {
+				if (placeMeeting(x, y, aux) && index!=1) {
 					if(menu.getModo()==1) {
 						player.perderVidaCohete();
 						handler.removeObj(this);
@@ -97,7 +92,7 @@ public class RocketBllt extends GameObject{
 		}
 	}
 
-	//Bordes del cohete
+	//Rectangle
 	public Rectangle getBounds() {
 		return (new Rectangle(getX(), getY(), width, height));
 	}
