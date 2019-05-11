@@ -6,7 +6,6 @@ public class AnimationSprite {
 	private boolean reachedEnd;
 	private int animSpd;
 	private int animCount;
-	private int topCount;	
 	private int topCount;
 	private int width, height;
 	
