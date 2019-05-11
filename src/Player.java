@@ -18,6 +18,7 @@ public class Player extends Chracter{
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
+	private static boolean ableToTurn = true;
 	private boolean pausado=false;
 
 
@@ -50,10 +51,16 @@ public Player(int x, int y, int width, int height, BufferedImage bi, Handler han
 			}
 		}
 		if (clock==true) {
-			clockWise();
+			if (ableToTurn) {
+				clockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		if (anticlock==true) {
-			counterClockWise();
+			if (ableToTurn) {
+				counterClockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		counter=(counter+1)%6;
 		bat.update();

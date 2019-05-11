@@ -17,6 +17,7 @@ public class P2 extends Chracter{
 	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
+	private static boolean ableToTurn = true;
 
 	public P2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
@@ -47,10 +48,16 @@ public class P2 extends Chracter{
 			}
 		}
 		if (clock==true) {
-			clockWise();
+			if (ableToTurn) {
+				clockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		if (anticlock==true) {
-			counterClockWise();
+			if (ableToTurn) {
+				counterClockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		counter=(counter+1)%6;
 		bat.update();
