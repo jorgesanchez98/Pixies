@@ -7,6 +7,7 @@ public class AnimationSprite {
 	private int animSpd;
 	private int animCount;
 	private int topCount;	
+	private int topCount;
 	private int width, height;
 	
 	public AnimationSprite (int x, int y, CachedSprite sprite) {
