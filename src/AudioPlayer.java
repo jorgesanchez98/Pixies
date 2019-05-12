@@ -33,6 +33,7 @@ public class AudioPlayer {
 		clip.setFramePosition(0);
 		setVolume(clip, musicVol);
 		clip.start();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		if (currentMusic != null) {
 			stopMusic();
 		}
