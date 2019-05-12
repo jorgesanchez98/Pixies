@@ -18,7 +18,7 @@ public class HUD {
 	//Objetos
 	Handler handler = new Handler();
 	Player1 player1 = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 player2 = new Player2(150,200,32,32,Assets.tankU, handler);
+	Player2 player2 = new Player2(150,200,32,32,Assets.tankU,handler);
 	Game game = new Game("Tank",720,480);
 	Menu menu = new Menu(720,480);
 	
@@ -72,7 +72,9 @@ public class HUD {
 	
 	//Reducción de tiempo
 	public void segundoMenos() {
-		tiempo = tiempo - 1;
+		if(game.getPausado() == true) {
+			tiempo = tiempo - 1;
+		}
 	}
 	
 	//Render
@@ -84,7 +86,8 @@ public class HUD {
 		g.drawString("P1",5,475);
 		g.drawString("P2",680,475);
 		
-		if(menu.getModo()==1) {
+		if(menu.getModo()==1) { 
+			//Pintar vidas
 			int PVY1 = 455;
 			int PVX1 = 45;
 			for(int i = 0; i < player1.getVidas(); i++) {
@@ -99,10 +102,11 @@ public class HUD {
 			}
 			g.drawImage(Assets.rocketPU,150,455,20,20,null);
 			g.drawString("" + player1.getCohetes(),175,475);
-			g.drawImage(Assets.rocketPU,540,455,20,20,null);
+			g.drawImage(Assets.rocketPU,538,455,20,20,null);
 			g.drawString("" + player2.getCohetes(),520,475);
 			
-		} else if(menu.getModo()==2) {
+		} else if(menu.getModo()==2) { 
+			//Pintar puntuación
 			g.drawString("" + tiempo, 350, 475);
 			g.drawString("| " + player1.getPuntos(),40,475);
 			g.drawString("" + player2.getPuntos() + " |",645,475);

@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //Lector del teclado
-public class KeyInput implements KeyListener{
+public class KeyInput implements KeyListener {
 	Player1 player1;
 	Player2 player2;
 	

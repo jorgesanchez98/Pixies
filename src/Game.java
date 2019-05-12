@@ -1,6 +1,4 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -11,11 +9,10 @@ import java.awt.image.BufferStrategy;
 import image.Assets;
 
 public class Game implements Runnable, MouseListener {
+	
 	public static int width, height;
 	public String title;
-	
 	private Boton pausa;
-	private boolean pausado=false;
 	public Thread thread;
 	private Window window;
 	private Handler handler;
@@ -28,6 +25,7 @@ public class Game implements Runnable, MouseListener {
 	private Rocket rocket;
 	private HUD HUD;
 	private boolean running = false;
+	private boolean pausado = false;
 	Menu menu = new Menu(720,480);
 	
 	//Constructor
@@ -40,9 +38,10 @@ public class Game implements Runnable, MouseListener {
 	//Inicializador
 	public void init() {
 		Assets.init();
-		window = new Window(title, width, height);
+		window = new Window(title,width,height);
 		handler = new Handler();
 		level = new LevelCreator(handler);
+		pausa = new Boton(300,475,32,32);
 		HUD = new HUD(0,452,720,30);
 		
 		switch(menu.getEscenario()) {
@@ -64,9 +63,6 @@ public class Game implements Runnable, MouseListener {
 		window.getFrame().addKeyListener(keyInput);
 		handler.addObj(player1);
 		handler.addObj(player2);
-		handler.addObj(rocket);
-		HUD = new HUD(0,452,720,30);
-		pausa=new Boton (300,475,32,32);
 	}
 
 	//Inicializador del juego
@@ -76,7 +72,7 @@ public class Game implements Runnable, MouseListener {
 		running = true;
 		thread = new Thread(this);
 
-		//Iniciar m�sica
+		//Iniciar musica
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
 
@@ -96,8 +92,9 @@ public class Game implements Runnable, MouseListener {
 	
 	//Actualizador del juego 
 	public void tick() {
-		if (handler.isWin())
+		if (handler.isWin()) {
 			running=false;
+		}
 		handler.tick();
 	}
 	
@@ -110,13 +107,13 @@ public class Game implements Runnable, MouseListener {
 		}
 		g = (Graphics2D) bs.getDrawGraphics();
 		g.clearRect(0,0,width,height);
-		//g.drawImage(Assets.background, 0, 0, null);
 		
 		//Escalado de pantalla
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double scrWidth = scrSize.getWidth();
 		double scrHeight = scrSize.getHeight();
 		g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
+		
 		double wScale = scrWidth/width;
 		double aproxH = (height*17)/17;
 		double hScale = (scrHeight/aproxH);
@@ -124,14 +121,14 @@ public class Game implements Runnable, MouseListener {
 		at.scale(wScale, hScale);
 		g.setTransform(at);
 		
-		//Render
+		//Pintar juego
+		pausa.paint(g, Assets.pausa);
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
 		bs.show();
 		
-		/*
-		if(menu.getModo()==1) {
+		/*if(menu.getModo()==1) {
 			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
 				if(player1.getVidas()>0) {
 					g.drawString("�Gana P1!", 330, 200);
@@ -147,20 +144,23 @@ public class Game implements Runnable, MouseListener {
 					g.drawString("�Gana P2!", 330, 200);
 				}
 			}
-		}
-		*/
-		pausa.paint(g, Assets.pausa);
+		}*/
+		
 	}
 	
 	//Runnable
 	public void run() {
 		init();
-		int fps = 60, ticks = 0;
-		double timePerTick = 1000000000 / fps, delta = 0;
-		long now, lastTime = System.nanoTime(), timer = 0;
+		int fps = 60;
+		int ticks = 0;
+		double timePerTick = 1000000000/fps; 
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
 
 		while (running) {
-			if (player1.getPausado()==false) {
+			if (player1.getPausa()==false) {
 				now = System.nanoTime();
 				delta += (now-lastTime) / timePerTick;
 				timer += now - lastTime;
@@ -177,18 +177,9 @@ public class Game implements Runnable, MouseListener {
 					timer = 0;
 				}
 			}
-			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
-				/*
-				window.dispose();
-				int P1Vidas = player1.getVidas();
-				int P2Vidas = player2.getVidas();
-				int P1Puntos = player1.getPuntos();
-				int P2Puntos = player2.getPuntos();
-				int HUDTime = HUD.getTiempo();
-				menu.drawWin((Menu) g, P1Vidas, P2Vidas, P1Puntos, P2Puntos, HUDTime);
-				*/
+			/*if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
 				running = false;
-			}
+			}*/
 		}
 		stop();
 		System.exit(0);
@@ -201,22 +192,21 @@ public class Game implements Runnable, MouseListener {
 	public int getHeight() { 
 		return height; 
 	}
-
-	public void mouseClicked(MouseEvent m) {
-		if (pausa.click(m.getX(), m.getY())){
+	public boolean getPausado() { 
+		return pausado; 
+	}
+	
+	public void mouseClicked(MouseEvent ME) {
+		if (pausa.click(ME.getX(), ME.getY())){
 			pausado=!pausado;
 		}
 	}
-
 	public void mouseEntered(MouseEvent arg0) {
 	}
-
 	public void mouseExited(MouseEvent arg0) {
 	}
-
 	public void mousePressed(MouseEvent arg0) {
 	}
-
 	public void mouseReleased(MouseEvent arg0) {
 	}
 }

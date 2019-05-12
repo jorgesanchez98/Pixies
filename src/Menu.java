@@ -1,15 +1,8 @@
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-//import image.Assets;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import image.Assets;
 
 public class Menu implements MouseListener, KeyListener {
@@ -96,6 +89,7 @@ public class Menu implements MouseListener, KeyListener {
 		atras3 = new Boton(-15,395,96,100);
 	}
 	
+	//Controladores de botones 
 	public void borrarPrincipal() {
 		jugar.setSize(1,1,1,1);
 		salir.setSize(1,1,1,1);
@@ -288,9 +282,6 @@ public class Menu implements MouseListener, KeyListener {
 		if(atras3.click(ME.getX(),ME.getY())) {
 			option = 0;
 		} 
-		System.out.println("Modo " + modo);
-		System.out.println("Opción " + option);
-		System.out.println("Escenario " + escenario);
 	}
 	
 	public void mouseEntered(MouseEvent arg0) {

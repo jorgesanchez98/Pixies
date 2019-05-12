@@ -9,7 +9,7 @@ public class Block extends GameObject {
 	
 	//Constructor
 	public Block (int x, int y, int width, int height, BufferedImage bi, Handler handler) {
-		super (x,y,width,height,handler);
+		super(x,y,width,height,handler);
 		this.sprite=bi;
 	}
 	

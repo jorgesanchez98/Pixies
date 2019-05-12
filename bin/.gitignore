@@ -20,8 +20,8 @@
 /MenuPanel.class
 /Rocket.class
 /RocketBllt.class
-/image/
-/Player2.class
-/Player1.class
 /Character.class
-/AudioPlayer.class
+/HUD.class
+/Player1.class
+/Player2.class
+/image/

@@ -2,13 +2,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Target extends GameObject{
+public class Target extends GameObject {
 	
+	//Variables
 	protected BufferedImage sprite;
 	
 	//Constructor
-	public Target (int x, int y, int width, int height, BufferedImage bi, Handler handler) {
-		super (x,y,width,height,handler);
+	public Target(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+		super(x,y,width,height,handler);
 		this.sprite=bi;
 	}
 	
@@ -16,7 +17,8 @@ public class Target extends GameObject{
 	public void paint(Graphics g) {
 		g.drawImage(sprite, getX(), getY(), null);
 	}
-	public void tick() {}
+	public void tick() {
+	}
 	
 	//Rectangle
 	public Rectangle getBounds() {

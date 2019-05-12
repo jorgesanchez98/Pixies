@@ -3,8 +3,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import image.Assets;
@@ -12,59 +10,61 @@ import image.Assets;
 public class Player2 extends Character{
 	
 	//Variables
-	private int dir=1, counter=0, pack5;
-	private AnimationSprite bat;
-	private static double PI=3.1415;
-	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
+	private AnimationSprite AS;	
+	private static double PI = 3.1415;
+	private int dir = 1;
+	private int counter=0;
 	private static int vidas = 5;
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
-	private static boolean ableToTurn = true;
+	private static boolean ableToTurn = true;	
+	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
 
 	//Constructor
 	public Player2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
 		super(x,y,width,height,handler);
-		SpriteBuilder builder = new SpriteBuilder ("/Textures/16dirP2.png", 32, 32);
+		
+		SpriteBuilder builder = new SpriteBuilder("/Textures/16dirP2.png",32,32);
 		for (int i=0; i<16; i++) {
 			builder.addImage(i,0);
 		}
-		bat=new AnimationSprite(x, y, builder.build());
-		bat.setAnimSpd(5);
+		AS=new AnimationSprite(x,y,builder.build());
+		AS.setAnimSpd(5);
 	}
 		
 	//Actualizador
 	public void tick() {	
-		if (counter==0 || counter==1 || counter==2) {
-			if (adelante==true) {
-				if (!collision(moveX(angle)*2, moveY(angle)*2)) {
+		if(counter==0 || counter==1 || counter==2) {
+			if(adelante==true) {
+				if(!collision(moveX(angle)*2, moveY(angle)*2)) {
 					x+=moveX(angle);
 					y-=moveY(angle);
 					dir=1;
 				}
 			}
-			else if (atras==true) {
-				if (!collision(moveX((angle+8)%16)*2, moveY((angle+8)%16)*2)) {
+			else if(atras==true) {
+				if(!collision(moveX((angle+8)%16)*2, moveY((angle+8)%16)*2)) {
 					x+=moveX((angle+8)%16);
 					y-=moveY((angle+8)%16);
 					dir=3;
 				}
 			}
 		}
-		if (clock==true) {
-			if (ableToTurn) {
+		if(clock==true) {
+			if(ableToTurn) {
 				clockWise();
 			}
 			ableToTurn=!ableToTurn;
 		}
-		if (anticlock==true) {
-			if (ableToTurn) {
+		if(anticlock==true) {
+			if(ableToTurn) {
 				counterClockWise();
 			}
 			ableToTurn=!ableToTurn;
 		}
 		counter=(counter+1)%6;
-		bat.update();
+		AS.update();
 	}
 	
 	//Setters-Getters
@@ -78,9 +78,8 @@ public class Player2 extends Character{
 		return puntos;
 	}
 	
-	//M�todos Modos de Juego
+	//Modos de juego
 	public void perderVida() {
-		System.out.println("Vidas = " + vidas);
 		vidas = vidas - 1;
 	}
 	public void ganarPunto() {
@@ -99,29 +98,29 @@ public class Player2 extends Character{
 		cohetes = cohetes - 1;
 	}
 	
-	//Detecci�n de colisiones
+	//Deteccion de colisiones
 	public boolean collision(double dx, double dy) {
-		ListIterator <GameObject> iterator = handler.obj.listIterator();
-		while (iterator.hasNext()) {
-			GameObject aux = iterator.next();
-			if (aux instanceof Block) {
-				if (placeMeeting(x+dx, y-dy, aux)) {
+		ListIterator <GameObject> itr = handler.obj.listIterator();
+		while(itr.hasNext()) {
+			GameObject GO = itr.next();
+			if(GO instanceof Block) {
+				if(placeMeeting(x+dx, y-dy, GO)) {
 					return true;
 				}
 			}
-			if (aux instanceof Target) {
-				if (placeMeeting(x+dx, y-dy, aux)) {
+			if(GO instanceof Target) {
+				if(placeMeeting(x+dx, y-dy, GO)) {
 					return true;
 				}
 			}
-			if (aux instanceof Player1) {
-				if (placeMeeting(x+dx, y-dy, aux)) {
+			if(GO instanceof Player1) {
+				if(placeMeeting(x+dx, y-dy, GO)) {
 					return true;
 				}
 			}
-			if (aux instanceof Rocket) {
-				if (placeMeeting(x+dx, y-dy, aux)) {
-					handler.removeObj(aux);
+			if(GO instanceof Rocket) {
+				if(placeMeeting(x+dx, y-dy, GO)) {
+					handler.removeObj(GO);
 					tomarCohete();
 					return true;
 				}
@@ -130,8 +129,8 @@ public class Player2 extends Character{
 		return false;
 	}
 
-	//M�todos de movimiento
-	public int moveX (int direction) {
+	//Metodos de movimiento
+	public int moveX(int direction) {
 		int movX;
 		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
 			movX=(int)Math.ceil((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
@@ -139,32 +138,34 @@ public class Player2 extends Character{
 			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
-	public static int moveY (int direction) {
-			int movX;
-			if (direction >= 0 && direction <=7)
-				movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
-			else
-				movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+	public static int moveY(int direction) {
+		int movX;
+		if (direction >= 0 && direction <=7)
+			movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+		else
+			movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
 	
 	//Redondeo de escala
 	public static double round(double value, int places) {
-		    if (places < 0) throw new IllegalArgumentException();
-	
-		    BigDecimal bd = new BigDecimal(value);
-		    bd = bd.setScale(places, RoundingMode.HALF_UP);
-		    return bd.doubleValue();
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
 	}
 	
 	//Paint
 	public void paint(Graphics g) {		
-		bat.render(g, x, y, angle);
+		AS.render(g,x,y,angle);
 	}
 	
 	//KeyListeners
 	public  void keyPressed(int key) {
-		if (key == KeyEvent.VK_ESCAPE) System.exit(1);
+		if (key == KeyEvent.VK_ESCAPE) {
+			System.exit(1);
+		}
 		if (key == KeyEvent.VK_A) { 
 			anticlock=true;
 		}
@@ -193,20 +194,19 @@ public class Player2 extends Character{
 		if (key == KeyEvent.VK_A) { 
 			anticlock=false;
 		}
-		//x+3
 		if (key == KeyEvent.VK_D) { 
 			clock=false;
 		}
-		//y-3
 		if (key == KeyEvent.VK_W) { 
 			adelante=false;
 		}
-		//y+3
 		if (key == KeyEvent.VK_S) { 
 			atras=false;
 		}
 		if (key == KeyEvent.VK_E) {
-			if(!ableToShoot) ableToShoot = true;
+			if(!ableToShoot) {
+				ableToShoot = true;
+			}
 		}
 	}
 	public void keyTyped(int key) {	

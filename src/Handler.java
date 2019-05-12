@@ -6,7 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Handler {
 	private boolean win=false;
 	
-	 // CopyOnWriteArrayList permite modificar la lista aún cuando se corren varios procesos	
+	 // CopyOnWriteArrayList modifica la lista durante varios procesos	
 	public CopyOnWriteArrayList <GameObject> obj;
 
 	// Constructor
@@ -16,12 +16,12 @@ public class Handler {
 	
 	// Actualizador
 	public void tick() {
-		ListIterator <GameObject> iterator = obj.listIterator();
-		while (iterator.hasNext()) {
-			GameObject aux = iterator.next();
-			if (!aux.getAlive())
-				removeObj(aux);
-			aux.tick();
+		ListIterator <GameObject> itr = obj.listIterator();
+		while (itr.hasNext()) {
+			GameObject GO = itr.next();
+			if (!GO.getAlive())
+				removeObj(GO);
+			GO.tick();
 		}
 	}
 	

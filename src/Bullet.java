@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -31,7 +30,7 @@ public class Bullet extends GameObject{
 		g.drawImage(sprite,getX(),getY(),null);
 	}
 	
-	//Colisi�n
+	//Colision
 	public void tick() {
 		x+=dirX;
 		y-=dirY;
@@ -41,19 +40,18 @@ public class Bullet extends GameObject{
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()) {
 			GameObject aux = iterator.next();
-			if (aux instanceof Block) {
-				if (placeMeeting(x,y,aux)) {
+			if(aux instanceof Block) {
+				if(placeMeeting(x,y,aux)) {
 					setAlive(false);
 				}
 			}
-			if (aux instanceof Target) {
-				if (placeMeeting(x,y,aux)) {
+			if(aux instanceof Target) {
+				if(placeMeeting(x,y,aux)) {
 					setAlive(false);
 				}
 			}
-			if (aux instanceof Player2) { 
-				//Colisi�n Bala-Player2
-				if (placeMeeting(x,y,aux) && index!=2) {
+			if(aux instanceof Player2) { 
+				if(placeMeeting(x,y,aux) && index!=2) {
 					setAlive(false);
 					if(menu.getModo()==1) {
 						P2.perderVida();
@@ -67,9 +65,8 @@ public class Bullet extends GameObject{
 					}
 				}
 			}
-			if (aux instanceof Player1) { 
-				//Colisi�n Bala-Player1
-				if (placeMeeting(x, y, aux) && index!=1) {
+			if(aux instanceof Player1) { 
+				if(placeMeeting(x, y, aux) && index!=1) {
 					if(menu.getModo()==1) {
 						P1.perderVida();
 						handler.removeObj(this);

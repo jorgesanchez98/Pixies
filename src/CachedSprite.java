@@ -11,10 +11,12 @@ public class CachedSprite {
 		this.images=images;
 	}
 	
-	//Métodos
+	//Getters
 	public BufferedImage get (int index) {
 		return images.get(index);
 	}
+	
+	//Tamaño
 	public int size() {
 		return images.size();
 	}

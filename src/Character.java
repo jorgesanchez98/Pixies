@@ -1,6 +1,4 @@
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 public abstract class Character extends GameObject {
 	
@@ -16,7 +14,7 @@ public abstract class Character extends GameObject {
 		dirY= 1;
 	}
 	
-	//Colisión
+	//Colision
 	public abstract void tick();
 	public abstract boolean collision(double dirX, double dirY);
 	
@@ -25,7 +23,7 @@ public abstract class Character extends GameObject {
 		return (new Rectangle(getX(), getY(), width, height));
 	}
 	
-	//Rotación de personaje
+	//Rotacion de personaje
 	public void clockWise() {
 		angle= ((((angle+1)%maxAng)+maxAng)%maxAng);
 	}
