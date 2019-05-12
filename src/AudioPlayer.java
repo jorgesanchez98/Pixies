@@ -23,15 +23,17 @@ public class AudioPlayer {
 		audios = new HashMap<String, Clip>();
 	}
 	
-	//Métodos
+	//Metodos
 	public static AudioPlayer get() {
-		if (instance == null) instance = new AudioPlayer();
+		if (instance == null) {
+			instance = new AudioPlayer();
+		}
 		return instance;
 	}
 	public void playMusic(String audioName) {
 		Clip clip = getSoundClip(audioName);
 		clip.setFramePosition(0);
-		setVolume(clip, musicVol);
+		setVolume(clip,musicVol);
 		clip.start();
 		if (currentMusic != null) {
 			stopMusic();
@@ -66,7 +68,7 @@ public class AudioPlayer {
 		if (effectVol >= 0 && effectVol <= 1) this.effectVol = effectVol;
 	}
 	
-	//Métodos del clip
+	//Metodos del clip
 	private Clip getSoundClip(String clipName) {
 		if (audios.get(clipName) != null) {
 			return audios.get(clipName);
@@ -74,9 +76,9 @@ public class AudioPlayer {
 		
 		Clip clip = null;
 		AudioInputStream audioStream = null;
+		
 		try {
 			String route = "music/" + clipName + ".wav";
-			System.out.println("File Name is: " + route);
 			audioStream = AudioSystem.getAudioInputStream(getClass().getResource(route));
 		} catch (UnsupportedAudioFileException UAFE) {
 			UAFE.printStackTrace();
@@ -106,6 +108,7 @@ public class AudioPlayer {
 		}
 	}
 	
+	//Ajuste de volumen
 	private void setVolume(Clip clip, float volume) {
 		FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		float range = gainControl.getMaximum() - gainControl.getMinimum();

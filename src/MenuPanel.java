@@ -28,7 +28,7 @@ public class MenuPanel extends JPanel implements Runnable {
 		this.setBackground(Color.WHITE);
 		this.setPreferredSize(new Dimension(PWidth, PHeight));
 		readyForTermination();
-		setFocusable(true);     //Recibir KeyEvents
+		setFocusable(true);     
 		requestFocus();
 		
 		menu = new Menu(PWidth, PHeight);
@@ -78,7 +78,6 @@ public class MenuPanel extends JPanel implements Runnable {
 				delta --;
 			}
 			if (timer >= 1000000000) {
-				//System.out.println("FPS = " + ticks);
 				ticks = 0;
 				timer = 0;
 			}

@@ -6,13 +6,15 @@ import java.awt.Rectangle;
 public abstract class GameObject {
 	
 	//Variables
-	protected int x, y;
-	protected int width, height;
+	protected int x;
+	protected int y;
+	protected int width;
+	protected int height;
 	protected Handler handler;
 	public boolean alive;
 	
 	// Constructor
-	public GameObject (int x, int y, int width, int height, Handler handler) {
+	public GameObject(int x, int y, int width, int height, Handler handler) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -21,17 +23,20 @@ public abstract class GameObject {
 		alive=true;
 	}
 	
+	//Metodos abstractos
 	public abstract void paint(Graphics g);
 	public abstract void tick();
 	public abstract Rectangle getBounds();
 	
-	//Detección de colisión entre rectángulos
+	//Colision entre rectangulos
 	public boolean placeMeeting (double x, double y, GameObject obj) {
-		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) 
+		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) {
 			return true;
+		}
 		return false;
 	}
 	
+	//Setters-Getters
 	public void setX(int x) {
 		this.x = x;
 	}

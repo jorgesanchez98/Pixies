@@ -1,15 +1,8 @@
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-//import image.Assets;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import image.Assets;
 
 public class Menu implements MouseListener, KeyListener {
@@ -56,6 +49,16 @@ public class Menu implements MouseListener, KeyListener {
 	Boton textoTutorial5;
 	Boton textoTutorial6;
 	
+	Boton victoria1;
+	Boton victoria2;
+	Boton empate;
+	Boton volver;
+	Boton salir2;
+	
+	Handler handler = new Handler();
+	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler);
+	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	
 	//Constructor
 	public Menu(int PWidth, int PHeight) {
 		this.PWidth = PWidth;
@@ -66,19 +69,19 @@ public class Menu implements MouseListener, KeyListener {
 		tutorial = new Boton(647,397,78,100);
 		titulo = new Boton(239,20,242,160);
 		
-		corazon = new Boton(120,130,200,200);
-		vidas = new Boton(125,330,190,100);
-		reloj = new Boton(400,130,200,200);
-		tiempo = new Boton(400,330,200,100);
+		corazon = new Boton(130,130,200,200);
+		vidas = new Boton(135,330,190,100);
+		reloj = new Boton(390,130,200,200);
+		tiempo = new Boton(390,330,200,100);
 		SModo = new Boton(85,30,550,97);
 		atras1 = new Boton(-15,395,96,100);
 		
-		escenario1 = new Boton(160,120,150,150);
-		escenario2 = new Boton(410,120,150,150);
-		escenario3 = new Boton(160,290,150,150);
-		escenario4 = new Boton(410,290,150,150);
+		escenario1 = new Boton(125,120,225,150);
+		escenario2 = new Boton(375,120,225,150);
+		escenario3 = new Boton(125,290,225,150);
+		escenario4 = new Boton(375,290,225,150);
 		SEscenario = new Boton(90,30,550,100);
-		atras2 = new Boton(-15,320,96,100);
+		atras2 = new Boton(-15,395,96,100);
 		
 		CJugar = new Boton(175,10,366,130);
 		imagenTutorial1 = new Boton(130,120,50,50);
@@ -93,90 +96,106 @@ public class Menu implements MouseListener, KeyListener {
 		textoTutorial4 = new Boton(190,270,420,50);
 		textoTutorial5 = new Boton(190,320,420,50);
 		textoTutorial6 = new Boton(190,360,420,76);
-		atras3 = new Boton(-15,0,96,100);
+		atras3 = new Boton(-15,395,96,100);
+		
+		victoria1 = new Boton(60,20,600,135);
+		victoria2 = new Boton(60,20,600,135);
+		empate = new Boton(200,20,320,135);
+		volver = new Boton(270,180,180,100);
+		salir2 = new Boton(270,300,180,100);
+		
 	}
 	
+	//Controladores de botones 
 	public void borrarPrincipal() {
-		jugar.setWidth(0);
-		jugar.setHeight(0);
-		salir.setWidth(0);
-		salir.setHeight(0);
-		tutorial.setWidth(0);
-		tutorial.setHeight(0);
-		titulo.setWidth(0);
-		titulo.setHeight(0);
+		jugar.setSize(1,1,1,1);
+		salir.setSize(1,1,1,1);
+		tutorial.setSize(1,1,1,1);
+		titulo.setSize(1,1,1,1);
 	}
-
+	public void reestablecerPrincipal() {
+		jugar.setSize(270,180,180,100);
+		salir.setSize(270,300,180,100);
+		tutorial.setSize(647,397,78,100);
+		titulo.setSize(239,20,242,160);
+	}
 	public void borrarModalidad() {
-		corazon.setWidth(1);
-		corazon.setHeight(1);
-		vidas.setWidth(1);
-		vidas.setHeight(1);
-		reloj.setWidth(1);
-		reloj.setHeight(1);
-		tiempo.setWidth(1);
-		tiempo.setHeight(1);
-		SModo.setWidth(1);
-		SModo.setHeight(1);
-		atras1.setWidth(1);
-		atras1.setHeight(1);
+		corazon.setSize(1,1,1,1);
+		vidas.setSize(1,1,1,1);
+		reloj.setSize(1,1,1,1);
+		tiempo.setSize(1,1,1,1);
+		SModo.setSize(1,1,1,1);
+		atras1.setSize(1,1,1,1);
+	}
+	public void reestablecerModalidad() {
+		corazon.setSize(130,130,200,200);
+		vidas.setSize(135,330,190,100);
+		reloj.setSize(390,130,200,200);
+		tiempo.setSize(390,330,200,100);
+		SModo.setSize(85,30,550,97);
+		atras1.setSize(-15,395,96,100);
 	}
 	public void borrarEscenario() {
-		escenario1.setWidth(1);
-		escenario1.setHeight(1);
-		escenario2.setWidth(1);
-		escenario2.setHeight(1);
-		escenario3.setWidth(1);
-		escenario3.setHeight(1);
-		escenario4.setWidth(1);
-		escenario4.setHeight(1);
-		SEscenario.setWidth(1);
-		SEscenario.setHeight(1);
-		atras2.setWidth(1);
-		atras2.setHeight(1);
+		escenario1.setSize(1,1,1,1);
+		escenario2.setSize(1,1,1,1);
+		escenario3.setSize(1,1,1,1);
+		escenario4.setSize(1,1,1,1);
+		SEscenario.setSize(1,1,1,1);
+		atras2.setSize(1,1,1,1);
 	}
 	public void reestablecerEscenario() {
-		escenario1.setWidth(150);
-		escenario1.setHeight(150);
-		escenario2.setWidth(150);
-		escenario2.setHeight(150);
-		escenario3.setWidth(150);
-		escenario3.setHeight(150);
-		escenario4.setWidth(150);
-		escenario4.setHeight(150);
-		SEscenario.setWidth(550);
-		SEscenario.setHeight(100);
-		atras2.setWidth(96);
-		atras2.setHeight(100);
+		escenario1.setSize(125,120,225,150);
+		escenario2.setSize(375,120,225,150);
+		escenario3.setSize(125,290,225,150);
+		escenario4.setSize(375,290,225,150);
+		SEscenario.setSize(90,30,550,100);
+		atras2.setSize(-15,395,96,100);
 	}
 	public void borrarTutorial() {
-		CJugar = null;
-		imagenTutorial1.setWidth(0);
-		imagenTutorial1.setHeight(0);
-		imagenTutorial2.setWidth(0);
-		imagenTutorial2.setHeight(0);
-		imagenTutorial3.setWidth(0);
-		imagenTutorial3.setHeight(0);
-		imagenTutorial4.setWidth(0);
-		imagenTutorial4.setHeight(0);
-		imagenTutorial5.setWidth(0);
-		imagenTutorial5.setHeight(0);
-		imagenTutorial6.setWidth(0);
-		imagenTutorial6.setHeight(0);
-		textoTutorial1.setWidth(0);
-		textoTutorial1.setHeight(0);
-		textoTutorial2.setWidth(0);
-		textoTutorial2.setHeight(0);
-		textoTutorial3.setWidth(0);
-		textoTutorial3.setHeight(0);
-		textoTutorial4.setWidth(0);
-		textoTutorial4.setHeight(0);
-		textoTutorial5.setWidth(0);
-		textoTutorial5.setHeight(0);
-		textoTutorial6.setWidth(0);
-		textoTutorial6.setHeight(0);
-		atras3.setWidth(0);
-		atras3.setHeight(0);
+		CJugar.setSize(1,1,1,1);
+		imagenTutorial1.setSize(1,1,1,1);
+		imagenTutorial2.setSize(1,1,1,1);
+		imagenTutorial3.setSize(1,1,1,1);
+		imagenTutorial4.setSize(1,1,1,1);
+		imagenTutorial5.setSize(1,1,1,1);
+		imagenTutorial6.setSize(1,1,1,1);
+		textoTutorial1.setSize(1,1,1,1);
+		textoTutorial2.setSize(1,1,1,1);
+		textoTutorial3.setSize(1,1,1,1);
+		textoTutorial4.setSize(1,1,1,1);
+		textoTutorial5.setSize(1,1,1,1);
+		textoTutorial6.setSize(1,1,1,1);
+		atras3.setSize(1,1,1,1);
+	}
+	public void reestablecerTutorial() {
+		CJugar.setSize(175,10,366,130);
+		imagenTutorial1.setSize(130,120,50,50);
+		imagenTutorial2.setSize(130,170,50,50);
+		imagenTutorial3.setSize(130,220,50,50);
+		imagenTutorial4.setSize(130,270,50,50);
+		imagenTutorial5.setSize(130,320,50,50);
+		imagenTutorial6.setSize(130,370,50,50);
+		textoTutorial1.setSize(190,120,420,50);
+		textoTutorial2.setSize(190,170,420,50);
+		textoTutorial3.setSize(190,220,420,50);
+		textoTutorial4.setSize(190,270,420,50);
+		textoTutorial5.setSize(190,320,420,50);
+		textoTutorial6.setSize(190,360,420,76);
+		atras3.setSize(-15,395,96,100);
+	}
+	public void borrarVictoria() {
+		victoria1.setSize(1,1,1,1);
+		victoria2.setSize(1,1,1,1);
+		empate.setSize(1,1,1,1);
+		volver.setSize(1,1,1,1);
+		salir2.setSize(1,1,1,1);
+	}
+	public void reestablecerVictoria() {
+		victoria1.setSize(60,20,600,135);
+		victoria2.setSize(60,20,60,135);
+		empate.setSize(200,20,320,135);
+		volver.setSize(270,180,180,100);
+		salir2.setSize(270,300,180,100);
 	}
 	
 	//Setters-Getters
@@ -206,6 +225,11 @@ public class Menu implements MouseListener, KeyListener {
 		
 		if(option == 0) { 
 			//Menú principal
+			borrarEscenario();
+			borrarModalidad();
+			borrarTutorial();
+			borrarVictoria();
+			reestablecerPrincipal();
 			jugar.paint(g, Assets.jugar); 
 			salir.paint(g, Assets.salir);
 			tutorial.paint(g, Assets.tutorial);
@@ -213,6 +237,11 @@ public class Menu implements MouseListener, KeyListener {
 			
 		} else if(option == 1) { 
 			//Menú Modo de Juego
+			borrarEscenario();
+			borrarPrincipal();
+			borrarTutorial();
+			borrarVictoria();
+			reestablecerModalidad();
 			corazon.paint(g, Assets.corazon);
 			vidas.paint(g, Assets.vidas);
 			reloj.paint(g, Assets.reloj);
@@ -223,6 +252,10 @@ public class Menu implements MouseListener, KeyListener {
 			
 		} else if(option == 2) { 
 			//Menú escenario
+			borrarPrincipal();
+			borrarModalidad();
+			borrarTutorial();
+			borrarVictoria();
 			reestablecerEscenario();
 			escenario1.paint(g, Assets.escenario1);
 			escenario2.paint(g, Assets.escenario2);
@@ -239,6 +272,11 @@ public class Menu implements MouseListener, KeyListener {
 			
 		} else if(option == 4) { 
 			//Menú tutorial
+			borrarPrincipal();
+			borrarModalidad();
+			borrarEscenario();
+			borrarVictoria();
+			reestablecerTutorial();
 			CJugar.paint(g, Assets.CJugar);
 			imagenTutorial1.paint(g, Assets.imagenTutorial1);
 			imagenTutorial2.paint(g, Assets.imagenTutorial2);
@@ -254,45 +292,41 @@ public class Menu implements MouseListener, KeyListener {
 			textoTutorial6.paint(g, Assets.textoTutorial6);
 			atras3.paint(g, Assets.atras3);
 			
-		} 
-	}
-	/*
-	public void drawWin(Graphics2D g, int P1V, int P2V, int P1P, int P2P, int T) {
-		Font font = new Font("Times New Roman",Font.PLAIN,40);
-		g.setFont(font);
-		if(modo == 1) {
-			if(P1V>P2V) {
-				g.drawString("¡Gana P1!", 300, 100);
-			} else if(P2V>P1V) {
-				g.drawString("¡Gana P2!", 300, 100);
+		} else if(option == 5) {
+			//Menú Ganador
+			borrarPrincipal();
+			borrarModalidad();
+			borrarEscenario();
+			borrarTutorial();
+			reestablecerVictoria();
+			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()==0) {
+				victoria1.paint(g, Assets.victoria1);
+			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()==0) {
+				victoria2.paint(g, Assets.victoria2);
+			} else if(P1.getPuntos()==P2.getPuntos()) {
+				empate.paint(g, Assets.empate);
 			}
-		} else if(modo == 2) {
-			if(T<=0) {
-				if(P1P>P2P) {
-					g.drawString("¡Gana P1!", 300, 100);
-				} else if(P2P>P1P) {
-					g.drawString("¡Gana P2!", 300, 100);
-				}
-			}
+			volver.paint(g, Assets.volver);
+			salir2.paint(g, Assets.salir);
 		}
 	}
-	*/
+
 	//Actualizar juego
 	public void update() {
 	}
 	
 	//MouseListener
 	public void mouseClicked(MouseEvent ME) {
+		//Menú principal
 		if(jugar.click(ME.getX(),ME.getY())) {
-			System.out.println("Funciona");
 			option = 1;
-			borrarPrincipal();
 		} else if(salir.click(ME.getX(),ME.getY())) {
 			System.exit(0);
 		} else if(tutorial.click(ME.getX(),ME.getY())) {
 			option = 4;
 		} 
 		
+		//Menú Modo de Juego
 		if(corazon.click(ME.getX(), ME.getY())) {
 			modo = 1;
 			option = 2;
@@ -303,6 +337,7 @@ public class Menu implements MouseListener, KeyListener {
 			option = 0;
 		} 
 		
+		//Menú Escenario
 		if(escenario1.click(ME.getX(),ME.getY())) {
 			escenario = 1;
 			option = 3;
@@ -319,10 +354,17 @@ public class Menu implements MouseListener, KeyListener {
 			option = 1;
 		} 
 		
+		//Menú Tutorial
 		if(atras3.click(ME.getX(),ME.getY())) {
 			option = 0;
 		} 
-		System.out.println("Opción " + option);
+		
+		//Menu Victoria
+		if(volver.click(ME.getX(),ME.getY())) {
+			option = 0;
+		} else if(salir2.click(ME.getX(),ME.getY())) {
+			System.exit(0);
+		}
 	}
 	
 	public void mouseEntered(MouseEvent arg0) {

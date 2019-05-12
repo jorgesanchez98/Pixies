@@ -45,13 +45,19 @@ public class Boton {
 	public int getHeight() {
 		return height;
 	}
+	public void setSize(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 	
 	//Paint
 	public void paint(Graphics2D g, BufferedImage BI) {
 		g.drawImage(BI,x,y,width,height,null);
 	}
 	
-	//Detección del MouseListener
+	//Detección de click
 	public boolean click(int mx, int my) {
 		boolean detection = false;
 		if(x<mx && x+width>mx && y<my && y+height>my) {

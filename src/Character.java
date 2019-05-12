@@ -1,9 +1,6 @@
-import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
-// Comportamiento de personajes
-public abstract class Chracter extends GameObject{
+public abstract class Character extends GameObject {
 	
 	//Variables
 	protected double dirX;
@@ -11,26 +8,28 @@ public abstract class Chracter extends GameObject{
 	protected int angle=12, maxAng=16;
 	
 	// Constructor
-	public Chracter(int x, int y, int width, int height, Handler handler) {
+	public Character(int x, int y, int width, int height, Handler handler) {
 		super(x, y, width, height, handler);
 		dirX = 0;
 		dirY= 1;
 	}
-
+	
+	//Colision
 	public abstract void tick();
 	public abstract boolean collision(double dirX, double dirY);
 	
+	//Rectangle
 	public Rectangle getBounds() {
 		return (new Rectangle(getX(), getY(), width, height));
 	}
 	
+	//Rotacion de personaje
 	public void clockWise() {
 		angle= ((((angle+1)%maxAng)+maxAng)%maxAng);
 	}
 	public void counterClockWise() {
 		angle= ((((angle-1)%maxAng)+maxAng)%maxAng);
 	}
-	// Place meeting revisa la colisión entre personaje-objeto
 
 	//Setters-Getters
 	public double getDirX() {

@@ -1,32 +1,31 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
-import java.util.*;
-
-import javax.swing.Timer;
 
 import image.Assets;
 
-public class Game implements Runnable {
+public class Game implements Runnable, MouseListener {
+	
 	public static int width, height;
 	public String title;
-	
+	private Boton pausa;
 	public Thread thread;
 	private Window window;
 	private Handler handler;
 	private KeyInput keyInput;
 	private BufferStrategy bs;
-	private Graphics2D g;
 	private LevelCreator level;
-	private Player player1;
-	private P2 player2;
+	private Player1 player1;
+	private Player2 player2;
 	private Rocket rocket;
+	private Graphics2D g;
 	private HUD HUD;
 	private boolean running = false;
+	private boolean pausado = false;
 	Menu menu = new Menu(720,480);
 	
 	//Constructor
@@ -39,31 +38,48 @@ public class Game implements Runnable {
 	//Inicializador
 	public void init() {
 		Assets.init();
-	
-		window = new Window(title, width, height);
+		window = new Window(title,width,height);
 		handler = new Handler();
-		level = new LevelCreator (handler);
-		player1 = new Player(60,220,32,32,Assets.tankU, handler);
-		player2 = new P2(620,220,32,32,Assets.tankU, handler);
-		rocket = new Rocket(350,300,32,32,Assets.rocketPU, handler);
+		level = new LevelCreator(handler);
+		pausa = new Boton(345,210,32,32);
+		HUD = new HUD(0,452,720,30);
+		
+		switch(menu.getEscenario()) {
+		case 1: player1 = new Player1(60,60,32,32,Assets.tankU, handler);
+				player2 = new Player2(630,360,32,32,Assets.tankU, handler);
+				break;
+		case 2: player1 = new Player1(270,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(420,210,32,32,Assets.tankU, handler);
+				break;
+		case 3: player1 = new Player1(90,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(600,210,32,32,Assets.tankU, handler);
+				break;
+		case 4: player1 = new Player1(60,210,32,32,Assets.tankU, handler);
+				player2 = new Player2(630,210,32,32,Assets.tankU, handler);
+				break;
+		}
+		
 		keyInput = new KeyInput(player1,player2);
 		window.getFrame().addKeyListener(keyInput);
 		handler.addObj(player1);
 		handler.addObj(player2);
-		handler.addObj(rocket);
-		HUD = new HUD(0,452,720,30);
+		
+		HUD.setTiempo(30);
+		player1.setEstadisticas(0,5);
+		player2.setEstadisticas(0,5);
 	}
 
+	//Inicializador del juego
 	public synchronized void start() {
 		System.out.println("May the game begin");
-		if (running) return;
+		if(running) return;
 		running = true;
 		thread = new Thread(this);
 
-		//Música
+		//Iniciar musica
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
-		
+
 		thread.start();
 	}
 	
@@ -80,8 +96,9 @@ public class Game implements Runnable {
 	
 	//Actualizador del juego 
 	public void tick() {
-		if (handler.isWin())
+		if (handler.isWin()) {
 			running=false;
+		}
 		handler.tick();
 	}
 	
@@ -93,92 +110,87 @@ public class Game implements Runnable {
 			return;
 		}
 		g = (Graphics2D) bs.getDrawGraphics();
-		g.clearRect(0, 0, width, height);
-		//g.drawImage(Assets.background, 0, 0, null);
+		g.clearRect(0,0,width,height);
 		
 		//Escalado de pantalla
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double scrWidth = scrSize.getWidth();
 		double scrHeight = scrSize.getHeight();
-		g.drawImage(Assets.background, 0, 0, (int)scrWidth, (int)scrHeight, null);
+		g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
+		
 		double wScale = scrWidth/width;
 		double aproxH = (height*17)/17;
 		double hScale = (scrHeight/aproxH);
 		AffineTransform at = new AffineTransform();
 		at.scale(wScale, hScale);
 		g.setTransform(at);
-		
-		//Pinta los objetos del Handler
+	
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
 		bs.show();
-		
-		/*
-		if(menu.getModo()==1) {
-			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
-				if(player1.getVidas()>0) {
-					g.drawString("¡Gana P1!", 330, 200);
-				} else if(player2.getVidas()>0) {
-					g.drawString("¡Gana P2!", 330, 200);
-				}
-			}
-		} else if(menu.getModo()==2) {
-			if(HUD.getTiempo()<=0) {
-				if(player1.getPuntos()>player2.getPuntos()) {
-					g.drawString("¡Gana P1!", 330, 200);
-				} else if(player2.getVidas()>player1.getPuntos()) {
-					g.drawString("¡Gana P2!", 330, 200);
-				}
-			}
-		}
-		*/
 	}
 	
 	//Runnable
 	public void run() {
 		init();
-		int fps = 60, ticks = 0;
-		double timePerTick = 1000000000 / fps, delta = 0;
-		long now, lastTime = System.nanoTime(), timer = 0;
+		int fps = 60;
+		int ticks = 0;
+		double timePerTick = 1000000000/fps; 
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
 
-		while (running) {
-			now = System.nanoTime();
-			delta += (now-lastTime) / timePerTick;
-			timer += now - lastTime;
-			lastTime = now;
-
-			if (delta >= 1) {
-				tick();
-				render();
-				ticks++;
-				delta--;
-			}
-			if (timer>=1000000000) {
-				ticks = 0;
-				timer = 0;
-			}
+		while(running == true) {
+			if (player1.getPausa() == false) {
+				now = System.nanoTime();
+				delta += (now-lastTime) / timePerTick;
+				timer += now - lastTime;
+				lastTime = now;
+	
+				if (delta >= 1) {
+					tick();
+					render();
+					ticks++;
+					delta--;
+				}
+				if (timer>=1000000000) {
+					ticks = 0;
+					timer = 0;
+				}
+			} 
 			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
-				/*
-				window.dispose();
-				int P1Vidas = player1.getVidas();
-				int P2Vidas = player2.getVidas();
-				int P1Puntos = player1.getPuntos();
-				int P2Puntos = player2.getPuntos();
-				int HUDTime = HUD.getTiempo();
-				menu.drawWin((Menu) g, P1Vidas, P2Vidas, P1Puntos, P2Puntos, HUDTime);
-				*/
 				running = false;
+				window.dispose();
+				menu.setOption(5);
 			}
 		}
 		stop();
-		System.exit(0);
 	}	
 	
+	//Getters
 	public int getWidth() { 
 		return width; 
 	}
 	public int getHeight() { 
 		return height; 
+	}
+	public boolean getPausado() { 
+		return pausado; 
+	}
+	
+	public void mouseClicked(MouseEvent ME) {
+		if(pausa.click(ME.getX(), ME.getY())){
+			pausado=!pausado;
+		}
+	}
+	public void mouseEntered(MouseEvent arg0) {
+	}
+	public void mouseExited(MouseEvent arg0) {
+	}
+	public void mousePressed(MouseEvent arg0) {
+	}
+	public void mouseReleased(MouseEvent arg0) {
 	}
 }
