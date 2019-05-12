@@ -18,11 +18,11 @@ public class Game implements Runnable, MouseListener {
 	private Handler handler;
 	private KeyInput keyInput;
 	private BufferStrategy bs;
-	private Graphics2D g;
 	private LevelCreator level;
 	private Player1 player1;
 	private Player2 player2;
 	private Rocket rocket;
+	private Graphics2D g;
 	private HUD HUD;
 	private boolean running = false;
 	private boolean pausado = false;
@@ -41,7 +41,7 @@ public class Game implements Runnable, MouseListener {
 		window = new Window(title,width,height);
 		handler = new Handler();
 		level = new LevelCreator(handler);
-		pausa = new Boton(300,475,32,32);
+		pausa = new Boton(345,210,32,32);
 		HUD = new HUD(0,452,720,30);
 		
 		switch(menu.getEscenario()) {
@@ -63,6 +63,10 @@ public class Game implements Runnable, MouseListener {
 		window.getFrame().addKeyListener(keyInput);
 		handler.addObj(player1);
 		handler.addObj(player2);
+		
+		HUD.setTiempo(30);
+		player1.setEstadisticas(0,5);
+		player2.setEstadisticas(0,5);
 	}
 
 	//Inicializador del juego
@@ -120,32 +124,11 @@ public class Game implements Runnable, MouseListener {
 		AffineTransform at = new AffineTransform();
 		at.scale(wScale, hScale);
 		g.setTransform(at);
-		
-		//Pintar juego
-		pausa.paint(g, Assets.pausa);
+	
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
 		bs.show();
-		
-		/*if(menu.getModo()==1) {
-			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
-				if(player1.getVidas()>0) {
-					g.drawString("�Gana P1!", 330, 200);
-				} else if(player2.getVidas()>0) {
-					g.drawString("�Gana P2!", 330, 200);
-				}
-			}
-		} else if(menu.getModo()==2) {
-			if(HUD.getTiempo()<=0) {
-				if(player1.getPuntos()>player2.getPuntos()) {
-					g.drawString("�Gana P1!", 330, 200);
-				} else if(player2.getVidas()>player1.getPuntos()) {
-					g.drawString("�Gana P2!", 330, 200);
-				}
-			}
-		}*/
-		
 	}
 	
 	//Runnable
@@ -159,8 +142,8 @@ public class Game implements Runnable, MouseListener {
 		long lastTime = System.nanoTime();
 		long timer = 0;
 
-		while (running) {
-			if (player1.getPausa()==false) {
+		while(running == true) {
+			if (player1.getPausa() == false) {
 				now = System.nanoTime();
 				delta += (now-lastTime) / timePerTick;
 				timer += now - lastTime;
@@ -176,13 +159,14 @@ public class Game implements Runnable, MouseListener {
 					ticks = 0;
 					timer = 0;
 				}
-			}
-			/*if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
+			} 
+			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
 				running = false;
-			}*/
+				window.dispose();
+				menu.setOption(5);
+			}
 		}
 		stop();
-		System.exit(0);
 	}	
 	
 	//Getters
@@ -197,7 +181,7 @@ public class Game implements Runnable, MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent ME) {
-		if (pausa.click(ME.getX(), ME.getY())){
+		if(pausa.click(ME.getX(), ME.getY())){
 			pausado=!pausado;
 		}
 	}

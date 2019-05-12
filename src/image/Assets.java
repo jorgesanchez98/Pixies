@@ -12,9 +12,9 @@ public class Assets {
 	public static BufferedImage CJugar, imagenTutorial1, imagenTutorial2, imagenTutorial3, imagenTutorial4, imagenTutorial5, imagenTutorial6;
 	public static BufferedImage textoTutorial1, textoTutorial2, textoTutorial3, textoTutorial4, textoTutorial5, textoTutorial6;
 	public static BufferedImage atras1, atras2, atras3;
+	public static BufferedImage victoria1, victoria2, volver, empate, salir2;
 	public static BufferedImage life, pausa;
 
-	
 	public static void init() {
 		background = ImageLoader.loadImage("/Textures/background.png");
 		level1 = ImageLoader.loadImage("/Textures/level1.png");
@@ -69,5 +69,11 @@ public class Assets {
 		atras1 = ImageLoader.loadImage("/Menus/Atras.png");
 		atras2 = ImageLoader.loadImage("/Menus/Atras.png");
 		atras3 = ImageLoader.loadImage("/Menus/Atras.png");
+		
+		victoria1 = ImageLoader.loadImage("/Menus/Victoria1.png");
+		victoria2 = ImageLoader.loadImage("/Menus/Victoria2.png");
+		empate = ImageLoader.loadImage("/Menus/Empate.png");
+		volver = ImageLoader.loadImage("/Menus/Volver.png");
+		salir2 = ImageLoader.loadImage("/Menus/Salir.png");
 	}
 }

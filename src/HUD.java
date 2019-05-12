@@ -13,7 +13,7 @@ public class HUD {
 	private int y;
 	private int width;
 	private int height;
-	private static int tiempo = 180;
+	private static int tiempo = 0;
 	
 	//Objetos
 	Handler handler = new Handler();
@@ -66,14 +66,22 @@ public class HUD {
 	public int getHeight() {
 		return height;
 	}
+	public void setTiempo(int tiempo) {
+		this.tiempo = tiempo;
+	}
 	public static int getTiempo() {
 		return tiempo;
 	}
 	
 	//Reducción de tiempo
 	public void segundoMenos() {
-		if(game.getPausado() == true) {
-			tiempo = tiempo - 1;
+		if(tiempo >= 0) {
+			if(player1.getPausa() == false) {
+				tiempo = tiempo - 1;
+			} else {
+				tiempo = tiempo - 0;
+				timer.stop();
+			}
 		}
 	}
 	

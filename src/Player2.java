@@ -14,7 +14,7 @@ public class Player2 extends Character{
 	private static double PI = 3.1415;
 	private int dir = 1;
 	private int counter=0;
-	private static int vidas = 5;
+	private static int vidas = 0;
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
@@ -76,6 +76,10 @@ public class Player2 extends Character{
 	}
 	public int getPuntos() {
 		return puntos;
+	}
+	public void setEstadisticas(int puntos, int vidas) {
+		this.puntos = puntos;
+		this.vidas = vidas;
 	}
 	
 	//Modos de juego

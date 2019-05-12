@@ -49,6 +49,16 @@ public class Menu implements MouseListener, KeyListener {
 	Boton textoTutorial5;
 	Boton textoTutorial6;
 	
+	Boton victoria1;
+	Boton victoria2;
+	Boton empate;
+	Boton volver;
+	Boton salir2;
+	
+	Handler handler = new Handler();
+	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler);
+	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	
 	//Constructor
 	public Menu(int PWidth, int PHeight) {
 		this.PWidth = PWidth;
@@ -87,6 +97,13 @@ public class Menu implements MouseListener, KeyListener {
 		textoTutorial5 = new Boton(190,320,420,50);
 		textoTutorial6 = new Boton(190,360,420,76);
 		atras3 = new Boton(-15,395,96,100);
+		
+		victoria1 = new Boton(60,20,600,135);
+		victoria2 = new Boton(60,20,600,135);
+		empate = new Boton(200,20,320,135);
+		volver = new Boton(270,180,180,100);
+		salir2 = new Boton(270,300,180,100);
+		
 	}
 	
 	//Controladores de botones 
@@ -150,6 +167,36 @@ public class Menu implements MouseListener, KeyListener {
 		textoTutorial6.setSize(1,1,1,1);
 		atras3.setSize(1,1,1,1);
 	}
+	public void reestablecerTutorial() {
+		CJugar.setSize(175,10,366,130);
+		imagenTutorial1.setSize(130,120,50,50);
+		imagenTutorial2.setSize(130,170,50,50);
+		imagenTutorial3.setSize(130,220,50,50);
+		imagenTutorial4.setSize(130,270,50,50);
+		imagenTutorial5.setSize(130,320,50,50);
+		imagenTutorial6.setSize(130,370,50,50);
+		textoTutorial1.setSize(190,120,420,50);
+		textoTutorial2.setSize(190,170,420,50);
+		textoTutorial3.setSize(190,220,420,50);
+		textoTutorial4.setSize(190,270,420,50);
+		textoTutorial5.setSize(190,320,420,50);
+		textoTutorial6.setSize(190,360,420,76);
+		atras3.setSize(-15,395,96,100);
+	}
+	public void borrarVictoria() {
+		victoria1.setSize(1,1,1,1);
+		victoria2.setSize(1,1,1,1);
+		empate.setSize(1,1,1,1);
+		volver.setSize(1,1,1,1);
+		salir2.setSize(1,1,1,1);
+	}
+	public void reestablecerVictoria() {
+		victoria1.setSize(60,20,600,135);
+		victoria2.setSize(60,20,60,135);
+		empate.setSize(200,20,320,135);
+		volver.setSize(270,180,180,100);
+		salir2.setSize(270,300,180,100);
+	}
 	
 	//Setters-Getters
 	public void setOption(int option) {
@@ -180,6 +227,8 @@ public class Menu implements MouseListener, KeyListener {
 			//Menú principal
 			borrarEscenario();
 			borrarModalidad();
+			borrarTutorial();
+			borrarVictoria();
 			reestablecerPrincipal();
 			jugar.paint(g, Assets.jugar); 
 			salir.paint(g, Assets.salir);
@@ -190,6 +239,8 @@ public class Menu implements MouseListener, KeyListener {
 			//Menú Modo de Juego
 			borrarEscenario();
 			borrarPrincipal();
+			borrarTutorial();
+			borrarVictoria();
 			reestablecerModalidad();
 			corazon.paint(g, Assets.corazon);
 			vidas.paint(g, Assets.vidas);
@@ -203,6 +254,8 @@ public class Menu implements MouseListener, KeyListener {
 			//Menú escenario
 			borrarPrincipal();
 			borrarModalidad();
+			borrarTutorial();
+			borrarVictoria();
 			reestablecerEscenario();
 			escenario1.paint(g, Assets.escenario1);
 			escenario2.paint(g, Assets.escenario2);
@@ -220,6 +273,10 @@ public class Menu implements MouseListener, KeyListener {
 		} else if(option == 4) { 
 			//Menú tutorial
 			borrarPrincipal();
+			borrarModalidad();
+			borrarEscenario();
+			borrarVictoria();
+			reestablecerTutorial();
 			CJugar.paint(g, Assets.CJugar);
 			imagenTutorial1.paint(g, Assets.imagenTutorial1);
 			imagenTutorial2.paint(g, Assets.imagenTutorial2);
@@ -234,7 +291,24 @@ public class Menu implements MouseListener, KeyListener {
 			textoTutorial5.paint(g, Assets.textoTutorial5);
 			textoTutorial6.paint(g, Assets.textoTutorial6);
 			atras3.paint(g, Assets.atras3);
-		} 
+			
+		} else if(option == 5) {
+			//Menú Ganador
+			borrarPrincipal();
+			borrarModalidad();
+			borrarEscenario();
+			borrarTutorial();
+			reestablecerVictoria();
+			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()==0) {
+				victoria1.paint(g, Assets.victoria1);
+			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()==0) {
+				victoria2.paint(g, Assets.victoria2);
+			} else if(P1.getPuntos()==P2.getPuntos()) {
+				empate.paint(g, Assets.empate);
+			}
+			volver.paint(g, Assets.volver);
+			salir2.paint(g, Assets.salir);
+		}
 	}
 
 	//Actualizar juego
@@ -243,16 +317,16 @@ public class Menu implements MouseListener, KeyListener {
 	
 	//MouseListener
 	public void mouseClicked(MouseEvent ME) {
+		//Menú principal
 		if(jugar.click(ME.getX(),ME.getY())) {
 			option = 1;
-			borrarPrincipal();
 		} else if(salir.click(ME.getX(),ME.getY())) {
 			System.exit(0);
 		} else if(tutorial.click(ME.getX(),ME.getY())) {
 			option = 4;
-			borrarPrincipal();
 		} 
 		
+		//Menú Modo de Juego
 		if(corazon.click(ME.getX(), ME.getY())) {
 			modo = 1;
 			option = 2;
@@ -263,6 +337,7 @@ public class Menu implements MouseListener, KeyListener {
 			option = 0;
 		} 
 		
+		//Menú Escenario
 		if(escenario1.click(ME.getX(),ME.getY())) {
 			escenario = 1;
 			option = 3;
@@ -279,9 +354,17 @@ public class Menu implements MouseListener, KeyListener {
 			option = 1;
 		} 
 		
+		//Menú Tutorial
 		if(atras3.click(ME.getX(),ME.getY())) {
 			option = 0;
 		} 
+		
+		//Menu Victoria
+		if(volver.click(ME.getX(),ME.getY())) {
+			option = 0;
+		} else if(salir2.click(ME.getX(),ME.getY())) {
+			System.exit(0);
+		}
 	}
 	
 	public void mouseEntered(MouseEvent arg0) {
