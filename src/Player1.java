@@ -20,6 +20,8 @@ public class Player1 extends Character {
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
+	private static boolean ableToTurn = true;
+	private boolean pausado=false;
 
 	//Constructor
 	public Player1(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
@@ -51,10 +53,16 @@ public class Player1 extends Character {
 			}
 		}
 		if (clock==true) {
-			clockWise();
+			if (ableToTurn) {
+				clockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		if (anticlock==true) {
-			counterClockWise();
+			if (ableToTurn) {
+				counterClockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		counter=(counter+1)%6;
 		bat.update();
@@ -71,7 +79,7 @@ public class Player1 extends Character {
 		return puntos;
 	}
 	
-	//Métodos Modos de juego
+	//Mï¿½todos Modos de juego
 	public void perderVida() {
 		System.out.println("Vidas = " + vidas);
 		vidas = vidas - 1;
@@ -92,7 +100,7 @@ public class Player1 extends Character {
 		cohetes = cohetes - 1;
 	}
 
-	//Detección de colisiones
+	//Detecciï¿½n de colisiones
 	public boolean collision(double dx, double dy) {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()) {
@@ -123,7 +131,7 @@ public class Player1 extends Character {
 		return false;
 	}
 
-	//Métodos de movimiento
+	//Mï¿½todos de movimiento
 	public int moveX (int direction) {
 		int movX;
 		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
@@ -132,6 +140,9 @@ public class Player1 extends Character {
 			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
+	
+	
+	
 	public static int moveY(int direction) {
 		int movX;
 		if (direction >= 0 && direction <=7)
@@ -141,13 +152,13 @@ public class Player1 extends Character {
 		return movX;
 	}
 	
-	  public static double round(double value, int places) {
+	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
-	  }
+	}
 	
 	//Paint
 	public void paint(Graphics g) {		
@@ -180,6 +191,11 @@ public class Player1 extends Character {
 				ableToShoot = false;
 			}
 		}
+		if (key==80) {
+			pausado=!pausado;
+			System.out.println("presione la p");
+		}
+		}
 	}
 	public void keyReleased(int key) {
 		if (key == KeyEvent.VK_LEFT) { 
@@ -201,6 +217,10 @@ public class Player1 extends Character {
 			if(!ableToShoot) ableToShoot = true;
 		}
 	}
+	public boolean getPausado() {
+		return pausado;
+	}
+	
 	public void keyTyped(int key) {
 	}
 }

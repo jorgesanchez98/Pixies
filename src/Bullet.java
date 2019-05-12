@@ -31,7 +31,7 @@ public class Bullet extends GameObject{
 		g.drawImage(sprite,getX(),getY(),null);
 	}
 	
-	//Colisión
+	//Colisiï¿½n
 	public void tick() {
 		x+=dirX;
 		y-=dirY;
@@ -52,7 +52,7 @@ public class Bullet extends GameObject{
 				}
 			}
 			if (aux instanceof Player2) { 
-				//Colisión Bala-Player2
+				//Colisiï¿½n Bala-Player2
 				if (placeMeeting(x,y,aux) && index!=2) {
 					setAlive(false);
 					if(menu.getModo()==1) {
@@ -68,7 +68,7 @@ public class Bullet extends GameObject{
 				}
 			}
 			if (aux instanceof Player1) { 
-				//Colisión Bala-Player1
+				//Colisiï¿½n Bala-Player1
 				if (placeMeeting(x, y, aux) && index!=1) {
 					if(menu.getModo()==1) {
 						P1.perderVida();

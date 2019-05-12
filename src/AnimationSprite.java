@@ -8,7 +8,7 @@ public class AnimationSprite {
 	private int imageIndex;
 	private int animSpd;
 	private int animCount;
-	private int topCount;	
+	private int topCount;
 	private int width, height;
 	
 	//Constructores

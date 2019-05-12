@@ -20,6 +20,7 @@ public class Player2 extends Character{
 	private static int cohetes = 0;
 	private static int puntos = 0;
 	private static boolean ableToShoot = true;
+	private static boolean ableToTurn = true;
 
 	//Constructor
 	public Player2(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
@@ -51,10 +52,16 @@ public class Player2 extends Character{
 			}
 		}
 		if (clock==true) {
-			clockWise();
+			if (ableToTurn) {
+				clockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		if (anticlock==true) {
-			counterClockWise();
+			if (ableToTurn) {
+				counterClockWise();
+			}
+			ableToTurn=!ableToTurn;
 		}
 		counter=(counter+1)%6;
 		bat.update();
@@ -71,7 +78,7 @@ public class Player2 extends Character{
 		return puntos;
 	}
 	
-	//Métodos Modos de Juego
+	//Mï¿½todos Modos de Juego
 	public void perderVida() {
 		System.out.println("Vidas = " + vidas);
 		vidas = vidas - 1;
@@ -92,7 +99,7 @@ public class Player2 extends Character{
 		cohetes = cohetes - 1;
 	}
 	
-	//Detección de colisiones
+	//Detecciï¿½n de colisiones
 	public boolean collision(double dx, double dy) {
 		ListIterator <GameObject> iterator = handler.obj.listIterator();
 		while (iterator.hasNext()) {
@@ -123,7 +130,7 @@ public class Player2 extends Character{
 		return false;
 	}
 
-	//Métodos de movimiento
+	//Mï¿½todos de movimiento
 	public int moveX (int direction) {
 		int movX;
 		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
