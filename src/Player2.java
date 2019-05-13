@@ -7,7 +7,7 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-public class Player2 extends Character{
+public class Player2 extends Character {
 	
 	//Variables
 	private AnimationSprite AS;	

@@ -5,7 +5,7 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
 	
 	//Variables
 	protected BufferedImage sprite;
