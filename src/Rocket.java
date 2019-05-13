@@ -33,7 +33,5 @@ public class Rocket extends Character {
 			}
 		}
 		return false;	
-	}
-
-	
+	}	
 }
