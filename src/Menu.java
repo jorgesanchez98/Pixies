@@ -56,8 +56,8 @@ public class Menu implements MouseListener, KeyListener {
 	Boton salir2;
 	
 	Handler handler = new Handler();
-	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler,1);
+	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler,1);
 	
 	//Constructor
 	public Menu(int PWidth, int PHeight) {
@@ -299,9 +299,9 @@ public class Menu implements MouseListener, KeyListener {
 			borrarEscenario();
 			borrarTutorial();
 			reestablecerVictoria();
-			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()==0) {
+			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()<=0) {
 				victoria1.paint(g, Assets.victoria1);
-			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()==0) {
+			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()<=0) {
 				victoria2.paint(g, Assets.victoria2);
 			} else if(P1.getPuntos()==P2.getPuntos()) {
 				empate.paint(g, Assets.empate);

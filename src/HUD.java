@@ -17,8 +17,8 @@ public class HUD {
 	
 	//Objetos
 	Handler handler = new Handler();
-	Player1 player1 = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 player2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	Player1 player1 = new Player1(80,200,32,32,Assets.tankU,handler,1);
+	Player2 player2 = new Player2(150,200,32,32,Assets.tankU,handler,1);
 	Game game = new Game("Tank",720,480);
 	Menu menu = new Menu(720,480);
 	
@@ -108,20 +108,37 @@ public class HUD {
 				g.drawImage(Assets.life,PVX2,PVY2,20,20,null);
 				PVX2 = PVX2 + 20;
 			}
+			if(menu.getEscenario()==1 || menu.getEscenario()==3) {
 			g.drawImage(Assets.rocketPU,150,455,20,20,null);
 			g.drawString("" + player1.getCohetes(),175,475);
 			g.drawImage(Assets.rocketPU,538,455,20,20,null);
 			g.drawString("" + player2.getCohetes(),520,475);
+			}
+			if(menu.getEscenario()==2 || menu.getEscenario()==4) {
+				g.drawImage(Assets.torpedo,150,455,20,20,null);
+				g.drawString("" + player1.getCohetes(),175,475);
+				g.drawImage(Assets.torpedo,538,455,20,20,null);
+				g.drawString("" + player2.getCohetes(),520,475);
+			}
 			
 		} else if(menu.getModo()==2) { 
 			//Pintar puntuación
 			g.drawString("" + tiempo, 350, 475);
 			g.drawString("| " + player1.getPuntos(),40,475);
 			g.drawString("" + player2.getPuntos() + " |",645,475);
+			
+			if(menu.getEscenario()==1 || menu.getEscenario()==3) {
 			g.drawImage(Assets.rocketPU,100,455,20,20,null);
 			g.drawString("" + player1.getCohetes(),127,475);
 			g.drawImage(Assets.rocketPU,590,455,20,20,null);
 			g.drawString("" + player2.getCohetes(),570,475);
+			}
+			if(menu.getEscenario()==2 || menu.getEscenario()==4) {
+				g.drawImage(Assets.torpedo,100,455,20,20,null);
+				g.drawString("" + player1.getCohetes(),127,475);
+				g.drawImage(Assets.torpedo,590,455,20,20,null);
+				g.drawString("" + player2.getCohetes(),570,475);
+			}
 		}
 	}
 }

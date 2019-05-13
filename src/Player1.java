@@ -25,15 +25,24 @@ public class Player1 extends Character {
 	private boolean pausa = false;
 
 	//Constructor
-	public Player1(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+	public Player1(int x, int y, int width, int height, BufferedImage bi, Handler handler, int sprite) {
 		super(x,y,width,height,handler);
-		
+		if(sprite==1) {
 		SpriteBuilder builder = new SpriteBuilder("/Textures/16dir.png",32,32);
 		for (int i=0; i<16; i++) {
 			builder.addImage(i,0);
 		}
 		AS=new AnimationSprite(x,y,builder.build());
 		AS.setAnimSpd(5);
+		}
+		if(sprite>1) {
+			SpriteBuilder builder = new SpriteBuilder("/Textures/16ship.png",32,32);
+			for (int i=0; i<16; i++) {
+				builder.addImage(i,0);
+			}
+			AS=new AnimationSprite(x,y,builder.build());
+			AS.setAnimSpd(5);
+			}
 	}
 		
 	//Actualizador

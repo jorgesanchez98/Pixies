@@ -26,6 +26,7 @@ public class Game implements Runnable, MouseListener {
 	private HUD HUD;
 	private boolean running = false;
 	private boolean pausado = false;
+	private int background;
 	Menu menu = new Menu(720,480);
 	
 	//Constructor
@@ -45,17 +46,21 @@ public class Game implements Runnable, MouseListener {
 		HUD = new HUD(0,452,720,30);
 		
 		switch(menu.getEscenario()) {
-		case 1: player1 = new Player1(60,60,32,32,Assets.tankU, handler);
-				player2 = new Player2(630,360,32,32,Assets.tankU, handler);
+		case 1: player1 = new Player1(60,60,32,32,Assets.tankU, handler,1);
+				player2 = new Player2(630,360,32,32,Assets.tankU, handler,1);
+				background=1;
 				break;
-		case 2: player1 = new Player1(270,210,32,32,Assets.tankU, handler);
-				player2 = new Player2(420,210,32,32,Assets.tankU, handler);
+		case 2: player1 = new Player1(270,210,32,32,Assets.tankU, handler,2);
+				player2 = new Player2(420,210,32,32,Assets.tankU, handler,2);
+				background=2;
 				break;
-		case 3: player1 = new Player1(90,210,32,32,Assets.tankU, handler);
-				player2 = new Player2(600,210,32,32,Assets.tankU, handler);
+		case 3: player1 = new Player1(90,210,32,32,Assets.tankU, handler,1);
+				player2 = new Player2(600,210,32,32,Assets.tankU, handler,1);
+				background=3;
 				break;
-		case 4: player1 = new Player1(60,210,32,32,Assets.tankU, handler);
-				player2 = new Player2(630,210,32,32,Assets.tankU, handler);
+		case 4: player1 = new Player1(60,210,32,32,Assets.tankU, handler,2);
+				player2 = new Player2(630,210,32,32,Assets.tankU, handler,2);
+				background=4;
 				break;
 		}
 		
@@ -116,7 +121,14 @@ public class Game implements Runnable, MouseListener {
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double scrWidth = scrSize.getWidth();
 		double scrHeight = scrSize.getHeight();
-		g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
+		if(background==1)
+			g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
+		if(background==2)
+			g.drawImage(Assets.backgroundSea,0,0,(int)scrWidth,(int)scrHeight,null);
+		if(background==3)
+			g.drawImage(Assets.hm,0,0,(int)scrWidth,(int)scrHeight,null);
+		if(background==4)
+			g.drawImage(Assets.backgroundSea2,0,0,(int)scrWidth,(int)scrHeight,null);
 		
 		double wScale = scrWidth/width;
 		double aproxH = (height*17)/17;
@@ -172,6 +184,9 @@ public class Game implements Runnable, MouseListener {
 	//Getters
 	public int getWidth() { 
 		return width; 
+	}
+	public int getBackground() { 
+		return background; 
 	}
 	public int getHeight() { 
 		return height; 
