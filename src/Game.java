@@ -12,12 +12,12 @@ public class Game implements Runnable, MouseListener {
 	
 	public static int width, height;
 	public String title;
-	private Boton pausa;
+	private Boton pausa = new Boton(345,210,32,32);
 	public Thread thread;
 	private Window window;
 	private Handler handler;
 	private KeyInput keyInput;
-	private BufferStrategy bs;
+	private BufferStrategy BS;
 	private LevelCreator level;
 	private Player1 player1;
 	private Player2 player2;
@@ -41,7 +41,7 @@ public class Game implements Runnable, MouseListener {
 		Assets.init();
 		window = new Window(title,width,height);
 		handler = new Handler();
-		level = new LevelCreator(handler);
+		level = new LevelCreator(handler);	
 		pausa = new Boton(345,210,32,32);
 		HUD = new HUD(0,452,720,30);
 		
@@ -80,11 +80,10 @@ public class Game implements Runnable, MouseListener {
 		if(running) return;
 		running = true;
 		thread = new Thread(this);
-
+		
 		//Iniciar musica
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
-
 		thread.start();
 	}
 	
@@ -102,19 +101,19 @@ public class Game implements Runnable, MouseListener {
 	//Actualizador del juego 
 	public void tick() {
 		if (handler.isWin()) {
-			running=false;
+			running = false;
 		}
 		handler.tick();
 	}
 	
 	//Render
 	public void render() {
-		bs = window.getCanvas().getBufferStrategy();
-		if (bs == null) {
+		BS = window.getCanvas().getBufferStrategy();
+		if (BS == null) {
 			window.getCanvas().createBufferStrategy(3);
 			return;
 		}
-		g = (Graphics2D) bs.getDrawGraphics();
+		g = (Graphics2D) BS.getDrawGraphics();
 		g.clearRect(0,0,width,height);
 		
 		//Escalado de pantalla
@@ -140,9 +139,13 @@ public class Game implements Runnable, MouseListener {
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
-		bs.show();
+		BS.show();
 	}
-	
+	public void renderPausa() {
+		pausa.paint(g, Assets.pausa);
+		g.drawString("Pausa",300,240);
+	}
+
 	//Runnable
 	public void run() {
 		init();
@@ -155,28 +158,30 @@ public class Game implements Runnable, MouseListener {
 		long timer = 0;
 
 		while(running == true) {
-			if (player1.getPausa() == false) {
+			if(player1.getPausa() == false) {
 				now = System.nanoTime();
 				delta += (now-lastTime) / timePerTick;
 				timer += now - lastTime;
 				lastTime = now;
 	
-				if (delta >= 1) {
+				if(delta>=1) {
 					tick();
 					render();
 					ticks++;
 					delta--;
 				}
-				if (timer>=1000000000) {
+				if(timer>=1000000000) {
 					ticks = 0;
 					timer = 0;
 				}
-			} 
+			} else {
+				pausado = true;
+			}
 			if(player1.getVidas()<=0 || player2.getVidas()<=0 || HUD.getTiempo()<=0) {
 				running = false;
 				window.dispose();
 				menu.setOption(5);
-			}
+			} 
 		}
 		stop();
 	}	
@@ -191,8 +196,8 @@ public class Game implements Runnable, MouseListener {
 	public int getHeight() { 
 		return height; 
 	}
-	public boolean getPausado() { 
-		return pausado; 
+	public boolean getPausado() {
+		return pausado;
 	}
 	
 	public void mouseClicked(MouseEvent ME) {

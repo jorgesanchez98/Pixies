@@ -15,6 +15,7 @@ public class Assets {
 	public static BufferedImage victoria1, victoria2, volver, empate, salir2;
 	public static BufferedImage life, pausa;
 
+	//Cargar im�genes
 	public static void init() {
 		background = ImageLoader.loadImage("/Textures/background.png");
 		backgroundSea = ImageLoader.loadImage("/Textures/lolwtf.jpg");

@@ -192,7 +192,7 @@ public class Menu implements MouseListener, KeyListener {
 	}
 	public void reestablecerVictoria() {
 		victoria1.setSize(60,20,600,135);
-		victoria2.setSize(60,20,60,135);
+		victoria2.setSize(60,20,600,135);
 		empate.setSize(200,20,320,135);
 		volver.setSize(270,180,180,100);
 		salir2.setSize(270,300,180,100);

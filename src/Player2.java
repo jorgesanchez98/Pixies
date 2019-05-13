@@ -15,8 +15,8 @@ public class Player2 extends Character{
 	private int dir = 1;
 	private int counter=0;
 	private static int vidas = 0;
-	private static int cohetes = 0;
 	private static int puntos = 0;
+	private static int cohetes = 0;
 	private static boolean ableToShoot = true;
 	private static boolean ableToTurn = true;	
 	private boolean adelante, atras, clock, anticlock, shootB, shootR; 
