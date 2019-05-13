@@ -12,8 +12,8 @@ public class Bullet extends GameObject{
 	private int dirX, dirY,index;
 	
 	//Objetos
-	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler,1);
+	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler,1);
 	Menu menu = new Menu(720,480);
 	
 	//Constructor

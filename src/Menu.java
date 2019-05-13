@@ -56,8 +56,8 @@ public class Menu implements MouseListener, KeyListener {
 	Boton salir2;
 	
 	Handler handler = new Handler();
-	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler,1);
+	Player2 P2 = new Player2(150,200,32,32,Assets.tankU,handler,1);
 	
 	//Constructor
 	public Menu(int PWidth, int PHeight) {

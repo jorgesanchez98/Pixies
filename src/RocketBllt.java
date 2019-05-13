@@ -14,8 +14,8 @@ public class RocketBllt extends GameObject{
 	private AnimationSprite AS;
 	
 	//Objetos
-	Player1 player = new Player1(80,200,32,32,Assets.tankU,handler);
-	Player2 player2 = new Player2(150,200,32,32,Assets.tankU,handler);
+	Player1 player = new Player1(80,200,32,32,Assets.tankU,handler,1);
+	Player2 player2 = new Player2(150,200,32,32,Assets.tankU,handler,1);
 	Menu menu = new Menu(720,480);
 	
 	//Constructor 
@@ -24,7 +24,7 @@ public class RocketBllt extends GameObject{
 		this.dirX=dirX;
 		this.dirY=dirY;
 		this.index=index;
-		this.angle = angle;
+		this.angle = angle;		
 		SpriteBuilder builder = new SpriteBuilder("./Textures/16cohete.png",20,20);
 		for (int i=0; i<16 ; i++) {
 			builder.addImage(i, 0);

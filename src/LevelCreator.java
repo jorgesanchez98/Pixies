@@ -31,13 +31,24 @@ public class LevelCreator {
 				int green= (pixel>>8)& 0xff;
 				int blue= (pixel)& 0xff;
 				if(red==0 && green==0 && blue==0) {
-					handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.block, handler));
+					switch(menu.getEscenario()) {
+					case 1: handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.block, handler)); break;
+					case 2: handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.woodlog, handler)); break;
+					case 3: handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.block, handler)); break;
+					case 4:	handler.addObj(new Block(xx*30, yy*30, 31, 31, Assets.woodlog, handler)); break;
+					}
 				}		
 				if(red==0 && green==0 && blue==255) {
 					handler.addObj(new Target(xx*30, yy*30, 31, 31, Assets.block2, handler));
 				}
 				if(red==0 && green==255 && blue==0) {
-					handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.rocketPU, handler));
+					switch(menu.getEscenario()) {
+					case 1: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.rocketPU, handler)); break;
+					case 2: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.torpedo, handler)); break;
+					case 3: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.rocketPU, handler)); break;
+					case 4: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.torpedo, handler)); break;
+					}
+					
 				}
 			}
 		}

@@ -3,8 +3,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	//Variables
-	public static BufferedImage background, block, block2, tankU, tankL,Rbullet, tankD, tankR, bullet, rocketPU;
+	public static BufferedImage background,backgroundSea, block, block2, tankU, tankL,Rbullet, tankD, tankR, bullet, rocketPU,woodlog,torpedo,hm,backgroundSea2;
 	public static BufferedImage level1, level2, level3, level4;
 	public static BufferedImage relieve, fondo;
 	public static BufferedImage jugar, salir, titulo, tutorial;
@@ -16,9 +15,14 @@ public class Assets {
 	public static BufferedImage victoria1, victoria2, volver, empate, salir2;
 	public static BufferedImage life, pausa;
 
-	//Cargar imágenes
+	//Cargar imï¿½genes
 	public static void init() {
 		background = ImageLoader.loadImage("/Textures/background.png");
+		backgroundSea = ImageLoader.loadImage("/Textures/lolwtf.jpg");
+		backgroundSea2 = ImageLoader.loadImage("/Textures/jejecarajo.jpg");
+		hm = ImageLoader.loadImage("/Textures/AfricanDesert1.jpg");
+		woodlog = ImageLoader.loadImage("/Textures/woodlog.png");
+		torpedo = ImageLoader.loadImage("/Textures/torpedo.png");
 		level1 = ImageLoader.loadImage("/Textures/level1.png");
 		level2 = ImageLoader.loadImage("/Textures/level2.png");
 		level3 = ImageLoader.loadImage("/Textures/level3.png");
