@@ -192,7 +192,7 @@ public class Menu implements MouseListener, KeyListener {
 	}
 	public void reestablecerVictoria() {
 		victoria1.setSize(60,20,600,135);
-		victoria2.setSize(60,20,60,135);
+		victoria2.setSize(60,20,600,135);
 		empate.setSize(200,20,320,135);
 		volver.setSize(270,180,180,100);
 		salir2.setSize(270,300,180,100);
@@ -299,9 +299,9 @@ public class Menu implements MouseListener, KeyListener {
 			borrarEscenario();
 			borrarTutorial();
 			reestablecerVictoria();
-			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()==0) {
+			if(P1.getPuntos()>P2.getPuntos() || P2.getVidas()<=0) {
 				victoria1.paint(g, Assets.victoria1);
-			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()==0) {
+			} else if(P1.getPuntos()<P2.getPuntos() || P1.getVidas()<=0) {
 				victoria2.paint(g, Assets.victoria2);
 			} else if(P1.getPuntos()==P2.getPuntos()) {
 				empate.paint(g, Assets.empate);
