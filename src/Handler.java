@@ -4,17 +4,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 //Manejador de objetos
 public class Handler {
-	private boolean win=false;
+	private boolean win = false;
 	
-	 // CopyOnWriteArrayList modifica la lista durante varios procesos	
+	 //CopyOnWriteArrayList modifica la lista durante varios procesos	
 	public CopyOnWriteArrayList <GameObject> obj;
 
-	// Constructor
+	//Constructor
 	public Handler(){
 		obj = new CopyOnWriteArrayList <GameObject>();
 	}
 	
-	// Actualizador
+	//Actualizador
 	public void tick() {
 		ListIterator <GameObject> itr = obj.listIterator();
 		while (itr.hasNext()) {
@@ -34,21 +34,11 @@ public class Handler {
 		}
 	}
 	
-	//Añadir objetos
+	//Control de objetos
 	public void addObj(GameObject obj){
 		this.obj.add(obj);
 	}
-	//Eliminar objetos
 	public void removeObj(GameObject obj) {
 		this.obj.remove(obj);
-	}
-	
-	//Setters-Getters
-	public boolean isWin() {
-		return win;
-	}
-	public void setWin(boolean win) {
-		this.win = win;
-	}
-	
+	}	
 }

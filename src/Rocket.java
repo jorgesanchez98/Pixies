@@ -13,6 +13,7 @@ public class Rocket extends Character {
 		this.sprite=bi;
 		}
 		
+	//Actualizador
 	public void tick() {	
 	}
 	
@@ -30,6 +31,7 @@ public class Rocket extends Character {
 		return false;	
 	}
 
+	//Paint
 	public void paint(Graphics g) {
 		g.drawImage(sprite, getX(), getY(), null);
 	}

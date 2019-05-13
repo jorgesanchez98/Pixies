@@ -21,7 +21,7 @@ public class AnimationSprite {
 		this.sprite=sprite;
 	}
 	
-	//Actualizador del sprite
+	//Actualizar sprite
 	public void update() {
 		if (animSpd > 0) {
 			if (animCount < topCount) {
@@ -45,7 +45,7 @@ public class AnimationSprite {
 		}
 	}
 	
-	//Resetear animación
+	//Reiniciar animación
 	public boolean hasReachedEnd() {
 		return reachedEnd;
 	}

@@ -9,7 +9,7 @@ public class Bullet extends GameObject{
 	
 	//Variables
 	protected BufferedImage sprite;
-	private int dirX, dirY,index;
+	private int dirX, dirY, index;
 	
 	//Objetos
 	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler,1);

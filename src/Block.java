@@ -17,6 +17,8 @@ public class Block extends GameObject {
 	public void paint(Graphics g) {
 		g.drawImage(sprite, getX(), getY(), null);
 	}
+	
+	//Tick
 	public void tick() {}
 	
 	//Rectangle

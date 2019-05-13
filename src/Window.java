@@ -8,8 +8,9 @@ import javax.swing.JFrame;
 public class Window {
 	
 	//Variables
+	private int width;
+	private int height;
 	private JFrame frame;
-	private int width, height;
 	private String title;
 	public static Canvas canvas;
 	
@@ -56,7 +57,7 @@ public class Window {
 		return frame; 
 	}
 	
-	//Dispose Frame
+	//Eliminar Frame
 	public void dispose() {
 		frame.dispose();
 	}

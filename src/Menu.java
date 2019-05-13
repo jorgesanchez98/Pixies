@@ -103,7 +103,6 @@ public class Menu implements MouseListener, KeyListener {
 		empate = new Boton(200,20,320,135);
 		volver = new Boton(270,180,180,100);
 		salir2 = new Boton(270,300,180,100);
-		
 	}
 	
 	//Controladores de botones 

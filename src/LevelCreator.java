@@ -48,7 +48,6 @@ public class LevelCreator {
 					case 3: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.rocketPU, handler)); break;
 					case 4: handler.addObj(new Rocket(xx*30, yy*30, 31, 31, Assets.torpedo, handler)); break;
 					}
-					
 				}
 			}
 		}

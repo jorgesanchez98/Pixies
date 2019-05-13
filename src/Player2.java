@@ -13,7 +13,7 @@ public class Player2 extends Character{
 	private AnimationSprite AS;	
 	private static double PI = 3.1415;
 	private int dir = 1;
-	private int counter=0;
+	private int counter = 0;
 	private static int vidas = 0;
 	private static int puntos = 0;
 	private static int cohetes = 0;
@@ -39,7 +39,7 @@ public class Player2 extends Character{
 			}
 			AS=new AnimationSprite(x,y,builder.build());
 			AS.setAnimSpd(5);
-			}
+		}
 	}
 		
 	//Actualizador
@@ -104,6 +104,8 @@ public class Player2 extends Character{
 	public void ganarPuntoCohete() {
 		puntos = puntos + 3;
 	}
+	
+	//Metodos de cohetes
 	public void tomarCohete() {
 		cohetes = cohetes + 5;
 	}

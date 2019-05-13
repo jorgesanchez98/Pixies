@@ -3,8 +3,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import image.Assets;
@@ -42,7 +40,7 @@ public class Player1 extends Character {
 			}
 			AS=new AnimationSprite(x,y,builder.build());
 			AS.setAnimSpd(5);
-			}
+		}
 	}
 		
 	//Actualizador
@@ -211,7 +209,7 @@ public class Player1 extends Character {
 			}
 		}
 		if (key == KeyEvent.VK_P) {
-			pausa = !pausa;
+			pausa = !pausa;			
 			System.out.println("Pausa = " + pausa);
 		}
 	}

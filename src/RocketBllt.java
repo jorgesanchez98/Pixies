@@ -21,9 +21,9 @@ public class RocketBllt extends GameObject{
 	//Constructor 
 	public RocketBllt(int x, int y, int width, int height, BufferedImage bi, int dirX, int dirY, Handler handler, int angle, int index) {
 		super(x,y,width,height,handler);
-		this.dirX=dirX;
-		this.dirY=dirY;
-		this.index=index;
+		this.dirX = dirX;
+		this.dirY = dirY;
+		this.index = index;
 		this.angle = angle;		
 		SpriteBuilder builder = new SpriteBuilder("./Textures/16cohete.png",20,20);
 		for (int i=0; i<16 ; i++) {

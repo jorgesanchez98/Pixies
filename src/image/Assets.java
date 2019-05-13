@@ -3,7 +3,8 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	public static BufferedImage background,backgroundSea, block, block2, tankU, tankL,Rbullet, tankD, tankR, bullet, rocketPU,woodlog,torpedo,hm,backgroundSea2;
+	public static BufferedImage block, block2, tankU, tankL, Rbullet, tankD, tankR, bullet, rocketPU, woodlog, torpedo;
+	public static BufferedImage background1, background2, background3, background4;
 	public static BufferedImage level1, level2, level3, level4;
 	public static BufferedImage relieve, fondo;
 	public static BufferedImage jugar, salir, titulo, tutorial;
@@ -17,10 +18,10 @@ public class Assets {
 
 	//Cargar im�genes
 	public static void init() {
-		background = ImageLoader.loadImage("/Textures/background.png");
-		backgroundSea = ImageLoader.loadImage("/Textures/lolwtf.jpg");
-		backgroundSea2 = ImageLoader.loadImage("/Textures/jejecarajo.jpg");
-		hm = ImageLoader.loadImage("/Textures/AfricanDesert1.jpg");
+		background1 = ImageLoader.loadImage("/Textures/Desierto.jpg");
+		background2 = ImageLoader.loadImage("/Textures/Mar.jpg");
+		background3 = ImageLoader.loadImage("/Textures/Marmol.jpg");
+		background4 = ImageLoader.loadImage("/Textures/Playa.jpg");
 		woodlog = ImageLoader.loadImage("/Textures/woodlog.png");
 		torpedo = ImageLoader.loadImage("/Textures/torpedo.png");
 		level1 = ImageLoader.loadImage("/Textures/level1.png");

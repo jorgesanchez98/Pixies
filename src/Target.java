@@ -17,6 +17,8 @@ public class Target extends GameObject {
 	public void paint(Graphics g) {
 		g.drawImage(sprite, getX(), getY(), null);
 	}
+	
+	//Actualizador
 	public void tick() {
 	}
 	

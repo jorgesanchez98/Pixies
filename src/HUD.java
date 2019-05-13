@@ -23,11 +23,9 @@ public class HUD {
 	Menu menu = new Menu(720,480);
 	
 	//Texto
-	Color color = new Color(120,120,120);
-	Font font = new Font("Times New Roman",Font.PLAIN,30);
-	
-	//Timer
+	Color color = new Color(80,80,80);
 	Timer timer = new Timer(1000, AE->segundoMenos());
+	Font font = new Font("Times New Roman",Font.PLAIN,30);
 	
 	//Constructor
 	public HUD(int x, int y, int width, int height) {
