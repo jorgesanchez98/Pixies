@@ -25,6 +25,8 @@ public class HUD {
 	//Texto
 	Color color = new Color(120,120,120);
 	Font font = new Font("Times New Roman",Font.PLAIN,30);
+	
+	//Timer
 	Timer timer = new Timer(1000, AE->segundoMenos());
 	
 	//Constructor
@@ -73,12 +75,14 @@ public class HUD {
 	
 	//Reducción de tiempo
 	public void segundoMenos() {
-		if(tiempo >= 0 && player1.getPausa() != false) {
-			tiempo = tiempo - 1;
-		} else {
-			timer.stop();
+		if(tiempo >= 0) {
+			if(player1.getPausa() == false) {
+				tiempo = tiempo - 1;
+			} else {
+				tiempo = tiempo - 0;
+				timer.stop();
+			}
 		}
-		System.out.println("Tiempo = " + tiempo);
 	}
 	
 	//Render
