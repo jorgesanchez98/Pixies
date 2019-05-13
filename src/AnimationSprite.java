@@ -9,49 +9,17 @@ public class AnimationSprite {
 	private int animSpd;
 	private int animCount;
 	private int topCount;
-	private int width, height;
+	private int width;
+	private int height;
 	
 	//Constructores
-	public AnimationSprite (int x, int y, CachedSprite sprite) {
+	public AnimationSprite(int x, int y, CachedSprite sprite) {
 		imageIndex = 0;
-		this.sprite=sprite;
+		this.sprite = sprite;
 	}
-	public AnimationSprite (int x, int y, CachedSprite sprite, int width, int height) {
+	public AnimationSprite(int x, int y, CachedSprite sprite, int width, int height) {
 		imageIndex = 0;
-		this.sprite=sprite;
-	}
-	
-	//Actualizar sprite
-	public void update() {
-		if (animSpd > 0) {
-			if (animCount < topCount) {
-				animCount++;
-				reachedEnd = false;
-			}
-			else {
-				animCount = 0;
-				imageIndex = (imageIndex+1)%sprite.size();
-				reachedEnd = true;
-			}
-		}
-	}
-	
-	//Render
-	public void render(Graphics g, int x, int y, int index) {
-		if (width!=0) {
-			g.drawImage(sprite.get(index), x, y, width, height, null);
-		} else {
-			g.drawImage(sprite.get(index), x, y, null);
-		}
-	}
-	
-	//Reiniciar animación
-	public boolean hasReachedEnd() {
-		return reachedEnd;
-	}
-	public void reset() {
-		imageIndex=0;
-		animCount=0;
+		this.sprite = sprite;
 	}
 	
 	//Setters-Getters
@@ -107,5 +75,37 @@ public class AnimationSprite {
 	}
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	//Actualizar sprite
+	public void update() {
+		if (animSpd > 0) {
+			if (animCount<topCount) {
+				animCount++;
+				reachedEnd = false;
+			} else {
+				animCount = 0;
+				imageIndex = (imageIndex+1)%sprite.size();
+				reachedEnd = true;
+			}
+		}
+	}
+	
+	//Render
+	public void render(Graphics g, int x, int y, int index) {
+		if (width!=0) {
+			g.drawImage(sprite.get(index),x,y,width,height,null);
+		} else {
+			g.drawImage(sprite.get(index),x,y,null);
+		}
+	}
+	
+	//Reiniciar animación
+	public boolean hasReachedEnd() {
+		return reachedEnd;
+	}
+	public void reset() {
+		imageIndex=0;
+		animCount=0;
 	}
 }

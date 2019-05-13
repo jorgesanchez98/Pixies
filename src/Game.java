@@ -128,7 +128,7 @@ public class Game implements Runnable, MouseListener {
 		double aproxH = (height*17)/17;
 		double hScale = (scrHeight/aproxH);
 		AffineTransform at = new AffineTransform();
-		at.scale(wScale, hScale);
+		at.scale(wScale,hScale);
 		g.setTransform(at);
 	
 		handler.render(g);

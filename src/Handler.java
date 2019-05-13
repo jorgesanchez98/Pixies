@@ -4,6 +4,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 //Manejador de objetos
 public class Handler {
+	
+	//Variables
 	private boolean win = false;
 	
 	 //CopyOnWriteArrayList modifica la lista durante varios procesos	

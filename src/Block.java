@@ -8,21 +8,22 @@ public class Block extends GameObject {
 	protected BufferedImage sprite;
 	
 	//Constructor
-	public Block (int x, int y, int width, int height, BufferedImage bi, Handler handler) {
+	public Block (int x, int y, int width, int height, BufferedImage BI, Handler handler) {
 		super(x,y,width,height,handler);
-		this.sprite=bi;
+		this.sprite = BI;
 	}
 	
 	//Paint
 	public void paint(Graphics g) {
-		g.drawImage(sprite, getX(), getY(), null);
+		g.drawImage(sprite,getX(),getY(),null);
 	}
 	
 	//Tick
-	public void tick() {}
+	public void tick() {
+	}
 	
 	//Rectangle
 	public Rectangle getBounds(){
-		return (new Rectangle(getX(), getY(), width, height));
+		return (new Rectangle(getX(),getY(),width,height));
 	}
 }

@@ -10,10 +10,11 @@ public class SpriteBuilder {
 	//Variables
 	private BufferedImage spriteSheet;
 	private List<BufferedImage>images;
-	private int cellW, cellH;
+	private int cellW;
+	private int cellH;
 	
 	//Constructor
-	public SpriteBuilder (String fName, int cellW, int cellH) {
+	public SpriteBuilder(String fName, int cellW, int cellH) {
 		try {
 			spriteSheet = (BufferedImage)ImageIO.read(getClass().getClassLoader().getResource("./"+fName));
 		} catch(IOException e) {
