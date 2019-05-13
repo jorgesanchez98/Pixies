@@ -76,12 +76,9 @@ public class HUD {
 	//Reducción de tiempo
 	public void segundoMenos() {
 		if(tiempo >= 0) {
-			if(player1.getPausa() == false) {
-				tiempo = tiempo - 1;
-			} else {
-				tiempo = tiempo - 0;
-				timer.stop();
-			}
+			tiempo = tiempo - 1;
+		} else {
+			timer.stop();
 		}
 	}
 	
