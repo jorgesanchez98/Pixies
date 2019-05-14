@@ -26,10 +26,10 @@ public abstract class Character extends GameObject {
 	
 	//Rotacion de personaje
 	public void clockWise() {
-		angle= ((((angle+1)%maxAng)+maxAng)%maxAng);
+		angle = ((((angle+1)%maxAng)+maxAng)%maxAng);
 	}
 	public void counterClockWise() {
-		angle= ((((angle-1)%maxAng)+maxAng)%maxAng);
+		angle = ((((angle-1)%maxAng)+maxAng)%maxAng);
 	}
 
 	//Setters-Getters
