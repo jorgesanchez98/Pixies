@@ -185,19 +185,19 @@ public class Player1 extends Character {
 		if (key == KeyEvent.VK_ESCAPE) {
 			System.exit(1);
 		}
-		if (key == KeyEvent.VK_LEFT) { 
+		if (key == KeyEvent.VK_D) { 
 			anticlock = true;
 		}
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_A) { 
 			clock = true;
 		}
-		if (key == KeyEvent.VK_UP) { 
+		if (key == KeyEvent.VK_W) { 
 			adelante = true;
 		}
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras = true;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 			if(ableToShoot) {
 				if(getCohetes()>0) {
 					handler.addObj(new RocketBllt(this.getX()+15, this.getY()+16, 8, 8, Assets.Rbullet, moveX(angle), moveY(angle), handler, angle,1));
@@ -214,19 +214,19 @@ public class Player1 extends Character {
 		}
 	}
 	public void keyReleased(int key) {
-		if (key == KeyEvent.VK_LEFT) { 
+		if (key == KeyEvent.VK_D) { 
 			anticlock = false;
 		}
-		if (key == KeyEvent.VK_RIGHT) { 
+		if (key == KeyEvent.VK_A) { 
 			clock = false;
 		}
-		if (key == KeyEvent.VK_UP) { 
+		if (key == KeyEvent.VK_W) { 
 			adelante = false;
 		}
-		if (key == KeyEvent.VK_DOWN) { 
+		if (key == KeyEvent.VK_S) { 
 			atras = false;
 		}
-		if (key == KeyEvent.VK_SPACE) {
+		if (key == KeyEvent.VK_E) {
 			if(!ableToShoot) {
 				ableToShoot = true;
 			}
