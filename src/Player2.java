@@ -86,9 +86,10 @@ public class Player2 extends Character {
 	public int getPuntos() {
 		return puntos;
 	}
-	public void setEstadisticas(int puntos, int vidas) {
+	public void setEstadisticas(int puntos, int vidas, int cohetes) {
 		this.puntos = puntos;
 		this.vidas = vidas;
+		this.cohetes = cohetes;
 	}
 	
 	//Modos de juego

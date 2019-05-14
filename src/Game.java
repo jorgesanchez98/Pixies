@@ -71,8 +71,8 @@ public class Game implements Runnable, MouseListener {
 		handler.addObj(player2);
 		
 		HUD.setTiempo(120);
-		player1.setEstadisticas(0,5);
-		player2.setEstadisticas(0,5);
+		player1.setEstadisticas(0,5,0);
+		player2.setEstadisticas(0,5,0);
 	}
 
 	//Inicializador del juego

@@ -90,9 +90,10 @@ public class Player1 extends Character {
 	public boolean getPausa() {
 		return pausa;
 	}
-	public void setEstadisticas(int puntos, int vidas) {
+	public void setEstadisticas(int puntos, int vidas, int cohetes) {
 		this.puntos = puntos;
 		this.vidas = vidas;
+		this.cohetes = cohetes;
 	}
 	
 	//Modos de juego
