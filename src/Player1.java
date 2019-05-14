@@ -109,7 +109,7 @@ public class Player1 extends Character {
 		puntos = puntos + 3;
 	}
 	
-	//Metodos de cohetes
+	//Metodos de cohete
 	public void tomarCohete() {
 		cohetes = cohetes + 5;
 	}
