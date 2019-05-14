@@ -5,13 +5,14 @@ public abstract class Character extends GameObject {
 	//Variables
 	protected double dirX;
 	protected double dirY;
-	protected int angle=12, maxAng=16;
+	protected int angle = 12;
+	protected int maxAng = 16;
 	
 	// Constructor
 	public Character(int x, int y, int width, int height, Handler handler) {
-		super(x, y, width, height, handler);
+		super(x,y,width,height,handler);
 		dirX = 0;
-		dirY= 1;
+		dirY = 1;
 	}
 	
 	//Colision

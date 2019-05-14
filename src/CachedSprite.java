@@ -8,11 +8,11 @@ public class CachedSprite {
 	
 	//Constructor
 	public CachedSprite(List<BufferedImage>images) {
-		this.images=images;
+		this.images = images;
 	}
 	
 	//Getters
-	public BufferedImage get (int index) {
+	public BufferedImage get(int index) {
 		return images.get(index);
 	}
 	

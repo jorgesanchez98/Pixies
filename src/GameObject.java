@@ -20,7 +20,7 @@ public abstract class GameObject {
 		this.width = width;
 		this.height = height;
 		this.handler = handler;
-		alive=true;
+		alive = true;
 	}
 	
 	//Metodos abstractos
@@ -29,8 +29,8 @@ public abstract class GameObject {
 	public abstract Rectangle getBounds();
 	
 	//Colision entre rectangulos
-	public boolean placeMeeting (double x, double y, GameObject obj) {
-		if ((new Rectangle((int)x, (int)y, width, height)).intersects(obj.getBounds())) {
+	public boolean placeMeeting (double x, double y, GameObject GO) {
+		if ((new Rectangle((int)x, (int)y, width, height)).intersects(GO.getBounds())) {
 			return true;
 		}
 		return false;

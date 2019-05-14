@@ -7,9 +7,9 @@ public class KeyInput implements KeyListener {
 	Player2 player2;
 	
 	//Constructor
-	public KeyInput(Player1 player, Player2 p2) {
-		this.player1 = player;
-		this.player2 = p2;
+	public KeyInput(Player1 player1, Player2 player2) {
+		this.player1 = player1;
+		this.player2 = player2;
 	}
 	
 	//KeyListeners

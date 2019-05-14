@@ -5,12 +5,14 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-public class RocketBllt extends GameObject{
+public class RocketBllt extends GameObject {
 	
 	//Variables
 	protected BufferedImage sprite;
-	private int angle,index;
-	private float dirX, dirY;
+	private int angle;
+	private int index;
+	private float dirX;
+	private float dirY;
 	private AnimationSprite AS;
 	
 	//Objetos
@@ -21,16 +23,21 @@ public class RocketBllt extends GameObject{
 	//Constructor 
 	public RocketBllt(int x, int y, int width, int height, BufferedImage bi, int dirX, int dirY, Handler handler, int angle, int index) {
 		super(x,y,width,height,handler);
-		this.dirX=dirX;
-		this.dirY=dirY;
-		this.index=index;
+		this.dirX = dirX;
+		this.dirY = dirY;
+		this.index = index;
 		this.angle = angle;		
 		SpriteBuilder builder = new SpriteBuilder("./Textures/16cohete.png",20,20);
 		for (int i=0; i<16 ; i++) {
 			builder.addImage(i, 0);
 		}
-		AS=new AnimationSprite(x, y, builder.build());
+		AS = new AnimationSprite(x, y, builder.build());
 		AS.setAnimSpd(5);
+	}
+	
+	//Rectangle
+	public Rectangle getBounds() {
+		return (new Rectangle(getX(), getY(), width, height));
 	}
 	
 	//Paint
@@ -90,8 +97,4 @@ public class RocketBllt extends GameObject{
 		}
 	}
 
-	//Rectangle
-	public Rectangle getBounds() {
-		return (new Rectangle(getX(), getY(), width, height));
-	}
 }

@@ -10,24 +10,25 @@ import image.Assets;
 
 public class Game implements Runnable, MouseListener {
 	
-	public static int width, height;
+	public static int width;
+	public static int height;
 	public String title;
-	private Boton pausa = new Boton(345,210,32,32);
 	public Thread thread;
 	private Window window;
 	private Handler handler;
 	private KeyInput keyInput;
 	private BufferStrategy BS;
-	private LevelCreator level;
+	private LevelCreator level;	
 	private Player1 player1;
 	private Player2 player2;
 	private Rocket rocket;
 	private Graphics2D g;
 	private HUD HUD;
+	private int background;
 	private boolean running = false;
 	private boolean pausado = false;
-	private int background;
 	Menu menu = new Menu(720,480);
+	Boton pausa = new Boton(345,210,32,32);
 	
 	//Constructor
 	public Game(String title, int width, int height) {
@@ -48,19 +49,19 @@ public class Game implements Runnable, MouseListener {
 		switch(menu.getEscenario()) {
 		case 1: player1 = new Player1(60,60,32,32,Assets.tankU, handler,1);
 				player2 = new Player2(630,360,32,32,Assets.tankU, handler,1);
-				background=1;
+				background = 1;
 				break;
 		case 2: player1 = new Player1(270,210,32,32,Assets.tankU, handler,2);
 				player2 = new Player2(420,210,32,32,Assets.tankU, handler,2);
-				background=2;
+				background = 2;
 				break;
 		case 3: player1 = new Player1(90,210,32,32,Assets.tankU, handler,1);
 				player2 = new Player2(600,210,32,32,Assets.tankU, handler,1);
-				background=3;
+				background = 3;
 				break;
 		case 4: player1 = new Player1(60,210,32,32,Assets.tankU, handler,2);
 				player2 = new Player2(630,210,32,32,Assets.tankU, handler,2);
-				background=4;
+				background = 4;
 				break;
 		}
 		
@@ -69,7 +70,7 @@ public class Game implements Runnable, MouseListener {
 		handler.addObj(player1);
 		handler.addObj(player2);
 		
-		HUD.setTiempo(30);
+		HUD.setTiempo(120);
 		player1.setEstadisticas(0,5);
 		player2.setEstadisticas(0,5);
 	}
@@ -80,8 +81,6 @@ public class Game implements Runnable, MouseListener {
 		if(running) return;
 		running = true;
 		thread = new Thread(this);
-		
-		//Iniciar musica
 		AudioPlayer.get().setMusicVol(0.7f);
 		AudioPlayer.get().playMusic("LoungeGame");
 		thread.start();
@@ -100,9 +99,6 @@ public class Game implements Runnable, MouseListener {
 	
 	//Actualizador del juego 
 	public void tick() {
-		if (handler.isWin()) {
-			running = false;
-		}
 		handler.tick();
 	}
 	
@@ -120,30 +116,25 @@ public class Game implements Runnable, MouseListener {
 		Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double scrWidth = scrSize.getWidth();
 		double scrHeight = scrSize.getHeight();
-		if(background==1)
-			g.drawImage(Assets.background,0,0,(int)scrWidth,(int)scrHeight,null);
-		if(background==2)
-			g.drawImage(Assets.backgroundSea,0,0,(int)scrWidth,(int)scrHeight,null);
-		if(background==3)
-			g.drawImage(Assets.hm,0,0,(int)scrWidth,(int)scrHeight,null);
-		if(background==4)
-			g.drawImage(Assets.backgroundSea2,0,0,(int)scrWidth,(int)scrHeight,null);
+		
+		switch(background) {
+		case 1: g.drawImage(Assets.background1,0,0,(int)scrWidth,(int)scrHeight,null); break;
+		case 2: g.drawImage(Assets.background2,0,0,(int)scrWidth,(int)scrHeight,null); break;
+		case 3: g.drawImage(Assets.background3,0,0,(int)scrWidth,(int)scrHeight,null); break;
+		case 4: g.drawImage(Assets.background4,0,0,(int)scrWidth,(int)scrHeight,null); break;
+		}
 		
 		double wScale = scrWidth/width;
 		double aproxH = (height*17)/17;
 		double hScale = (scrHeight/aproxH);
 		AffineTransform at = new AffineTransform();
-		at.scale(wScale, hScale);
+		at.scale(wScale,hScale);
 		g.setTransform(at);
 	
 		handler.render(g);
 		HUD.render(g);
 		g.dispose();
 		BS.show();
-	}
-	public void renderPausa() {
-		pausa.paint(g, Assets.pausa);
-		g.drawString("Pausa",300,240);
 	}
 
 	//Runnable

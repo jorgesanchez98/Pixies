@@ -8,29 +8,30 @@ public class Rocket extends Character {
 	protected BufferedImage sprite;
 	
 	//Constructor
-	public Rocket(int x, int y, int width, int height, BufferedImage bi, Handler handler) {
-		super(x, y, width, height, handler);
-		this.sprite=bi;
+	public Rocket(int x, int y, int width, int height, BufferedImage BI, Handler handler) {
+		super(x,y,width,height,handler);
+		this.sprite = BI;
 		}
-		
+	
+	//Paint
+	public void paint(Graphics g) {
+		g.drawImage(sprite, getX(), getY(), null);
+	}	
+	//Actualizador
 	public void tick() {	
 	}
 	
 	//Deteccion de colision
 	public boolean collision(double dirX, double dirY) {
 		ListIterator <GameObject> itr = handler.obj.listIterator();
-		while (itr.hasNext()){
+		while(itr.hasNext()){
 			GameObject GO = itr.next();
-			if (GO instanceof Player1) {
-				if (placeMeeting(x+dirX, y+dirY, GO)) {
+			if(GO instanceof Player1) {
+				if(placeMeeting(x+dirX, y+dirY, GO)) {
 					return true;
 				}
 			}
 		}
 		return false;	
-	}
-
-	public void paint(Graphics g) {
-		g.drawImage(sprite, getX(), getY(), null);
-	}
+	}	
 }

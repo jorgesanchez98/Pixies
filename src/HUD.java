@@ -23,11 +23,9 @@ public class HUD {
 	Menu menu = new Menu(720,480);
 	
 	//Texto
-	Color color = new Color(120,120,120);
-	Font font = new Font("Times New Roman",Font.PLAIN,30);
-	
-	//Timer
+	Color color = new Color(80,80,80);
 	Timer timer = new Timer(1000, AE->segundoMenos());
+	Font font = new Font("Times New Roman",Font.PLAIN,30);
 	
 	//Constructor
 	public HUD(int x, int y, int width, int height) {
@@ -76,12 +74,9 @@ public class HUD {
 	//Reducción de tiempo
 	public void segundoMenos() {
 		if(tiempo >= 0) {
-			if(player1.getPausa() == false) {
-				tiempo = tiempo - 1;
-			} else {
-				tiempo = tiempo - 0;
-				timer.stop();
-			}
+			tiempo = tiempo - 1;
+		} else {
+			timer.stop();
 		}
 	}
 	
@@ -98,21 +93,21 @@ public class HUD {
 			//Pintar vidas
 			int PVY1 = 455;
 			int PVX1 = 45;
-			for(int i = 0; i < player1.getVidas(); i++) {
+			for(int i = 0; i<player1.getVidas(); i++) {
 				g.drawImage(Assets.life,PVX1,PVY1,20,20,null);
 				PVX1 = PVX1 + 20;
 			}
 			int PVY2 = 455;
 			int PVX2 = 565;
-			for(int i = 0; i < player2.getVidas(); i++) {
+			for(int i = 0; i<player2.getVidas(); i++) {
 				g.drawImage(Assets.life,PVX2,PVY2,20,20,null);
 				PVX2 = PVX2 + 20;
 			}
 			if(menu.getEscenario()==1 || menu.getEscenario()==3) {
-			g.drawImage(Assets.rocketPU,150,455,20,20,null);
-			g.drawString("" + player1.getCohetes(),175,475);
-			g.drawImage(Assets.rocketPU,538,455,20,20,null);
-			g.drawString("" + player2.getCohetes(),520,475);
+				g.drawImage(Assets.rocketPU,150,455,20,20,null);
+				g.drawString("" + player1.getCohetes(),175,475);
+				g.drawImage(Assets.rocketPU,538,455,20,20,null);
+				g.drawString("" + player2.getCohetes(),520,475);
 			}
 			if(menu.getEscenario()==2 || menu.getEscenario()==4) {
 				g.drawImage(Assets.torpedo,150,455,20,20,null);
@@ -128,10 +123,10 @@ public class HUD {
 			g.drawString("" + player2.getPuntos() + " |",645,475);
 			
 			if(menu.getEscenario()==1 || menu.getEscenario()==3) {
-			g.drawImage(Assets.rocketPU,100,455,20,20,null);
-			g.drawString("" + player1.getCohetes(),127,475);
-			g.drawImage(Assets.rocketPU,590,455,20,20,null);
-			g.drawString("" + player2.getCohetes(),570,475);
+				g.drawImage(Assets.rocketPU,100,455,20,20,null);
+				g.drawString("" + player1.getCohetes(),127,475);
+				g.drawImage(Assets.rocketPU,590,455,20,20,null);
+				g.drawString("" + player2.getCohetes(),570,475);
 			}
 			if(menu.getEscenario()==2 || menu.getEscenario()==4) {
 				g.drawImage(Assets.torpedo,100,455,20,20,null);

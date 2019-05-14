@@ -3,8 +3,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import image.Assets;
@@ -14,7 +12,7 @@ public class Player1 extends Character {
 	//Variables
 	private AnimationSprite AS;
 	private static double PI = 3.1415;
-	private int dir = 1;
+	private int direction = 1;
 	private int counter = 0;
 	private static int vidas = 0;
 	private static int puntos = 0;
@@ -28,12 +26,12 @@ public class Player1 extends Character {
 	public Player1(int x, int y, int width, int height, BufferedImage bi, Handler handler, int sprite) {
 		super(x,y,width,height,handler);
 		if(sprite==1) {
-		SpriteBuilder builder = new SpriteBuilder("/Textures/16dir.png",32,32);
-		for (int i=0; i<16; i++) {
-			builder.addImage(i,0);
-		}
-		AS=new AnimationSprite(x,y,builder.build());
-		AS.setAnimSpd(5);
+			SpriteBuilder builder = new SpriteBuilder("/Textures/16dir.png",32,32);
+			for (int i=0; i<16; i++) {
+				builder.addImage(i,0);
+			}
+			AS=new AnimationSprite(x,y,builder.build());
+			AS.setAnimSpd(5);
 		}
 		if(sprite>1) {
 			SpriteBuilder builder = new SpriteBuilder("/Textures/16ship.png",32,32);
@@ -42,40 +40,40 @@ public class Player1 extends Character {
 			}
 			AS=new AnimationSprite(x,y,builder.build());
 			AS.setAnimSpd(5);
-			}
+		}
 	}
 		
 	//Actualizador
 	public void tick() {	
 		if(counter==0 || counter==1 || counter==2) {
-			if(adelante==true) {
+			if(adelante == true) {
 				if(!collision(moveX(angle)*2, moveY(angle)*2)) {
 					x+=moveX(angle);
 					y-=moveY(angle);
-					dir=1;
+					direction = 1;
 				}
 			}
-			else if(atras==true) {
+			else if(atras == true) {
 				if(!collision(moveX((angle+8)%16)*2, moveY((angle+8)%16)*2)) {
 					x+=moveX((angle+8)%16);
 					y-=moveY((angle+8)%16);
-					dir=3;
+					direction = 3;
 				}
 			}
 		}
-		if(clock==true) {
+		if(clock == true) {
 			if(ableToTurn) {
 				clockWise();
 			}
 			ableToTurn=!ableToTurn;
 		}
-		if(anticlock==true) {
+		if(anticlock == true) {
 			if(ableToTurn) {
 				counterClockWise();
 			}
 			ableToTurn=!ableToTurn;
 		}
-		counter=(counter+1)%6;
+		counter = (counter+1)%6;
 		AS.update();
 	}
 	
@@ -153,24 +151,24 @@ public class Player1 extends Character {
 	//Metodos de movimiento
 	public int moveX(int direction) {
 		int movX;
-		if (direction >= 0 && direction <=4 || direction >=12 && direction <=15)
-			movX=(int)Math.ceil((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
+		if(direction>=0 && direction<=4 || direction>=12 && direction<=15)
+			movX = (int)Math.ceil((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		else
-			movX=(int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
+			movX = (int)Math.floor((round(Math.cos(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
 	public static int moveY(int direction) {
 		int movX;
-		if (direction >= 0 && direction <=7)
-			movX=(int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+		if(direction>=0 && direction<=7)
+			movX = (int)Math.ceil((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
 		else
-			movX=(int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
+			movX = (int)Math.floor((round(Math.sin(direction*(3.1415/180)*22.5)*2,2)));
 		return movX;
 	}
 	
 	//Redondeo de escala
 	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+	    if (places<0) throw new IllegalArgumentException();
 	    
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
@@ -188,16 +186,16 @@ public class Player1 extends Character {
 			System.exit(1);
 		}
 		if (key == KeyEvent.VK_LEFT) { 
-			anticlock=true;
+			anticlock = true;
 		}
 		if (key == KeyEvent.VK_RIGHT) { 
-			clock=true;
+			clock = true;
 		}
 		if (key == KeyEvent.VK_UP) { 
-			adelante=true;
+			adelante = true;
 		}
 		if (key == KeyEvent.VK_DOWN) { 
-			atras=true;
+			atras = true;
 		}
 		if (key == KeyEvent.VK_SPACE) {
 			if(ableToShoot) {
@@ -211,22 +209,22 @@ public class Player1 extends Character {
 			}
 		}
 		if (key == KeyEvent.VK_P) {
-			pausa = !pausa;
+			pausa = !pausa;			
 			System.out.println("Pausa = " + pausa);
 		}
 	}
 	public void keyReleased(int key) {
 		if (key == KeyEvent.VK_LEFT) { 
-			anticlock=false;
+			anticlock = false;
 		}
 		if (key == KeyEvent.VK_RIGHT) { 
-			clock=false;
+			clock = false;
 		}
 		if (key == KeyEvent.VK_UP) { 
-			adelante=false;
+			adelante = false;
 		}
 		if (key == KeyEvent.VK_DOWN) { 
-			atras=false;
+			atras = false;
 		}
 		if (key == KeyEvent.VK_SPACE) {
 			if(!ableToShoot) {

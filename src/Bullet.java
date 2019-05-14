@@ -5,11 +5,13 @@ import java.util.ListIterator;
 
 import image.Assets;
 
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
 	
 	//Variables
 	protected BufferedImage sprite;
-	private int dirX, dirY,index;
+	private int dirX;
+	private int dirY;
+	private int index;
 	
 	//Objetos
 	Player1 P1 = new Player1(80,200,32,32,Assets.tankU,handler,1);
@@ -17,12 +19,17 @@ public class Bullet extends GameObject{
 	Menu menu = new Menu(720,480);
 	
 	//Constructor
-	public Bullet (int x, int y, int width, int height, BufferedImage bi, int dirX, int dirY, Handler handler, int index) {
-		super (x,y,width,height,handler);
-		this.sprite = bi;
+	public Bullet(int x, int y, int width, int height, BufferedImage BI, int dirX, int dirY, Handler handler, int index) {
+		super(x,y,width,height,handler);
+		this.sprite = BI;
 		this.dirX = dirX;
 		this.dirY = dirY;
 		this.index = index;
+	}
+	
+	//Rectangle
+	public Rectangle getBounds() {
+		return (new Rectangle(getX(), getY(), width, height));
 	}
 	
 	//Paint 
@@ -80,10 +87,5 @@ public class Bullet extends GameObject{
 				}
 			}
 		}
-	}
-
-	//Rectangle
-	public Rectangle getBounds() {
-		return (new Rectangle(getX(), getY(), width, height));
 	}
 }
